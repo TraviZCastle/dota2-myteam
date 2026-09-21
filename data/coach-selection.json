@@ -1,0 +1,106 @@
+{
+  "version": "ti10-ti15-top8-v1",
+  "years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "representatives": {
+    "2021-spirit": "Silent",
+    "2021-lgd": "xiao8",
+    "2021-secret": "Heen",
+    "2021-ig": "super (苏鹏)",
+    "2021-vg": "Fenrir",
+    "2021-vp": "boolk",
+    "2021-og": "Misha",
+    "2021-t1": "March",
+    "2022-tundra": "Aui_2000",
+    "2022-secret": "Heen",
+    "2022-liquid": "Blitz",
+    "2022-aster": "LaNm",
+    "2022-lgd": "xiao8",
+    "2022-thunder": "Vintage",
+    "2022-beastcoast": "Raykill",
+    "2022-og": "Chuvash",
+    "2023-spirit": "Silent",
+    "2023-gg": "Cy-",
+    "2023-lgd": "xiao8",
+    "2023-ar": "LaNm",
+    "2023-liquid": "Blitz",
+    "2023-betboom": "boolk",
+    "2023-nouns": "Astini",
+    "2023-vp": "G",
+    "2024-liquid": "Blitz",
+    "2024-gg": "Cy-",
+    "2024-tundra": "MoonMeander",
+    "2024-falcons": "Aui_2000",
+    "2024-c9": "Astini",
+    "2024-xtreme": "Maps",
+    "2024-betboom": "boolk",
+    "2024-aurora": "SunBhie",
+    "2025-falcons": "Aui_2000",
+    "2025-xtreme": "xiao8",
+    "2025-parivision": "Astini",
+    "2025-betboom": "boolk",
+    "2025-heroic": "kaffs",
+    "2025-nigma": "KuroKy",
+    "2025-tundra": "MoonMeander",
+    "2025-tidebound": "Yao",
+    "2026-spirit": "Miposhka",
+    "2026-parivision": "Puppey",
+    "2026-yandex": "Accell",
+    "2026-betboom": "boolk",
+    "2026-liquid": "Blitz",
+    "2026-nigma": "KuroKy",
+    "2026-ironwing": "MoonMeander",
+    "2026-falcons": "Aui_2000"
+  },
+  "selectionNote": "One representative coach per top-eight team edition; not a claim that every coaching staff has only one head coach.",
+  "reviewedAt": "2026-09-21",
+  "sources": {
+    "2021": "https://liquipedia.net/dota2/The_International/2021",
+    "2022": "https://liquipedia.net/dota2/The_International/2022",
+    "2023": "https://liquipedia.net/dota2/The_International/2023",
+    "2024": "https://liquipedia.net/dota2/The_International/2024",
+    "2025": "https://liquipedia.net/dota2/The_International/2025",
+    "2026": "https://liquipedia.net/dota2/The_International/2026"
+  },
+  "multiCoachChoices": {
+    "2021-og": {
+      "selected": "Misha",
+      "source": "https://ogs.gg/dota2-a-new-era/",
+      "reason": "OG identifies Misha as its TI10 head coach."
+    },
+    "liquid": {
+      "selected": "Blitz",
+      "source": "https://liquipedia.net/dota2/The_International/2024",
+      "reason": "One representative from the listed coaching staff, consistently across retained editions."
+    },
+    "2022-beastcoast": {
+      "selected": "Raykill",
+      "source": "https://liquipedia.net/dota2/The_International/2022",
+      "reason": "One representative from the listed coaching staff."
+    },
+    "2026-spirit": {
+      "selected": "Miposhka",
+      "source": "https://liquipedia.net/dota2/The_International/2026",
+      "reason": "One representative from the joint coaching staff; MiLAN is not a separate selectable card."
+    }
+  },
+  "corrections": [
+    {
+      "poolId": "2025-xtreme",
+      "previous": [
+        "LaNm",
+        "Maps"
+      ],
+      "corrected": [
+        "xiao8"
+      ],
+      "source": "https://liquipedia.net/dota2/Xiao8/Coaching"
+    }
+  ]
+}

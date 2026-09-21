@@ -1,0 +1,10 @@
+{
+  "url": "https://api.opendota.com/api/explorer?sql=SELECT%20m.match_id%2Cm.leagueid%2Cm.start_time%2Cm.duration%2Cm.radiant_win%2Cm.radiant_team_id%2Cm.dire_team_id%2Cm.radiant_score%2Cm.dire_score%2Cm.game_mode%2Cm.series_id%2Cm.series_type%2C%0Atr.name%20radiant_name%2Ctd.name%20dire_name%2C%0Ajson_agg%28json_build_object%28%27account_id%27%2Cp.account_id%2C%27name%27%2Cn.name%2C%27player_slot%27%2Cp.player_slot%2C%27hero_id%27%2Cp.hero_id%2C%27kills%27%2Cp.kills%2C%27deaths%27%2Cp.deaths%2C%27assists%27%2Cp.assists%2C%27gold_per_min%27%2Cp.gold_per_min%2C%27xp_per_min%27%2Cp.xp_per_min%2C%27hero_damage%27%2Cp.hero_damage%2C%27lane_role%27%2Cp.lane_role%29%20ORDER%20BY%20p.player_slot%29%20players%0AFROM%20matches%20m%20JOIN%20player_matches%20p%20USING%28match_id%29%20LEFT%20JOIN%20notable_players%20n%20ON%20n.account_id%3Dp.account_id%0ALEFT%20JOIN%20teams%20tr%20ON%20tr.team_id%3Dm.radiant_team_id%20LEFT%20JOIN%20teams%20td%20ON%20td.team_id%3Dm.dire_team_id%0AWHERE%20m.leagueid%3D600%20AND%20m.start_time%3E%3D1404864000%20AND%20m.start_time%3C1405987200%20AND%20m.game_mode%20IN%20%280%2C2%29%0AGROUP%20BY%20m.match_id%2Ctr.name%2Ctd.name%20ORDER%20BY%20m.match_id",
+  "fetchedAt": "2026-09-21T08:43:07.578333+00:00",
+  "sha256": "9ac74db8c606850573fb877ed73e948f176958689b12beedefc9a69e3c7352e9",
+  "leagueId": 600,
+  "year": 2014,
+  "games": 166,
+  "start": "2014-07-09",
+  "endExclusive": "2014-07-22"
+}

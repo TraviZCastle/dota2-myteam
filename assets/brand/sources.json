@@ -1,0 +1,22 @@
+{
+  "sourcePage": "https://www.dota2.com/home",
+  "owner": "Valve Corporation",
+  "fetchedAt": "2026-09-21",
+  "assets": [
+    {
+      "file": "dota2-symbol.png",
+      "url": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "sha256": "249201f03e6045e5959996a2a76e9f07b040d5e3ccf24c6ebe726e86754636ad"
+    },
+    {
+      "file": "dota2-wordmark.png",
+      "url": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png",
+      "sha256": "9d2be8058482e28267c1579941d44f397d3148a91e6bd699e845a5a4b82fde7d"
+    },
+    {
+      "file": "heroes.jpg",
+      "url": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/home/heroes_full.jpg",
+      "sha256": "3da6627a9f23b75dfde1139a25eccead24997cd64752d48a110e53ddb706f509"
+    }
+  ]
+}

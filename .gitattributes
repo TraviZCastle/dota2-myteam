@@ -1,0 +1,2 @@
+# Preserve the original research snapshot, including upstream whitespace.
+data/research/wiki2018.html -whitespace

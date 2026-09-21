@@ -1,0 +1,96 @@
+const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
+const D=require('../data.js'),G=require('../game.js');
+const script=fs.readFileSync(require.resolve('../script.js'),'utf8');
+
+// Run the real UI controller with a controllable clock and isolated browser storage.
+function page(saved,{reduced=false,route='play'}={}){
+  let now=0,id=0,hash='#'+route;
+  const timers=new Map(),listeners={},writes=[],storage=new Map([['dota2myteam.run.v3',JSON.stringify(saved)]]);
+  const element=()=>({addEventListener(){},focus(){},close(){},showModal(){},querySelector(){return {focus(){}};},innerHTML:''});
+  const app=element();Object.defineProperty(app,'innerHTML',{get:()=>writes.at(-1)||'',set:value=>writes.push(value)});
+  const elements={app,modal:element(),'modal-content':element(),toast:element()};
+  const context={DotaData:D,DotaGame:G,document:{getElementById:id=>elements[id]||(elements[id]=element()),querySelectorAll:()=>[],addEventListener:(name,fn)=>listeners[name]=fn},
+    localStorage:{getItem:key=>storage.get(key)||null,setItem:(key,value)=>storage.set(key,value)},location:{get hash(){return hash;},set hash(value){hash=value.startsWith('#')?value:'#'+value;}},
+    performance:{now:()=>now},matchMedia:()=>({matches:reduced}),scrollTo(){},addEventListener(){},
+    crypto:{getRandomValues:values=>{values[0]=42;return values;}},
+    setTimeout:(fn,delay)=>{timers.set(++id,{fn,at:now+delay});return id;},clearTimeout:id=>timers.delete(id)};
+  context.window=context;vm.runInNewContext(script,context);
+  return {app,writes,modal:elements['modal-content'],saved:()=>JSON.parse(storage.get('dota2myteam.run.v3')),
+    archive:()=>elements['archive-grid']?.innerHTML,
+    change(id,value){listeners.change({target:{id,value}});},
+    click(action,extra={}){listeners.click({target:{closest:selector=>selector==='.skip-link'?null:{disabled:false,dataset:{action,...extra}}}});},
+    advance(ms){const end=now+ms;while(true){const next=[...timers].filter(([,t])=>t.at<=end).sort((a,b)=>a[1].at-b[1].at)[0];if(!next)break;now=next[1].at;timers.delete(next[0]);next[1].fn();}now=end;}
+  };
+}
+const frames=html=>[...html.matchAll(/<span class="draw-reel-row">(.*?)<\/span>/g)].map(m=>m[1]);
+function checkReel(html){const rows=frames(html);assert.ok(new Set(rows).size>2,JSON.stringify(rows));assert.equal(rows.slice(0,-1).includes(rows.at(-1)),false);assert.match(html,/aria-hidden="true" style="--reel-steps/);}
+
+test('one reel scrolls valid year-team pairs together and reveals both only when it stops',()=>{
+  const p=page(G.start(40));p.writes.length=0;p.click('confirm-start');const saved=p.saved(),pool=G.currentPool(saved);
+  for(const html of p.writes){
+    assert.equal((html.match(/class="draw-box /g)||[]).length,1);
+    assert.equal((html.match(/class="draw-reel"/g)||[]).length,1);
+    assert.doesNotMatch(html,/等待年份揭晓|年份已确定|class="candidate-list"/);
+  }
+  checkReel(p.app.innerHTML);const rows=frames(p.app.innerHTML);
+  for(const row of rows){
+    const year=Number(row.match(/· (\d{4})<\/small>/)?.[1]),team=row.match(/class="draw-pool-team">([^<]+)</)?.[1];
+    assert.ok(D.pools.some(p=>p.year===year&&p.name===team),row);
+  }
+  p.advance(1300);assert.deepEqual(frames(p.app.innerHTML),rows);
+  p.advance(999);assert.doesNotMatch(p.app.innerHTML,/class="candidate-list"/);
+  p.advance(1);assert.doesNotMatch(p.app.innerHTML,/draw-reel/);assert.match(p.app.innerHTML,/class="candidate-list"/);
+  assert.ok(p.app.innerHTML.includes(`class="draw-pool-team">${pool.name}</strong>`));assert.ok(p.app.innerHTML.includes(`· ${pool.year}</small>`));
+  assert.deepEqual(p.saved(),saved);
+});
+test('reduced-motion player draws reveal the complete pair without scrolling or extra rerolls',()=>{
+  const p=page(G.start(45),{reduced:true});p.click('reroll',{kind:'both'});const saved=p.saved(),pool=G.currentPool(saved);
+  assert.match(p.app.innerHTML,/正在抽取…/);assert.doesNotMatch(p.app.innerHTML,/draw-reel|class="candidate-list"/);
+  p.advance(150);assert.ok(p.app.innerHTML.includes(`class="draw-pool-team">${pool.name}</strong>`));
+  assert.ok(p.app.innerHTML.includes(`· ${pool.year}</small>`));assert.deepEqual(p.saved(),saved);
+});
+test('reroll animation masks candidate counts, blocks duplicate clicks and skip never changes the saved draw',()=>{
+  const s=G.start(41),p=page(s);p.click('reroll',{kind:'both'});const saved=p.saved();
+  assert.equal(saved.rerolls,s.rerolls-1);assert.notEqual(G.currentPool(saved).year,G.currentPool(s).year);assert.notEqual(G.currentPool(saved).team,G.currentPool(s).team);
+  checkReel(p.app.innerHTML);assert.match(p.app.innerHTML,/揭晓后显示选手候选/);
+  assert.equal((p.app.innerHTML.match(/data-action="reroll"/g)||[]).length,1);
+  assert.doesNotMatch(p.app.innerHTML,/data-kind="(?:event|team)"/);
+  p.click('reroll',{kind:'both'});assert.deepEqual(p.saved(),saved);
+  p.click('skip-reveal');const html=p.app.innerHTML;assert.match(html,/class="candidate-list"/);
+  p.advance(5000);assert.equal(p.app.innerHTML,html);assert.deepEqual(p.saved(),saved);
+});
+test('coach draws conceal counts and all eight teams until the year stops, including reduced-motion mode',()=>{
+  const s=G.start(43);while(s.seats.slice(0,5).some(id=>!id))G.pick(s,G.eligible(s,G.currentPool(s))[0].id);
+  for(const reduced of [false,true]){
+    const p=page(s,{reduced});p.click('reroll',{kind:'event'});const saved=p.saved();
+    assert.equal(saved.coachDraft.rerolls,0);assert.doesNotMatch(p.app.innerHTML,/class="coach-group"|team-draw/);
+    assert.match(p.app.innerHTML,/揭晓后显示教练候选/);
+    if(reduced){assert.doesNotMatch(p.app.innerHTML,/draw-reel/);assert.match(p.app.innerHTML,/正在抽取…/);}else checkReel(p.app.innerHTML);
+    p.advance(reduced?150:1700);assert.equal((p.app.innerHTML.match(/class="coach-group"/g)||[]).length,8);
+    assert.deepEqual(p.saved(),saved);
+  }
+});
+
+test('ready screen keeps hero portraits while removing manual hero controls',()=>{
+  const s=G.start(44);while(s.phase==='draft')G.pick(s,G.eligible(s,G.currentPool(s))[0].id);
+  const p=page(s),html=p.app.innerHTML;
+  assert.match(html,/英雄由教练自动 BP/);assert.doesNotMatch(html,/data-preference|hero-select|优先选择英雄/);
+  const expected=G.lineup(s).slice(0,5).reduce((n,c)=>n+c.heroes.slice(0,3).length,0);
+  assert.equal((html.match(/class="hero-portrait"/g)||[]).length,expected);
+  assert.doesNotMatch(html,/data-action="tactic"|选择本届战术/);assert.match(html,/data-action="simulate"/);
+  const saved=p.saved();p.click('tactic',{tactic:'tempo'});assert.deepEqual(p.saved(),saved);
+});
+
+test('coach draft, archive and detail show career statistics instead of hero portraits',()=>{
+  const s=G.start(46);while(s.seats.slice(0,5).some(id=>!id))G.pick(s,G.eligible(s,G.currentPool(s))[0].id);
+  const p=page(s);assert.doesNotMatch(p.app.innerHTML,/hero-portrait|常用英雄/);
+  for(const label of ['擅长风格','历史胜率','历史局数','最高成绩'])assert.ok(p.app.innerHTML.includes(label));
+  p.click('card-detail',{card:'2022-tundra-coach-aui2000'});
+  assert.doesNotMatch(p.modal.innerHTML,/hero-portrait|常用英雄/);
+  assert.match(p.modal.innerHTML,/68.0%/);assert.match(p.modal.innerHTML,/100 局/);assert.match(p.modal.innerHTML,/冠军 × 2/);
+  assert.match(p.modal.innerHTML,/逐届执教记录与来源/);assert.doesNotMatch(p.modal.innerHTML,/TI5 · 2015/);
+  p.click('card-detail',{card:'2025-xtreme-coach-xiao8'});assert.match(p.modal.innerHTML,/亚军 × 2/);
+  const archivePage=page(s,{route:'archive'});archivePage.change('archive-role','6');const archive=archivePage.archive();
+  const coachCards=[...archive.matchAll(/<button class="archive-card coach-card"[\s\S]*?<\/button>/g)];assert.ok(coachCards.length);
+  for(const [html] of coachCards){assert.doesNotMatch(html,/hero-portrait|常用英雄/);assert.match(html,/历史胜率/);}
+});

@@ -1,0 +1,7876 @@
+{
+  "2022": {
+    "6209804": {
+      "names": [
+        "Antarctic Penguins"
+      ],
+      "players": [
+        {
+          "name": "Ghost",
+          "games": 18,
+          "gpm": 637,
+          "id": 206642367
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 601,
+          "id": 106863163
+        },
+        {
+          "name": "kaka",
+          "games": 18,
+          "gpm": 278,
+          "id": 139876032
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 436,
+          "id": 94738847
+        },
+        {
+          "name": "xNova",
+          "games": 18,
+          "gpm": 287,
+          "id": 94296097
+        }
+      ]
+    },
+    "2163": {
+      "names": [
+        "Team Liquid"
+      ],
+      "players": [
+        {
+          "name": "Insania ",
+          "games": 34,
+          "gpm": 304,
+          "id": 54580962
+        },
+        {
+          "name": null,
+          "games": 34,
+          "gpm": 464,
+          "id": 73562326
+        },
+        {
+          "name": "m1CKe",
+          "games": 34,
+          "gpm": 646,
+          "id": 152962063
+        },
+        {
+          "name": "Boxi",
+          "games": 34,
+          "gpm": 305,
+          "id": 77490514
+        },
+        {
+          "name": null,
+          "games": 34,
+          "gpm": 601,
+          "id": 72312627
+        }
+      ]
+    },
+    "39": {
+      "names": [
+        "Shopify Rebellion"
+      ],
+      "players": [
+        {
+          "name": "天鸽",
+          "games": 22,
+          "gpm": 634,
+          "id": 86745912
+        },
+        {
+          "name": "Abed",
+          "games": 22,
+          "gpm": 516,
+          "id": 154715080
+        },
+        {
+          "name": "Nightfall",
+          "games": 22,
+          "gpm": 533,
+          "id": 124801257
+        },
+        {
+          "name": "Fly",
+          "games": 22,
+          "gpm": 283,
+          "id": 94155156
+        },
+        {
+          "name": "Cr1t-",
+          "games": 22,
+          "gpm": 289,
+          "id": 25907144
+        }
+      ]
+    },
+    "7390454": {
+      "names": [
+        "The Oversight"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 299,
+          "id": 86799300
+        },
+        {
+          "name": "Quinn",
+          "games": 19,
+          "gpm": 569,
+          "id": 221666230
+        },
+        {
+          "name": "Lelis",
+          "games": 19,
+          "gpm": 445,
+          "id": 87063175
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 557,
+          "id": 108452107
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 265,
+          "id": 86726887
+        }
+      ]
+    },
+    "7732977": {
+      "names": [
+        "BOOM Esports"
+      ],
+      "players": [
+        {
+          "name": "skem",
+          "games": 23,
+          "gpm": 267,
+          "id": 100594231
+        },
+        {
+          "name": "TIMS",
+          "games": 23,
+          "gpm": 275,
+          "id": 155494381
+        },
+        {
+          "name": "Yopaj-",
+          "games": 23,
+          "gpm": 553,
+          "id": 324277900
+        },
+        {
+          "name": "Fbz",
+          "games": 23,
+          "gpm": 434,
+          "id": 156328257
+        },
+        {
+          "name": "JACKBOYS",
+          "games": 23,
+          "gpm": 639,
+          "id": 392565237
+        }
+      ]
+    },
+    "2586976": {
+      "names": [
+        "OG"
+      ],
+      "players": [
+        {
+          "name": "AMMAR_THE_F",
+          "games": 25,
+          "gpm": 497,
+          "id": 183719386
+        },
+        {
+          "name": "bzm",
+          "games": 25,
+          "gpm": 557,
+          "id": 93618577
+        },
+        {
+          "name": null,
+          "games": 25,
+          "gpm": 254,
+          "id": 90125566
+        },
+        {
+          "name": "Yuragi",
+          "games": 25,
+          "gpm": 658,
+          "id": 167976729
+        },
+        {
+          "name": "Taiga",
+          "games": 25,
+          "gpm": 285,
+          "id": 401792574
+        }
+      ]
+    },
+    "8131728": {
+      "names": [
+        "Ukumari"
+      ],
+      "players": [
+        {
+          "name": "Gardιck 鬼",
+          "games": 19,
+          "gpm": 258,
+          "id": 125995177
+        },
+        {
+          "name": "4nalog丶01",
+          "games": 19,
+          "gpm": 528,
+          "id": 131303632
+        },
+        {
+          "name": "Vitaly 誇り",
+          "games": 19,
+          "gpm": 427,
+          "id": 138177198
+        },
+        {
+          "name": "Thiolicor",
+          "games": 19,
+          "gpm": 284,
+          "id": 105045291
+        },
+        {
+          "name": "Lumière",
+          "games": 19,
+          "gpm": 687,
+          "id": 191290281
+        }
+      ]
+    },
+    "15": {
+      "names": [
+        "LGD Gaming"
+      ],
+      "players": [
+        {
+          "name": "Ame",
+          "games": 26,
+          "gpm": 677,
+          "id": 898754153
+        },
+        {
+          "name": "NothingToSay",
+          "games": 26,
+          "gpm": 572,
+          "id": 173978074
+        },
+        {
+          "name": "Bach",
+          "games": 26,
+          "gpm": 465,
+          "id": 118134220
+        },
+        {
+          "name": "XinQ",
+          "games": 26,
+          "gpm": 317,
+          "id": 157475523
+        },
+        {
+          "name": "y`",
+          "games": 26,
+          "gpm": 288,
+          "id": 111114687
+        }
+      ]
+    },
+    "8599101": {
+      "names": [
+        "Gaimin Gladiators"
+      ],
+      "players": [
+        {
+          "name": "Seleri",
+          "games": 22,
+          "gpm": 304,
+          "id": 91730177
+        },
+        {
+          "name": "dyrachyo",
+          "games": 22,
+          "gpm": 612,
+          "id": 116934015
+        },
+        {
+          "name": "Ace ♠",
+          "games": 22,
+          "gpm": 478,
+          "id": 97590558
+        },
+        {
+          "name": "BOOM",
+          "games": 22,
+          "gpm": 521,
+          "id": 190826739
+        },
+        {
+          "name": "tOfu",
+          "games": 22,
+          "gpm": 306,
+          "id": 16497807
+        }
+      ]
+    },
+    "8721219": {
+      "names": [
+        "Darkside"
+      ],
+      "players": [
+        {
+          "name": "SoNNeikO",
+          "games": 19,
+          "gpm": 315,
+          "id": 117421467
+        },
+        {
+          "name": "Noticed",
+          "games": 19,
+          "gpm": 457,
+          "id": 195108598
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 275,
+          "id": 159020918
+        },
+        {
+          "name": "Larl",
+          "games": 19,
+          "gpm": 590,
+          "id": 106305042
+        },
+        {
+          "name": "Daxao",
+          "games": 19,
+          "gpm": 539,
+          "id": 177411785
+        }
+      ]
+    },
+    "7391077": {
+      "names": [
+        "Thunder Awaken"
+      ],
+      "players": [
+        {
+          "name": "Matthew",
+          "games": 25,
+          "gpm": 271,
+          "id": 155332459
+        },
+        {
+          "name": "Sacred",
+          "games": 25,
+          "gpm": 459,
+          "id": 408729743
+        },
+        {
+          "name": "DarkMago♥",
+          "games": 25,
+          "gpm": 586,
+          "id": 352545711
+        },
+        {
+          "name": "Panda",
+          "games": 25,
+          "gpm": 272,
+          "id": 117089283
+        },
+        {
+          "name": "愛",
+          "games": 25,
+          "gpm": 694,
+          "id": 339235645
+        }
+      ]
+    },
+    "1838315": {
+      "names": [
+        "Team Secret"
+      ],
+      "players": [
+        {
+          "name": "Puppey",
+          "games": 31,
+          "gpm": 315,
+          "id": 87278757
+        },
+        {
+          "name": "KG_Zayac",
+          "games": 31,
+          "gpm": 278,
+          "id": 111030315
+        },
+        {
+          "name": "Crystallis",
+          "games": 31,
+          "gpm": 587,
+          "id": 127617979
+        },
+        {
+          "name": null,
+          "games": 31,
+          "gpm": 634,
+          "id": 121769650
+        },
+        {
+          "name": "Resolut1on",
+          "games": 31,
+          "gpm": 521,
+          "id": 86725175
+        }
+      ]
+    },
+    "8254400": {
+      "names": [
+        "beastcoast"
+      ],
+      "players": [
+        {
+          "name": "Wisper",
+          "games": 24,
+          "gpm": 496,
+          "id": 292921272
+        },
+        {
+          "name": "Scofield",
+          "games": 24,
+          "gpm": 266,
+          "id": 157989498
+        },
+        {
+          "name": "k1",
+          "games": 24,
+          "gpm": 671,
+          "id": 164685175
+        },
+        {
+          "name": "stingeR",
+          "games": 24,
+          "gpm": 280,
+          "id": 119631156
+        },
+        {
+          "name": "0000",
+          "games": 24,
+          "gpm": 533,
+          "id": 153836240
+        }
+      ]
+    },
+    "8605863": {
+      "names": [
+        "Cloud9"
+      ],
+      "players": [
+        {
+          "name": "Fishman",
+          "games": 24,
+          "gpm": 265,
+          "id": 127565532
+        },
+        {
+          "name": "Stormstormer",
+          "games": 24,
+          "gpm": 605,
+          "id": 96803083
+        },
+        {
+          "name": "Pure",
+          "games": 24,
+          "gpm": 631,
+          "id": 331855530
+        },
+        {
+          "name": "Tobi",
+          "games": 24,
+          "gpm": 429,
+          "id": 140288368
+        },
+        {
+          "name": "Kataomi`",
+          "games": 24,
+          "gpm": 289,
+          "id": 196878136
+        }
+      ]
+    },
+    "350190": {
+      "names": [
+        "Ascent Esports"
+      ],
+      "players": [
+        {
+          "name": "J",
+          "games": 19,
+          "gpm": 475,
+          "id": 100471531
+        },
+        {
+          "name": "DJ",
+          "games": 19,
+          "gpm": 320,
+          "id": 102099826
+        },
+        {
+          "name": "Armel",
+          "games": 19,
+          "gpm": 581,
+          "id": 164532005
+        },
+        {
+          "name": "Raven",
+          "games": 19,
+          "gpm": 648,
+          "id": 132309493
+        },
+        {
+          "name": "Jaunuel",
+          "games": 19,
+          "gpm": 310,
+          "id": 148526973
+        }
+      ]
+    },
+    "7119388": {
+      "names": [
+        "Team Spirit"
+      ],
+      "players": [
+        {
+          "name": "Miposhka",
+          "games": 19,
+          "gpm": 274,
+          "id": 113331514
+        },
+        {
+          "name": "Yatoro",
+          "games": 19,
+          "gpm": 671,
+          "id": 321580662
+        },
+        {
+          "name": "TORONTOTOKYO",
+          "games": 19,
+          "gpm": 594,
+          "id": 431770905
+        },
+        {
+          "name": "Mira",
+          "games": 19,
+          "gpm": 268,
+          "id": 256156323
+        },
+        {
+          "name": "Collapse",
+          "games": 19,
+          "gpm": 494,
+          "id": 302214028
+        }
+      ]
+    },
+    "8291895": {
+      "names": [
+        "Tundra Esports"
+      ],
+      "players": [
+        {
+          "name": "Sneyking",
+          "games": 28,
+          "gpm": 340,
+          "id": 10366616
+        },
+        {
+          "name": "skiter",
+          "games": 28,
+          "gpm": 701,
+          "id": 100058342
+        },
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 555,
+          "id": 94786276
+        },
+        {
+          "name": "33",
+          "games": 28,
+          "gpm": 582,
+          "id": 86698277
+        },
+        {
+          "name": "Saksa",
+          "games": 28,
+          "gpm": 348,
+          "id": 103735745
+        }
+      ]
+    },
+    "6209166": {
+      "names": [
+        "Team Aster"
+      ],
+      "players": [
+        {
+          "name": "Monet",
+          "games": 27,
+          "gpm": 664,
+          "id": 148215639
+        },
+        {
+          "name": "Xxs",
+          "games": 27,
+          "gpm": 459,
+          "id": 129958758
+        },
+        {
+          "name": "BoBoKa",
+          "games": 27,
+          "gpm": 290,
+          "id": 207829314
+        },
+        {
+          "name": "Ori",
+          "games": 27,
+          "gpm": 546,
+          "id": 107803494
+        },
+        {
+          "name": "皮球",
+          "games": 27,
+          "gpm": 276,
+          "id": 183378746
+        }
+      ]
+    },
+    "8597976": {
+      "names": [
+        "Talon"
+      ],
+      "players": [
+        {
+          "name": "23savage",
+          "games": 20,
+          "gpm": 618,
+          "id": 375507918
+        },
+        {
+          "name": "Mikoto",
+          "games": 20,
+          "gpm": 577,
+          "id": 301750126
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 437,
+          "id": 87012746
+        },
+        {
+          "name": "Q",
+          "games": 20,
+          "gpm": 272,
+          "id": 193815691
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 259,
+          "id": 143278997
+        }
+      ]
+    },
+    "8260983": {
+      "names": [
+        "TSM"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 284,
+          "id": 38628747
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 549,
+          "id": 238239590
+        },
+        {
+          "name": "Saberlight",
+          "games": 18,
+          "gpm": 451,
+          "id": 126212866
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 239,
+          "id": 145550466
+        },
+        {
+          "name": "Timado",
+          "games": 18,
+          "gpm": 576,
+          "id": 97658618
+        }
+      ]
+    }
+  },
+  "2018": {
+    "350190": {
+      "names": [
+        "Ascent Esports"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 476,
+          "id": 43276219
+        },
+        {
+          "name": "Abed",
+          "games": 17,
+          "gpm": 528,
+          "id": 154715080
+        },
+        {
+          "name": "DJ",
+          "games": 17,
+          "gpm": 337,
+          "id": 102099826
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 287,
+          "id": 6922000
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 443,
+          "id": 87276347
+        }
+      ]
+    },
+    "2163": {
+      "names": [
+        "Team Liquid"
+      ],
+      "players": [
+        {
+          "name": "kky",
+          "games": 24,
+          "gpm": 304,
+          "id": 82262664
+        },
+        {
+          "name": "mc",
+          "games": 24,
+          "gpm": 465,
+          "id": 34505203
+        },
+        {
+          "name": "Miracle-",
+          "games": 24,
+          "gpm": 626,
+          "id": 105248644
+        },
+        {
+          "name": "GH",
+          "games": 24,
+          "gpm": 295,
+          "id": 101356886
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 527,
+          "id": 72312627
+        }
+      ]
+    },
+    "39": {
+      "names": [
+        "Shopify Rebellion"
+      ],
+      "players": [
+        {
+          "name": "SumaiL-",
+          "games": 27,
+          "gpm": 619,
+          "id": 111620041
+        },
+        {
+          "name": "天鸽",
+          "games": 27,
+          "gpm": 542,
+          "id": 86745912
+        },
+        {
+          "name": "Fly",
+          "games": 27,
+          "gpm": 318,
+          "id": 94155156
+        },
+        {
+          "name": "s4",
+          "games": 27,
+          "gpm": 468,
+          "id": 41231571
+        },
+        {
+          "name": "Cr1t-",
+          "games": 27,
+          "gpm": 304,
+          "id": 25907144
+        }
+      ]
+    },
+    "5027210": {
+      "names": [
+        "VGJ Thunder"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 327,
+          "id": 182331313
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 490,
+          "id": 137272985
+        },
+        {
+          "name": "Yang",
+          "games": 17,
+          "gpm": 405,
+          "id": 139937922
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 558,
+          "id": 108382060
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 249,
+          "id": 114239371
+        }
+      ]
+    },
+    "2586976": {
+      "names": [
+        "OG"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 29,
+          "gpm": 300,
+          "id": 19672354
+        },
+        {
+          "name": null,
+          "games": 29,
+          "gpm": 565,
+          "id": 311360822
+        },
+        {
+          "name": null,
+          "games": 29,
+          "gpm": 328,
+          "id": 26771994
+        },
+        {
+          "name": "Ceb",
+          "games": 29,
+          "gpm": 445,
+          "id": 88271237
+        },
+        {
+          "name": "Topson",
+          "games": 29,
+          "gpm": 516,
+          "id": 94054712
+        }
+      ]
+    },
+    "15": {
+      "names": [
+        "LGD Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 30,
+          "gpm": 606,
+          "id": 125581247
+        },
+        {
+          "name": null,
+          "games": 30,
+          "gpm": 605,
+          "id": 106863163
+        },
+        {
+          "name": "xNova",
+          "games": 30,
+          "gpm": 285,
+          "id": 94296097
+        },
+        {
+          "name": "fy",
+          "games": 30,
+          "gpm": 349,
+          "id": 101695162
+        },
+        {
+          "name": null,
+          "games": 30,
+          "gpm": 452,
+          "id": 94738847
+        }
+      ]
+    },
+    "543897": {
+      "names": [
+        "Mineski"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 426,
+          "id": 84772440
+        },
+        {
+          "name": "J",
+          "games": 19,
+          "gpm": 311,
+          "id": 100471531
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 521,
+          "id": 89871557
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 263,
+          "id": 91443418
+        },
+        {
+          "name": "MooN",
+          "games": 19,
+          "gpm": 568,
+          "id": 113457795
+        }
+      ]
+    },
+    "5": {
+      "names": [
+        "Invictus Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 293,
+          "id": 140153524
+        },
+        {
+          "name": "Xxs",
+          "games": 18,
+          "gpm": 574,
+          "id": 129958758
+        },
+        {
+          "name": "Ava阿发",
+          "games": 18,
+          "gpm": 385,
+          "id": 156662698
+        },
+        {
+          "name": "BoBoKa",
+          "games": 18,
+          "gpm": 287,
+          "id": 207829314
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 488,
+          "id": 130416036
+        }
+      ]
+    },
+    "5026801": {
+      "names": [
+        ""
+      ],
+      "players": [
+        {
+          "name": "Quinn",
+          "games": 24,
+          "gpm": 564,
+          "id": 221666230
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 273,
+          "id": 73562326
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 504,
+          "id": 87285329
+        },
+        {
+          "name": "33",
+          "games": 24,
+          "gpm": 443,
+          "id": 86698277
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 242,
+          "id": 86727555
+        }
+      ]
+    },
+    "1883502": {
+      "names": [
+        "Virtus.pro"
+      ],
+      "players": [
+        {
+          "name": "Solo",
+          "games": 25,
+          "gpm": 276,
+          "id": 134556694
+        },
+        {
+          "name": "RAMZES666",
+          "games": 25,
+          "gpm": 558,
+          "id": 132851371
+        },
+        {
+          "name": "No[o]ne-",
+          "games": 25,
+          "gpm": 560,
+          "id": 106573901
+        },
+        {
+          "name": null,
+          "games": 25,
+          "gpm": 449,
+          "id": 92423451
+        },
+        {
+          "name": null,
+          "games": 25,
+          "gpm": 284,
+          "id": 159020918
+        }
+      ]
+    },
+    "5228654": {
+      "names": [
+        "VGJ Storm"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 323,
+          "id": 86726887
+        },
+        {
+          "name": "Resolut1on",
+          "games": 22,
+          "gpm": 600,
+          "id": 86725175
+        },
+        {
+          "name": "Sneyking",
+          "games": 22,
+          "gpm": 481,
+          "id": 10366616
+        },
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 553,
+          "id": 108452107
+        },
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 289,
+          "id": 47434686
+        }
+      ]
+    },
+    "726228": {
+      "names": [
+        "Vici Gaming"
+      ],
+      "players": [
+        {
+          "name": "无限",
+          "games": 20,
+          "gpm": 500,
+          "id": 137193239
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 294,
+          "id": 89423756
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 233,
+          "id": 113800818
+        },
+        {
+          "name": "Ori",
+          "games": 20,
+          "gpm": 489,
+          "id": 107803494
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 423,
+          "id": 134276083
+        }
+      ]
+    },
+    "1838315": {
+      "names": [
+        "Team Secret"
+      ],
+      "players": [
+        {
+          "name": "Puppey",
+          "games": 26,
+          "gpm": 290,
+          "id": 87278757
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 307,
+          "id": 89117038
+        },
+        {
+          "name": "Ace ♠",
+          "games": 26,
+          "gpm": 512,
+          "id": 97590558
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 463,
+          "id": 86799300
+        },
+        {
+          "name": "MidOne",
+          "games": 26,
+          "gpm": 526,
+          "id": 116585378
+        }
+      ]
+    },
+    "5066616": {
+      "names": [
+        "Team Serenity"
+      ],
+      "players": [
+        {
+          "name": "flyfly",
+          "games": 19,
+          "gpm": 486,
+          "id": 168028715
+        },
+        {
+          "name": "XCJ",
+          "games": 19,
+          "gpm": 239,
+          "id": 117731777
+        },
+        {
+          "name": "XinQ",
+          "games": 19,
+          "gpm": 511,
+          "id": 157475523
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 484,
+          "id": 124936122
+        },
+        {
+          "name": "Pyw",
+          "games": 19,
+          "gpm": 286,
+          "id": 138543123
+        }
+      ]
+    },
+    "2108395": {
+      "names": [
+        "TNC Predator"
+      ],
+      "players": [
+        {
+          "name": "Kuku^",
+          "games": 17,
+          "gpm": 284,
+          "id": 184950344
+        },
+        {
+          "name": "TIMS",
+          "games": 17,
+          "gpm": 289,
+          "id": 155494381
+        },
+        {
+          "name": "Armel",
+          "games": 17,
+          "gpm": 551,
+          "id": 164532005
+        },
+        {
+          "name": "Raven",
+          "games": 17,
+          "gpm": 532,
+          "id": 132309493
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 450,
+          "id": 187619311
+        }
+      ]
+    },
+    "1375614": {
+      "names": [
+        "Newbee"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 540,
+          "id": 117281554
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 565,
+          "id": 149486894
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 276,
+          "id": 82327674
+        },
+        {
+          "name": "kaka",
+          "games": 19,
+          "gpm": 328,
+          "id": 139876032
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 446,
+          "id": 87012746
+        }
+      ]
+    },
+    "5229127": {
+      "names": [
+        "Winstrike"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 276,
+          "id": 93552791
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 240,
+          "id": 91064780
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 542,
+          "id": 250114507
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 404,
+          "id": 130801103
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 477,
+          "id": 89269794
+        }
+      ]
+    },
+    "67": {
+      "names": [
+        "paiN Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 546,
+          "id": 94004717
+        },
+        {
+          "name": "Kingrd",
+          "games": 16,
+          "gpm": 281,
+          "id": 84853828
+        },
+        {
+          "name": "Duster",
+          "games": 16,
+          "gpm": 259,
+          "id": 116525052
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 543,
+          "id": 86700461
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 431,
+          "id": 117956848
+        }
+      ]
+    }
+  },
+  "2014": {
+    "5": {
+      "names": [
+        "Invictus Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 276,
+          "id": 82327674
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 456,
+          "id": 89246836
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 489,
+          "id": 88585077
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 452,
+          "id": 90045009
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 264,
+          "id": 88553213
+        }
+      ]
+    },
+    "111474": {
+      "names": [
+        "Alliance"
+      ],
+      "players": [
+        {
+          "name": "s4",
+          "games": 15,
+          "gpm": 425,
+          "id": 41231571
+        },
+        {
+          "name": "Akke",
+          "games": 15,
+          "gpm": 239,
+          "id": 41288955
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 503,
+          "id": 101495620
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 253,
+          "id": 3916428
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 424,
+          "id": 76482434
+        }
+      ]
+    },
+    "350190": {
+      "names": [
+        "Ascent Esports"
+      ],
+      "players": [
+        {
+          "name": "Fly",
+          "games": 15,
+          "gpm": 239,
+          "id": 94155156
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 362,
+          "id": 19672354
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 428,
+          "id": 100317750
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 394,
+          "id": 8712306
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 359,
+          "id": 21265941
+        }
+      ]
+    },
+    "7": {
+      "names": [
+        "DK"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 466,
+          "id": 89871557
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 295,
+          "id": 89423756
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 420,
+          "id": 84772440
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 539,
+          "id": 90892734
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 256,
+          "id": 89407113
+        }
+      ]
+    },
+    "1375614": {
+      "names": [
+        "Newbee"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 34,
+          "gpm": 426,
+          "id": 98887913
+        },
+        {
+          "name": null,
+          "games": 34,
+          "gpm": 554,
+          "id": 88508515
+        },
+        {
+          "name": null,
+          "games": 34,
+          "gpm": 472,
+          "id": 89157606
+        },
+        {
+          "name": null,
+          "games": 34,
+          "gpm": 296,
+          "id": 89217927
+        },
+        {
+          "name": null,
+          "games": 34,
+          "gpm": 279,
+          "id": 100883708
+        }
+      ]
+    },
+    "15": {
+      "names": [
+        "LGD Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 376,
+          "id": 98878010
+        },
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 418,
+          "id": 136477860
+        },
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 317,
+          "id": 89371588
+        },
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 231,
+          "id": 114239371
+        },
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 490,
+          "id": 123854991
+        }
+      ]
+    },
+    "39": {
+      "names": [
+        "Shopify Rebellion"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 248,
+          "id": 86727555
+        },
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 485,
+          "id": 121847953
+        },
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 397,
+          "id": 87276347
+        },
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 360,
+          "id": 73562326
+        },
+        {
+          "name": "天鸽",
+          "games": 22,
+          "gpm": 505,
+          "id": 86745912
+        }
+      ]
+    },
+    "1333179": {
+      "names": [
+        ""
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 526,
+          "id": 43276219
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 257,
+          "id": 6922000
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 465,
+          "id": 19757254
+        },
+        {
+          "name": "Aui_2000",
+          "games": 26,
+          "gpm": 331,
+          "id": 40547474
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 392,
+          "id": 88719902
+        }
+      ]
+    },
+    "1277104": {
+      "names": [
+        "Nvidia.ArrowGaming.AVF"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 224,
+          "id": 102020930
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 415,
+          "id": 96429099
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 343,
+          "id": 104109762
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 234,
+          "id": 131380551
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 491,
+          "id": 104963314
+        }
+      ]
+    },
+    "26": {
+      "names": [
+        "MOUZ"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 425,
+          "id": 87285329
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 307,
+          "id": 87382579
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 434,
+          "id": 86799300
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 405,
+          "id": 86726887
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 233,
+          "id": 31078647
+        }
+      ]
+    },
+    "726228": {
+      "names": [
+        "Vici Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 30,
+          "gpm": 386,
+          "id": 91698091
+        },
+        {
+          "name": null,
+          "games": 30,
+          "gpm": 482,
+          "id": 90882159
+        },
+        {
+          "name": null,
+          "games": 30,
+          "gpm": 276,
+          "id": 113800818
+        },
+        {
+          "name": "fy",
+          "games": 30,
+          "gpm": 300,
+          "id": 101695162
+        },
+        {
+          "name": null,
+          "games": 30,
+          "gpm": 534,
+          "id": 108382060
+        }
+      ]
+    },
+    "46": {
+      "names": [
+        "Team Empire"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 369,
+          "id": 86802844
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 301,
+          "id": 91064780
+        },
+        {
+          "name": "Resolut1on",
+          "games": 15,
+          "gpm": 484,
+          "id": 86725175
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 233,
+          "id": 11550182
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 546,
+          "id": 89269794
+        }
+      ]
+    },
+    "999689": {
+      "names": [
+        "Titan"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 467,
+          "id": 121052479
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 217,
+          "id": 89330493
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 504,
+          "id": 91644707
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 236,
+          "id": 89249333
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 426,
+          "id": 93616251
+        }
+      ]
+    },
+    "1642908": {
+      "names": [
+        "Natus Vincere US"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 335,
+          "id": 31818853
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 458,
+          "id": 1185644
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 246,
+          "id": 5448108
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 290,
+          "id": 87196890
+        },
+        {
+          "name": "Sneyking",
+          "games": 15,
+          "gpm": 487,
+          "id": 10366616
+        }
+      ]
+    },
+    "2163": {
+      "names": [
+        "Team Liquid"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 220,
+          "id": 30237211
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 542,
+          "id": 86738694
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 394,
+          "id": 85805514
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 439,
+          "id": 67601693
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 252,
+          "id": 38515149
+        }
+      ]
+    },
+    "36": {
+      "names": [
+        "Natus Vincere"
+      ],
+      "players": [
+        {
+          "name": "Puppey",
+          "games": 20,
+          "gpm": 308,
+          "id": 87278757
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 439,
+          "id": 89625472
+        },
+        {
+          "name": "Dendi",
+          "games": 20,
+          "gpm": 473,
+          "id": 70388657
+        },
+        {
+          "name": "kky",
+          "games": 20,
+          "gpm": 238,
+          "id": 82262664
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 389,
+          "id": 86723143
+        }
+      ]
+    }
+  },
+  "2015": {
+    "1148284": {
+      "names": [
+        "MVP Phoenix"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 368,
+          "id": 3940262
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 289,
+          "id": 112377459
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 535,
+          "id": 93119769
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 500,
+          "id": 87012746
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 271,
+          "id": 89603649
+        }
+      ]
+    },
+    "2006913": {
+      "names": [
+        "Vega Squadron"
+      ],
+      "players": [
+        {
+          "name": "Slayer",
+          "games": 2,
+          "gpm": 214,
+          "id": 91460772
+        },
+        {
+          "name": "Solo",
+          "games": 2,
+          "gpm": 306,
+          "id": 134556694
+        },
+        {
+          "name": "No[o]ne-",
+          "games": 2,
+          "gpm": 426,
+          "id": 106573901
+        },
+        {
+          "name": null,
+          "games": 2,
+          "gpm": 328,
+          "id": 86802844
+        },
+        {
+          "name": null,
+          "games": 2,
+          "gpm": 590,
+          "id": 92423451
+        }
+      ]
+    },
+    "3": {
+      "names": [
+        "compLexity Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 485,
+          "id": 49317728
+        },
+        {
+          "name": "Fly",
+          "games": 19,
+          "gpm": 331,
+          "id": 94155156
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 370,
+          "id": 38628747
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 310,
+          "id": 50828662
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 464,
+          "id": 87293485
+        }
+      ]
+    },
+    "1838315": {
+      "names": [
+        "Team Secret"
+      ],
+      "players": [
+        {
+          "name": "Puppey",
+          "games": 22,
+          "gpm": 331,
+          "id": 87278757
+        },
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 387,
+          "id": 73562326
+        },
+        {
+          "name": "s4",
+          "games": 22,
+          "gpm": 475,
+          "id": 41231571
+        },
+        {
+          "name": "kky",
+          "games": 22,
+          "gpm": 289,
+          "id": 82262664
+        },
+        {
+          "name": "天鸽",
+          "games": 22,
+          "gpm": 617,
+          "id": 86745912
+        }
+      ]
+    },
+    "350190": {
+      "names": [
+        "Ascent Esports"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 478,
+          "id": 89871557
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 267,
+          "id": 92551671
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 441,
+          "id": 91644707
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 250,
+          "id": 102020930
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 379,
+          "id": 93616251
+        }
+      ]
+    },
+    "15": {
+      "names": [
+        "LGD Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 304,
+          "id": 98887913
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 578,
+          "id": 106863163
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 302,
+          "id": 98878010
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 570,
+          "id": 108382060
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 275,
+          "id": 89407113
+        }
+      ]
+    },
+    "1333179": {
+      "names": [
+        ""
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 526,
+          "id": 43276219
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 489,
+          "id": 86799300
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 260,
+          "id": 19672354
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 287,
+          "id": 87382579
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 347,
+          "id": 88719902
+        }
+      ]
+    },
+    "5": {
+      "names": [
+        "Invictus Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 308,
+          "id": 89246836
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 239,
+          "id": 82327674
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 457,
+          "id": 88585077
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 495,
+          "id": 90892734
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 270,
+          "id": 88553213
+        }
+      ]
+    },
+    "36": {
+      "names": [
+        "Natus Vincere"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 228,
+          "id": 176184718
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 488,
+          "id": 89625472
+        },
+        {
+          "name": "Dendi",
+          "games": 15,
+          "gpm": 456,
+          "id": 70388657
+        },
+        {
+          "name": "SoNNeikO",
+          "games": 15,
+          "gpm": 309,
+          "id": 117421467
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 373,
+          "id": 86723143
+        }
+      ]
+    },
+    "1375614": {
+      "names": [
+        "Newbee"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 464,
+          "id": 123854991
+        },
+        {
+          "name": "Son Goku",
+          "games": 15,
+          "gpm": 289,
+          "id": 138885864
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 257,
+          "id": 100883708
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 222,
+          "id": 89217927
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 469,
+          "id": 89157606
+        }
+      ]
+    },
+    "1883502": {
+      "names": [
+        "Virtus.pro"
+      ],
+      "players": [
+        {
+          "name": "Fng",
+          "games": 26,
+          "gpm": 269,
+          "id": 94049589
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 511,
+          "id": 26316691
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 514,
+          "id": 87586992
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 340,
+          "id": 94338967
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 258,
+          "id": 106809101
+        }
+      ]
+    },
+    "39": {
+      "names": [
+        "Shopify Rebellion"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 27,
+          "gpm": 262,
+          "id": 86727555
+        },
+        {
+          "name": "SumaiL-",
+          "games": 27,
+          "gpm": 573,
+          "id": 111620041
+        },
+        {
+          "name": null,
+          "games": 27,
+          "gpm": 335,
+          "id": 87276347
+        },
+        {
+          "name": "Aui_2000",
+          "games": 27,
+          "gpm": 322,
+          "id": 40547474
+        },
+        {
+          "name": null,
+          "games": 27,
+          "gpm": 543,
+          "id": 87177591
+        }
+      ]
+    },
+    "2201839": {
+      "names": [
+        "MVP HOT6"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 459,
+          "id": 101450083
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 484,
+          "id": 88933594
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 283,
+          "id": 32936165
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 245,
+          "id": 26771994
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 225,
+          "id": 105599955
+        }
+      ]
+    },
+    "1520578": {
+      "names": [
+        "GGGGGGGG"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 295,
+          "id": 140153524
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 349,
+          "id": 131237305
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 276,
+          "id": 142750189
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 477,
+          "id": 101375717
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 561,
+          "id": 130416036
+        }
+      ]
+    },
+    "726228": {
+      "names": [
+        "Vici Gaming"
+      ],
+      "players": [
+        {
+          "name": "fy",
+          "games": 24,
+          "gpm": 291,
+          "id": 101695162
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 465,
+          "id": 90882159
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 336,
+          "id": 84772440
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 573,
+          "id": 88508515
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 255,
+          "id": 113800818
+        }
+      ]
+    },
+    "46": {
+      "names": [
+        "Team Empire"
+      ],
+      "players": [
+        {
+          "name": "Resolut1on",
+          "games": 22,
+          "gpm": 515,
+          "id": 86725175
+        },
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 226,
+          "id": 91064780
+        },
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 366,
+          "id": 112250781
+        },
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 256,
+          "id": 123051238
+        },
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 562,
+          "id": 89269794
+        }
+      ]
+    },
+    "4": {
+      "names": [
+        "EHOME"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 316,
+          "id": 91698091
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 264,
+          "id": 89423756
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 535,
+          "id": 108376607
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 250,
+          "id": 114239371
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 521,
+          "id": 139280377
+        }
+      ]
+    }
+  },
+  "2019": {
+    "2626685": {
+      "names": [
+        "KEEN GAMING"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 639,
+          "id": 135878232
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 268,
+          "id": 397462905
+        },
+        {
+          "name": "kaka",
+          "games": 17,
+          "gpm": 315,
+          "id": 139876032
+        },
+        {
+          "name": "Xwy",
+          "games": 17,
+          "gpm": 530,
+          "id": 255219872
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 453,
+          "id": 134276083
+        }
+      ]
+    },
+    "2108395": {
+      "names": [
+        "TNC Predator"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 316,
+          "id": 173476224
+        },
+        {
+          "name": "TIMS",
+          "games": 21,
+          "gpm": 400,
+          "id": 155494381
+        },
+        {
+          "name": "Kuku^",
+          "games": 21,
+          "gpm": 424,
+          "id": 184950344
+        },
+        {
+          "name": "Gabbi",
+          "games": 21,
+          "gpm": 640,
+          "id": 152545459
+        },
+        {
+          "name": "Armel",
+          "games": 21,
+          "gpm": 587,
+          "id": 164532005
+        }
+      ]
+    },
+    "15": {
+      "names": [
+        "LGD Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 679,
+          "id": 125581247
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 620,
+          "id": 106863163
+        },
+        {
+          "name": "xNova",
+          "games": 26,
+          "gpm": 278,
+          "id": 94296097
+        },
+        {
+          "name": "fy",
+          "games": 26,
+          "gpm": 356,
+          "id": 101695162
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 451,
+          "id": 94738847
+        }
+      ]
+    },
+    "7203342": {
+      "names": [
+        "Chaos EC"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 247,
+          "id": 87382579
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 478,
+          "id": 72312627
+        },
+        {
+          "name": "MiLAN",
+          "games": 16,
+          "gpm": 269,
+          "id": 98172857
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 387,
+          "id": 169025618
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 560,
+          "id": 142139318
+        }
+      ]
+    },
+    "2163": {
+      "names": [
+        "Team Liquid"
+      ],
+      "players": [
+        {
+          "name": "kky",
+          "games": 32,
+          "gpm": 266,
+          "id": 82262664
+        },
+        {
+          "name": "mc",
+          "games": 32,
+          "gpm": 403,
+          "id": 34505203
+        },
+        {
+          "name": "Miracle-",
+          "games": 32,
+          "gpm": 634,
+          "id": 105248644
+        },
+        {
+          "name": "GH",
+          "games": 32,
+          "gpm": 311,
+          "id": 101356886
+        },
+        {
+          "name": null,
+          "games": 32,
+          "gpm": 598,
+          "id": 86700461
+        }
+      ]
+    },
+    "6214538": {
+      "names": [
+        "Newbee"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 267,
+          "id": 6922000
+        },
+        {
+          "name": "Quinn",
+          "games": 21,
+          "gpm": 582,
+          "id": 221666230
+        },
+        {
+          "name": "Sneyking",
+          "games": 21,
+          "gpm": 403,
+          "id": 10366616
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 681,
+          "id": 108452107
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 340,
+          "id": 86726887
+        }
+      ]
+    },
+    "1838315": {
+      "names": [
+        "Team Secret"
+      ],
+      "players": [
+        {
+          "name": "Puppey",
+          "games": 28,
+          "gpm": 299,
+          "id": 87278757
+        },
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 335,
+          "id": 89117038
+        },
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 669,
+          "id": 121769650
+        },
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 410,
+          "id": 73562326
+        },
+        {
+          "name": "MidOne",
+          "games": 28,
+          "gpm": 526,
+          "id": 116585378
+        }
+      ]
+    },
+    "111474": {
+      "names": [
+        "Alliance"
+      ],
+      "players": [
+        {
+          "name": "Insania ",
+          "games": 17,
+          "gpm": 291,
+          "id": 54580962
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 530,
+          "id": 86738694
+        },
+        {
+          "name": "m1CKe",
+          "games": 17,
+          "gpm": 627,
+          "id": 152962063
+        },
+        {
+          "name": "Boxi",
+          "games": 17,
+          "gpm": 458,
+          "id": 77490514
+        },
+        {
+          "name": "Taiga",
+          "games": 17,
+          "gpm": 348,
+          "id": 401792574
+        }
+      ]
+    },
+    "350190": {
+      "names": [
+        "Ascent Esports"
+      ],
+      "players": [
+        {
+          "name": "J",
+          "games": 17,
+          "gpm": 552,
+          "id": 100471531
+        },
+        {
+          "name": "Abed",
+          "games": 17,
+          "gpm": 587,
+          "id": 154715080
+        },
+        {
+          "name": "DJ",
+          "games": 17,
+          "gpm": 380,
+          "id": 102099826
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 245,
+          "id": 145550466
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 437,
+          "id": 84772440
+        }
+      ]
+    },
+    "39": {
+      "names": [
+        "Shopify Rebellion"
+      ],
+      "players": [
+        {
+          "name": "天鸽",
+          "games": 24,
+          "gpm": 626,
+          "id": 86745912
+        },
+        {
+          "name": "SumaiL-",
+          "games": 24,
+          "gpm": 590,
+          "id": 111620041
+        },
+        {
+          "name": "Fly",
+          "games": 24,
+          "gpm": 249,
+          "id": 94155156
+        },
+        {
+          "name": "s4",
+          "games": 24,
+          "gpm": 378,
+          "id": 41231571
+        },
+        {
+          "name": "Cr1t-",
+          "games": 24,
+          "gpm": 300,
+          "id": 25907144
+        }
+      ]
+    },
+    "6209804": {
+      "names": [
+        "Antarctic Penguins"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 229,
+          "id": 119576842
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 309,
+          "id": 89423756
+        },
+        {
+          "name": "Setsu",
+          "games": 21,
+          "gpm": 570,
+          "id": 139822354
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 390,
+          "id": 186627166
+        },
+        {
+          "name": "Monet",
+          "games": 21,
+          "gpm": 650,
+          "id": 148215639
+        }
+      ]
+    },
+    "726228": {
+      "names": [
+        "Vici Gaming"
+      ],
+      "players": [
+        {
+          "name": "无限",
+          "games": 23,
+          "gpm": 667,
+          "id": 137193239
+        },
+        {
+          "name": "Yang",
+          "games": 23,
+          "gpm": 454,
+          "id": 139937922
+        },
+        {
+          "name": null,
+          "games": 23,
+          "gpm": 315,
+          "id": 182331313
+        },
+        {
+          "name": "Ori",
+          "games": 23,
+          "gpm": 605,
+          "id": 107803494
+        },
+        {
+          "name": "Dy",
+          "games": 23,
+          "gpm": 283,
+          "id": 143693439
+        }
+      ]
+    },
+    "1883502": {
+      "names": [
+        "Virtus.pro"
+      ],
+      "players": [
+        {
+          "name": "RAMZES666",
+          "games": 20,
+          "gpm": 659,
+          "id": 132851371
+        },
+        {
+          "name": "Solo",
+          "games": 20,
+          "gpm": 273,
+          "id": 134556694
+        },
+        {
+          "name": "No[o]ne-",
+          "games": 20,
+          "gpm": 517,
+          "id": 106573901
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 385,
+          "id": 92423451
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 310,
+          "id": 159020918
+        }
+      ]
+    },
+    "6214973": {
+      "names": [
+        "Ninjas in Pyjamas"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 236,
+          "id": 86727555
+        },
+        {
+          "name": "Ace ♠",
+          "games": 16,
+          "gpm": 583,
+          "id": 97590558
+        },
+        {
+          "name": "Saksa",
+          "games": 16,
+          "gpm": 336,
+          "id": 103735745
+        },
+        {
+          "name": "33",
+          "games": 16,
+          "gpm": 407,
+          "id": 86698277
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 494,
+          "id": 86799300
+        }
+      ]
+    },
+    "36": {
+      "names": [
+        "Natus Vincere"
+      ],
+      "players": [
+        {
+          "name": "SoNNeikO",
+          "games": 17,
+          "gpm": 283,
+          "id": 117421467
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 704,
+          "id": 114619230
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 590,
+          "id": 171981096
+        },
+        {
+          "name": "KG_Zayac",
+          "games": 17,
+          "gpm": 295,
+          "id": 111030315
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 350,
+          "id": 234699894
+        }
+      ]
+    },
+    "2586976": {
+      "names": [
+        "OG"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 297,
+          "id": 19672354
+        },
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 672,
+          "id": 311360822
+        },
+        {
+          "name": null,
+          "games": 28,
+          "gpm": 331,
+          "id": 26771994
+        },
+        {
+          "name": "Ceb",
+          "games": 28,
+          "gpm": 463,
+          "id": 88271237
+        },
+        {
+          "name": "Topson",
+          "games": 28,
+          "gpm": 539,
+          "id": 94054712
+        }
+      ]
+    },
+    "543897": {
+      "names": [
+        "Mineski"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 296,
+          "id": 91443418
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 354,
+          "id": 192914280
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 590,
+          "id": 412753955
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 434,
+          "id": 87012746
+        },
+        {
+          "name": "MooN",
+          "games": 20,
+          "gpm": 579,
+          "id": 113457795
+        }
+      ]
+    },
+    "2672298": {
+      "names": [
+        "NoPing Esports"
+      ],
+      "players": [
+        {
+          "name": "Wisper",
+          "games": 22,
+          "gpm": 422,
+          "id": 292921272
+        },
+        {
+          "name": "0000",
+          "games": 22,
+          "gpm": 597,
+          "id": 153836240
+        },
+        {
+          "name": "stingeR",
+          "games": 22,
+          "gpm": 283,
+          "id": 119631156
+        },
+        {
+          "name": "k1",
+          "games": 22,
+          "gpm": 692,
+          "id": 164685175
+        },
+        {
+          "name": "Scofield",
+          "games": 22,
+          "gpm": 264,
+          "id": 157989498
+        }
+      ]
+    }
+  },
+  "2023": {
+    "8291895": {
+      "names": [
+        "Tundra Esports"
+      ],
+      "players": [
+        {
+          "name": "Sneyking",
+          "games": 12,
+          "gpm": 418,
+          "id": 10366616
+        },
+        {
+          "name": "skiter",
+          "games": 12,
+          "gpm": 750,
+          "id": 100058342
+        },
+        {
+          "name": null,
+          "games": 12,
+          "gpm": 419,
+          "id": 94786276
+        },
+        {
+          "name": "33",
+          "games": 12,
+          "gpm": 591,
+          "id": 86698277
+        },
+        {
+          "name": "Topson",
+          "games": 12,
+          "gpm": 644,
+          "id": 94054712
+        }
+      ]
+    },
+    "8260983": {
+      "names": [
+        "TSM"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 14,
+          "gpm": 546,
+          "id": 238239590
+        },
+        {
+          "name": "Ari",
+          "games": 14,
+          "gpm": 322,
+          "id": 346412363
+        },
+        {
+          "name": "Whitemon",
+          "games": 14,
+          "gpm": 307,
+          "id": 136829091
+        },
+        {
+          "name": "kasane",
+          "games": 14,
+          "gpm": 596,
+          "id": 184620877
+        },
+        {
+          "name": "Timado",
+          "games": 14,
+          "gpm": 710,
+          "id": 97658618
+        }
+      ]
+    },
+    "8255888": {
+      "names": [
+        "BetBoom Team"
+      ],
+      "players": [
+        {
+          "name": "Nightfall",
+          "games": 21,
+          "gpm": 721,
+          "id": 124801257
+        },
+        {
+          "name": "gpk~",
+          "games": 21,
+          "gpm": 639,
+          "id": 480412663
+        },
+        {
+          "name": "Pure",
+          "games": 21,
+          "gpm": 641,
+          "id": 331855530
+        },
+        {
+          "name": "Save-",
+          "games": 21,
+          "gpm": 344,
+          "id": 317880638
+        },
+        {
+          "name": "TORONTOTOKYO",
+          "games": 21,
+          "gpm": 345,
+          "id": 431770905
+        }
+      ]
+    },
+    "7391077": {
+      "names": [
+        "Thunder Awaken"
+      ],
+      "players": [
+        {
+          "name": "Wu",
+          "games": 9,
+          "gpm": 310,
+          "id": 186837494
+        },
+        {
+          "name": "SLATEM$",
+          "games": 9,
+          "gpm": 500,
+          "id": 383867949
+        },
+        {
+          "name": "Smiling Knight",
+          "games": 9,
+          "gpm": 677,
+          "id": 155162307
+        },
+        {
+          "name": "ILICH-",
+          "games": 9,
+          "gpm": 526,
+          "id": 308163407
+        },
+        {
+          "name": "n1ght",
+          "games": 9,
+          "gpm": 335,
+          "id": 85696663
+        }
+      ]
+    },
+    "15": {
+      "names": [
+        "LGD Gaming"
+      ],
+      "players": [
+        {
+          "name": "shiro",
+          "games": 18,
+          "gpm": 749,
+          "id": 320252024
+        },
+        {
+          "name": "NothingToSay",
+          "games": 18,
+          "gpm": 600,
+          "id": 173978074
+        },
+        {
+          "name": "niu",
+          "games": 18,
+          "gpm": 611,
+          "id": 145957968
+        },
+        {
+          "name": "planet",
+          "games": 18,
+          "gpm": 372,
+          "id": 150961567
+        },
+        {
+          "name": "y`",
+          "games": 18,
+          "gpm": 358,
+          "id": 111114687
+        }
+      ]
+    },
+    "8599101": {
+      "names": [
+        "Gaimin Gladiators"
+      ],
+      "players": [
+        {
+          "name": "Seleri",
+          "games": 27,
+          "gpm": 346,
+          "id": 91730177
+        },
+        {
+          "name": "dyrachyo",
+          "games": 27,
+          "gpm": 661,
+          "id": 116934015
+        },
+        {
+          "name": "Ace ♠",
+          "games": 27,
+          "gpm": 611,
+          "id": 97590558
+        },
+        {
+          "name": "tOfu",
+          "games": 27,
+          "gpm": 354,
+          "id": 16497807
+        },
+        {
+          "name": "Quinn",
+          "games": 27,
+          "gpm": 612,
+          "id": 221666230
+        }
+      ]
+    },
+    "7422789": {
+      "names": [
+        "9Pandas"
+      ],
+      "players": [
+        {
+          "name": "Solo",
+          "games": 15,
+          "gpm": 298,
+          "id": 134556694
+        },
+        {
+          "name": "kiyotaka",
+          "games": 15,
+          "gpm": 625,
+          "id": 858106446
+        },
+        {
+          "name": "MieRo",
+          "games": 15,
+          "gpm": 511,
+          "id": 165564598
+        },
+        {
+          "name": "Antares",
+          "games": 15,
+          "gpm": 365,
+          "id": 161839895
+        },
+        {
+          "name": "RAMZES666",
+          "games": 15,
+          "gpm": 703,
+          "id": 132851371
+        }
+      ]
+    },
+    "7119388": {
+      "names": [
+        "Team Spirit"
+      ],
+      "players": [
+        {
+          "name": "Yatoro",
+          "games": 21,
+          "gpm": 811,
+          "id": 321580662
+        },
+        {
+          "name": "Miposhka",
+          "games": 21,
+          "gpm": 384,
+          "id": 113331514
+        },
+        {
+          "name": "Larl",
+          "games": 21,
+          "gpm": 609,
+          "id": 106305042
+        },
+        {
+          "name": "Mira",
+          "games": 21,
+          "gpm": 353,
+          "id": 256156323
+        },
+        {
+          "name": "Collapse",
+          "games": 21,
+          "gpm": 674,
+          "id": 302214028
+        }
+      ]
+    },
+    "8605863": {
+      "names": [
+        "Cloud9"
+      ],
+      "players": [
+        {
+          "name": "医者watson`",
+          "games": 14,
+          "gpm": 701,
+          "id": 171262902
+        },
+        {
+          "name": "Stormstormer",
+          "games": 14,
+          "gpm": 608,
+          "id": 96803083
+        },
+        {
+          "name": "Fishman",
+          "games": 14,
+          "gpm": 357,
+          "id": 127565532
+        },
+        {
+          "name": "Gabbi",
+          "games": 14,
+          "gpm": 615,
+          "id": 152545459
+        },
+        {
+          "name": "Kataomi`",
+          "games": 14,
+          "gpm": 328,
+          "id": 196878136
+        }
+      ]
+    },
+    "8255756": {
+      "names": [
+        "Evil Geniuses"
+      ],
+      "players": [
+        {
+          "name": "Wisper",
+          "games": 14,
+          "gpm": 561,
+          "id": 292921272
+        },
+        {
+          "name": "0000",
+          "games": 14,
+          "gpm": 535,
+          "id": 153836240
+        },
+        {
+          "name": "Matthew",
+          "games": 14,
+          "gpm": 344,
+          "id": 155332459
+        },
+        {
+          "name": "Panda",
+          "games": 14,
+          "gpm": 287,
+          "id": 117089283
+        },
+        {
+          "name": "愛",
+          "games": 14,
+          "gpm": 714,
+          "id": 339235645
+        }
+      ]
+    },
+    "2163": {
+      "names": [
+        "Team Liquid"
+      ],
+      "players": [
+        {
+          "name": "Insania ",
+          "games": 18,
+          "gpm": 342,
+          "id": 54580962
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 580,
+          "id": 73562326
+        },
+        {
+          "name": "Nisha",
+          "games": 18,
+          "gpm": 596,
+          "id": 201358612
+        },
+        {
+          "name": "Boxi",
+          "games": 18,
+          "gpm": 366,
+          "id": 77490514
+        },
+        {
+          "name": "m1CKe",
+          "games": 18,
+          "gpm": 733,
+          "id": 152962063
+        }
+      ]
+    },
+    "8574561": {
+      "names": [
+        "Azure Ray"
+      ],
+      "players": [
+        {
+          "name": "Lou",
+          "games": 20,
+          "gpm": 706,
+          "id": 185908355
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 558,
+          "id": 106863163
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 552,
+          "id": 94738847
+        },
+        {
+          "name": "fy",
+          "games": 20,
+          "gpm": 380,
+          "id": 101695162
+        },
+        {
+          "name": "天命",
+          "games": 20,
+          "gpm": 312,
+          "id": 158847773
+        }
+      ]
+    },
+    "8728920": {
+      "names": [
+        "nouns"
+      ],
+      "players": [
+        {
+          "name": "Lelis",
+          "games": 16,
+          "gpm": 334,
+          "id": 87063175
+        },
+        {
+          "name": "Gunnar",
+          "games": 16,
+          "gpm": 527,
+          "id": 126238768
+        },
+        {
+          "name": "Yamsun",
+          "games": 16,
+          "gpm": 310,
+          "id": 81475303
+        },
+        {
+          "name": "k1",
+          "games": 16,
+          "gpm": 690,
+          "id": 164685175
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 564,
+          "id": 84429681
+        }
+      ]
+    },
+    "8254400": {
+      "names": [
+        "beastcoast"
+      ],
+      "players": [
+        {
+          "name": "ɹǝʞɹɐd⚔️",
+          "games": 8,
+          "gpm": 732,
+          "id": 1171243748
+        },
+        {
+          "name": "Sacred",
+          "games": 8,
+          "gpm": 510,
+          "id": 408729743
+        },
+        {
+          "name": "DarkMago♥",
+          "games": 8,
+          "gpm": 550,
+          "id": 352545711
+        },
+        {
+          "name": "Scofield",
+          "games": 8,
+          "gpm": 287,
+          "id": 157989498
+        },
+        {
+          "name": "stingeR",
+          "games": 8,
+          "gpm": 298,
+          "id": 119631156
+        }
+      ]
+    },
+    "8597976": {
+      "names": [
+        "Talon"
+      ],
+      "players": [
+        {
+          "name": "J",
+          "games": 16,
+          "gpm": 562,
+          "id": 100471531
+        },
+        {
+          "name": "Mikoto",
+          "games": 16,
+          "gpm": 550,
+          "id": 301750126
+        },
+        {
+          "name": "Oli~",
+          "games": 16,
+          "gpm": 316,
+          "id": 101259972
+        },
+        {
+          "name": "23savage",
+          "games": 16,
+          "gpm": 705,
+          "id": 375507918
+        },
+        {
+          "name": "Q",
+          "games": 16,
+          "gpm": 400,
+          "id": 193815691
+        }
+      ]
+    },
+    "39": {
+      "names": [
+        "Shopify Rebellion"
+      ],
+      "players": [
+        {
+          "name": "天鸽",
+          "games": 12,
+          "gpm": 706,
+          "id": 86745912
+        },
+        {
+          "name": "Abed",
+          "games": 12,
+          "gpm": 567,
+          "id": 154715080
+        },
+        {
+          "name": "Saberlight",
+          "games": 12,
+          "gpm": 549,
+          "id": 126212866
+        },
+        {
+          "name": "Fly",
+          "games": 12,
+          "gpm": 297,
+          "id": 94155156
+        },
+        {
+          "name": "Cr1t-",
+          "games": 12,
+          "gpm": 286,
+          "id": 25907144
+        }
+      ]
+    },
+    "8244493": {
+      "names": [
+        "Team SMG"
+      ],
+      "players": [
+        {
+          "name": "MidOne",
+          "games": 10,
+          "gpm": 546,
+          "id": 116585378
+        },
+        {
+          "name": null,
+          "games": 10,
+          "gpm": 299,
+          "id": 119576842
+        },
+        {
+          "name": "No[o]ne-",
+          "games": 10,
+          "gpm": 505,
+          "id": 106573901
+        },
+        {
+          "name": "mc",
+          "games": 10,
+          "gpm": 517,
+          "id": 34505203
+        },
+        {
+          "name": "Jaunuel",
+          "games": 10,
+          "gpm": 306,
+          "id": 148526973
+        }
+      ]
+    },
+    "8724984": {
+      "names": [
+        "Virtus.pro"
+      ],
+      "players": [
+        {
+          "name": "Kiritych~",
+          "games": 17,
+          "gpm": 721,
+          "id": 172099728
+        },
+        {
+          "name": "sayuw",
+          "games": 17,
+          "gpm": 354,
+          "id": 145065875
+        },
+        {
+          "name": "Fng",
+          "games": 17,
+          "gpm": 340,
+          "id": 94049589
+        },
+        {
+          "name": "squad1x",
+          "games": 17,
+          "gpm": 646,
+          "id": 123023873
+        },
+        {
+          "name": "Noticed",
+          "games": 17,
+          "gpm": 592,
+          "id": 195108598
+        }
+      ]
+    },
+    "1061269": {
+      "names": [
+        "Vivo Keyd Stars"
+      ],
+      "players": [
+        {
+          "name": "KingJungles",
+          "games": 12,
+          "gpm": 271,
+          "id": 81306398
+        },
+        {
+          "name": "4nalog丶01",
+          "games": 12,
+          "gpm": 488,
+          "id": 131303632
+        },
+        {
+          "name": "Kingrd",
+          "games": 12,
+          "gpm": 328,
+          "id": 84853828
+        },
+        {
+          "name": "Costabile",
+          "games": 12,
+          "gpm": 676,
+          "id": 86822085
+        },
+        {
+          "name": "fcr",
+          "games": 12,
+          "gpm": 515,
+          "id": 107579895
+        }
+      ]
+    },
+    "8894818": {
+      "names": [
+        "PSG.Quest"
+      ],
+      "players": [
+        {
+          "name": "No!ob™",
+          "games": 8,
+          "gpm": 616,
+          "id": 140297552
+        },
+        {
+          "name": "OmaR",
+          "games": 8,
+          "gpm": 337,
+          "id": 152168157
+        },
+        {
+          "name": "kaori",
+          "games": 8,
+          "gpm": 393,
+          "id": 320219866
+        },
+        {
+          "name": "Tobi",
+          "games": 8,
+          "gpm": 464,
+          "id": 140288368
+        },
+        {
+          "name": "naive-",
+          "games": 8,
+          "gpm": 894,
+          "id": 96183976
+        }
+      ]
+    }
+  },
+  "2024": {
+    "8597976": {
+      "names": [
+        "Talon"
+      ],
+      "players": [
+        {
+          "name": "ponyo",
+          "games": 10,
+          "gpm": 310,
+          "id": 293904640
+        },
+        {
+          "name": "Mikoto",
+          "games": 10,
+          "gpm": 567,
+          "id": 301750126
+        },
+        {
+          "name": "Ws`",
+          "games": 10,
+          "gpm": 505,
+          "id": 126842529
+        },
+        {
+          "name": "Jhocam",
+          "games": 10,
+          "gpm": 316,
+          "id": 152859296
+        },
+        {
+          "name": "Akashi",
+          "games": 10,
+          "gpm": 662,
+          "id": 330534326
+        }
+      ]
+    },
+    "8291895": {
+      "names": [
+        "Tundra Esports"
+      ],
+      "players": [
+        {
+          "name": "Pure",
+          "games": 22,
+          "gpm": 697,
+          "id": 331855530
+        },
+        {
+          "name": "RAMZES666",
+          "games": 22,
+          "gpm": 523,
+          "id": 132851371
+        },
+        {
+          "name": "Whitemon",
+          "games": 22,
+          "gpm": 301,
+          "id": 136829091
+        },
+        {
+          "name": "Saksa",
+          "games": 22,
+          "gpm": 341,
+          "id": 103735745
+        },
+        {
+          "name": "Topson",
+          "games": 22,
+          "gpm": 574,
+          "id": 94054712
+        }
+      ]
+    },
+    "8261500": {
+      "names": [
+        "Xtreme Gaming"
+      ],
+      "players": [
+        {
+          "name": "Ame",
+          "games": 15,
+          "gpm": 672,
+          "id": 898754153
+        },
+        {
+          "name": "Xm",
+          "games": 15,
+          "gpm": 566,
+          "id": 137129583
+        },
+        {
+          "name": "Xxs",
+          "games": 15,
+          "gpm": 513,
+          "id": 129958758
+        },
+        {
+          "name": "XinQ",
+          "games": 15,
+          "gpm": 331,
+          "id": 157475523
+        },
+        {
+          "name": "Dy",
+          "games": 15,
+          "gpm": 318,
+          "id": 143693439
+        }
+      ]
+    },
+    "9303484": {
+      "names": [
+        "HEROIC"
+      ],
+      "players": [
+        {
+          "name": "KingJungles",
+          "games": 14,
+          "gpm": 299,
+          "id": 81306398
+        },
+        {
+          "name": "4nalog丶01",
+          "games": 14,
+          "gpm": 564,
+          "id": 131303632
+        },
+        {
+          "name": "Davai",
+          "games": 14,
+          "gpm": 481,
+          "id": 138880576
+        },
+        {
+          "name": "k1",
+          "games": 14,
+          "gpm": 775,
+          "id": 164685175
+        },
+        {
+          "name": "Scofield",
+          "games": 14,
+          "gpm": 304,
+          "id": 157989498
+        }
+      ]
+    },
+    "9255039": {
+      "names": [
+        "enjoy"
+      ],
+      "players": [
+        {
+          "name": "Munkushi~",
+          "games": 11,
+          "gpm": 653,
+          "id": 904131336
+        },
+        {
+          "name": "CHIRA_JUNIOR",
+          "games": 11,
+          "gpm": 490,
+          "id": 312436974
+        },
+        {
+          "name": "swedenstrong",
+          "games": 11,
+          "gpm": 334,
+          "id": 175311897
+        },
+        {
+          "name": "RESPECT",
+          "games": 11,
+          "gpm": 277,
+          "id": 123787715
+        },
+        {
+          "name": "Cloud",
+          "games": 11,
+          "gpm": 509,
+          "id": 168126336
+        }
+      ]
+    },
+    "8599101": {
+      "names": [
+        "Gaimin Gladiators"
+      ],
+      "players": [
+        {
+          "name": "Seleri",
+          "games": 22,
+          "gpm": 322,
+          "id": 91730177
+        },
+        {
+          "name": "dyrachyo",
+          "games": 22,
+          "gpm": 659,
+          "id": 116934015
+        },
+        {
+          "name": "Ace ♠",
+          "games": 22,
+          "gpm": 514,
+          "id": 97590558
+        },
+        {
+          "name": "tOfu",
+          "games": 22,
+          "gpm": 342,
+          "id": 16497807
+        },
+        {
+          "name": "Quinn",
+          "games": 22,
+          "gpm": 559,
+          "id": 221666230
+        }
+      ]
+    },
+    "8255888": {
+      "names": [
+        "BetBoom Team"
+      ],
+      "players": [
+        {
+          "name": "Nightfall",
+          "games": 16,
+          "gpm": 729,
+          "id": 124801257
+        },
+        {
+          "name": "gpk~",
+          "games": 16,
+          "gpm": 575,
+          "id": 480412663
+        },
+        {
+          "name": "MieRo",
+          "games": 16,
+          "gpm": 547,
+          "id": 165564598
+        },
+        {
+          "name": "Save-",
+          "games": 16,
+          "gpm": 312,
+          "id": 317880638
+        },
+        {
+          "name": "TORONTOTOKYO",
+          "games": 16,
+          "gpm": 329,
+          "id": 431770905
+        }
+      ]
+    },
+    "8728920": {
+      "names": [
+        "nouns"
+      ],
+      "players": [
+        {
+          "name": "Yuma",
+          "games": 13,
+          "gpm": 614,
+          "id": 177203952
+        },
+        {
+          "name": "Copy",
+          "games": 13,
+          "gpm": 492,
+          "id": 115651292
+        },
+        {
+          "name": "Gunnar",
+          "games": 13,
+          "gpm": 467,
+          "id": 126238768
+        },
+        {
+          "name": "Lelis",
+          "games": 13,
+          "gpm": 301,
+          "id": 87063175
+        },
+        {
+          "name": "Fly",
+          "games": 13,
+          "gpm": 272,
+          "id": 94155156
+        }
+      ]
+    },
+    "5": {
+      "names": [
+        "Invictus Gaming"
+      ],
+      "players": [
+        {
+          "name": "Monet",
+          "games": 14,
+          "gpm": 597,
+          "id": 148215639
+        },
+        {
+          "name": "NothingToSay",
+          "games": 14,
+          "gpm": 525,
+          "id": 173978074
+        },
+        {
+          "name": "JT-",
+          "games": 14,
+          "gpm": 477,
+          "id": 138857296
+        },
+        {
+          "name": "BoBoKa",
+          "games": 14,
+          "gpm": 330,
+          "id": 207829314
+        },
+        {
+          "name": "xNova",
+          "games": 14,
+          "gpm": 277,
+          "id": 94296097
+        }
+      ]
+    },
+    "8605863": {
+      "names": [
+        "Cloud9"
+      ],
+      "players": [
+        {
+          "name": "医者watson`",
+          "games": 14,
+          "gpm": 675,
+          "id": 171262902
+        },
+        {
+          "name": "DM",
+          "games": 14,
+          "gpm": 513,
+          "id": 56351509
+        },
+        {
+          "name": "No[o]ne-",
+          "games": 14,
+          "gpm": 615,
+          "id": 106573901
+        },
+        {
+          "name": "Fishman",
+          "games": 14,
+          "gpm": 307,
+          "id": 127565532
+        },
+        {
+          "name": "Kataomi`",
+          "games": 14,
+          "gpm": 424,
+          "id": 196878136
+        }
+      ]
+    },
+    "9080405": {
+      "names": [
+        "Team Zero"
+      ],
+      "players": [
+        {
+          "name": "YSR-04E",
+          "games": 13,
+          "gpm": 674,
+          "id": 170896543
+        },
+        {
+          "name": "7e",
+          "games": 13,
+          "gpm": 533,
+          "id": 179313961
+        },
+        {
+          "name": "Beyond",
+          "games": 13,
+          "gpm": 514,
+          "id": 139031324
+        },
+        {
+          "name": "ponlo",
+          "games": 13,
+          "gpm": 317,
+          "id": 193884241
+        },
+        {
+          "name": "zzq",
+          "games": 13,
+          "gpm": 315,
+          "id": 249835593
+        }
+      ]
+    },
+    "9247354": {
+      "names": [
+        "Team Falcons"
+      ],
+      "players": [
+        {
+          "name": "Sneyking",
+          "games": 20,
+          "gpm": 345,
+          "id": 10366616
+        },
+        {
+          "name": "skiter",
+          "games": 20,
+          "gpm": 633,
+          "id": 100058342
+        },
+        {
+          "name": "Malr1ne",
+          "games": 20,
+          "gpm": 596,
+          "id": 898455820
+        },
+        {
+          "name": "AMMAR_THE_F",
+          "games": 20,
+          "gpm": 570,
+          "id": 183719386
+        },
+        {
+          "name": "Cr1t-",
+          "games": 20,
+          "gpm": 365,
+          "id": 25907144
+        }
+      ]
+    },
+    "7119388": {
+      "names": [
+        "Team Spirit"
+      ],
+      "players": [
+        {
+          "name": "Yatoro",
+          "games": 13,
+          "gpm": 720,
+          "id": 321580662
+        },
+        {
+          "name": "Miposhka",
+          "games": 13,
+          "gpm": 306,
+          "id": 113331514
+        },
+        {
+          "name": "Larl",
+          "games": 13,
+          "gpm": 548,
+          "id": 106305042
+        },
+        {
+          "name": "Mira",
+          "games": 13,
+          "gpm": 359,
+          "id": 256156323
+        },
+        {
+          "name": "Collapse",
+          "games": 13,
+          "gpm": 502,
+          "id": 302214028
+        }
+      ]
+    },
+    "8254400": {
+      "names": [
+        "beastcoast"
+      ],
+      "players": [
+        {
+          "name": "Vitaly 誇り",
+          "games": 11,
+          "gpm": 442,
+          "id": 138177198
+        },
+        {
+          "name": "Lumpy",
+          "games": 11,
+          "gpm": 511,
+          "id": 118948666
+        },
+        {
+          "name": "MoOz",
+          "games": 11,
+          "gpm": 261,
+          "id": 349310876
+        },
+        {
+          "name": "Elmisho",
+          "games": 11,
+          "gpm": 307,
+          "id": 1031547092
+        },
+        {
+          "name": "payk",
+          "games": 11,
+          "gpm": 588,
+          "id": 425588742
+        }
+      ]
+    },
+    "9467224": {
+      "names": [
+        "Aurora Gaming"
+      ],
+      "players": [
+        {
+          "name": "J",
+          "games": 16,
+          "gpm": 503,
+          "id": 100471531
+        },
+        {
+          "name": "23savage",
+          "games": 16,
+          "gpm": 652,
+          "id": 375507918
+        },
+        {
+          "name": "Oli~",
+          "games": 16,
+          "gpm": 273,
+          "id": 101259972
+        },
+        {
+          "name": "lorenof",
+          "games": 16,
+          "gpm": 584,
+          "id": 210053851
+        },
+        {
+          "name": "Q",
+          "games": 16,
+          "gpm": 346,
+          "id": 193815691
+        }
+      ]
+    },
+    "2163": {
+      "names": [
+        "Team Liquid"
+      ],
+      "players": [
+        {
+          "name": "Insania ",
+          "games": 18,
+          "gpm": 345,
+          "id": 54580962
+        },
+        {
+          "name": "33",
+          "games": 18,
+          "gpm": 614,
+          "id": 86698277
+        },
+        {
+          "name": "Nisha",
+          "games": 18,
+          "gpm": 623,
+          "id": 201358612
+        },
+        {
+          "name": "Boxi",
+          "games": 18,
+          "gpm": 322,
+          "id": 77490514
+        },
+        {
+          "name": "m1CKe",
+          "games": 18,
+          "gpm": 734,
+          "id": 152962063
+        }
+      ]
+    }
+  },
+  "2025": {
+    "8261500": {
+      "names": [
+        "Xtreme Gaming"
+      ],
+      "players": [
+        {
+          "name": "Ame",
+          "games": 26,
+          "gpm": 793,
+          "id": 898754153
+        },
+        {
+          "name": "Xm",
+          "games": 26,
+          "gpm": 640,
+          "id": 137129583
+        },
+        {
+          "name": "Xxs",
+          "games": 26,
+          "gpm": 571,
+          "id": 129958758
+        },
+        {
+          "name": "XinQ",
+          "games": 26,
+          "gpm": 340,
+          "id": 157475523
+        },
+        {
+          "name": "xNova",
+          "games": 26,
+          "gpm": 289,
+          "id": 94296097
+        }
+      ]
+    },
+    "9467224": {
+      "names": [
+        "Aurora Gaming"
+      ],
+      "players": [
+        {
+          "name": "Nightfall",
+          "games": 13,
+          "gpm": 741,
+          "id": 124801257
+        },
+        {
+          "name": "kiyotaka",
+          "games": 13,
+          "gpm": 664,
+          "id": 858106446
+        },
+        {
+          "name": "TORONTOTOKYO",
+          "games": 13,
+          "gpm": 545,
+          "id": 431770905
+        },
+        {
+          "name": "Mira",
+          "games": 13,
+          "gpm": 312,
+          "id": 256156323
+        },
+        {
+          "name": "panto",
+          "games": 13,
+          "gpm": 316,
+          "id": 108958769
+        }
+      ]
+    },
+    "7119388": {
+      "names": [
+        "Team Spirit"
+      ],
+      "players": [
+        {
+          "name": "Yatoro",
+          "games": 14,
+          "gpm": 714,
+          "id": 321580662
+        },
+        {
+          "name": "Miposhka",
+          "games": 14,
+          "gpm": 302,
+          "id": 113331514
+        },
+        {
+          "name": "Larl",
+          "games": 14,
+          "gpm": 569,
+          "id": 106305042
+        },
+        {
+          "name": "rue",
+          "games": 14,
+          "gpm": 296,
+          "id": 847565596
+        },
+        {
+          "name": "Collapse",
+          "games": 14,
+          "gpm": 503,
+          "id": 302214028
+        }
+      ]
+    },
+    "9651185": {
+      "names": [
+        "Wildcard"
+      ],
+      "players": [
+        {
+          "name": "Speeed",
+          "games": 13,
+          "gpm": 339,
+          "id": 191362875
+        },
+        {
+          "name": "RCY",
+          "games": 13,
+          "gpm": 572,
+          "id": 154974246
+        },
+        {
+          "name": "Bignum",
+          "games": 13,
+          "gpm": 279,
+          "id": 90423751
+        },
+        {
+          "name": "Fayde",
+          "games": 13,
+          "gpm": 506,
+          "id": 160119017
+        },
+        {
+          "name": "Yamsun",
+          "games": 13,
+          "gpm": 627,
+          "id": 81475303
+        }
+      ]
+    },
+    "9691969": {
+      "names": [
+        "Team Nemesis"
+      ],
+      "players": [
+        {
+          "name": "Erice",
+          "games": 10,
+          "gpm": 252,
+          "id": 100598959
+        },
+        {
+          "name": "Mac",
+          "games": 10,
+          "gpm": 568,
+          "id": 104512126
+        },
+        {
+          "name": "Jîng",
+          "games": 10,
+          "gpm": 290,
+          "id": 219755398
+        },
+        {
+          "name": "Raven",
+          "games": 10,
+          "gpm": 516,
+          "id": 132309493
+        },
+        {
+          "name": "Akashi",
+          "games": 10,
+          "gpm": 629,
+          "id": 330534326
+        }
+      ]
+    },
+    "9247354": {
+      "names": [
+        "Team Falcons"
+      ],
+      "players": [
+        {
+          "name": "Sneyking",
+          "games": 29,
+          "gpm": 434,
+          "id": 10366616
+        },
+        {
+          "name": "skiter",
+          "games": 29,
+          "gpm": 720,
+          "id": 100058342
+        },
+        {
+          "name": "Malr1ne",
+          "games": 29,
+          "gpm": 605,
+          "id": 898455820
+        },
+        {
+          "name": "AMMAR_THE_F",
+          "games": 29,
+          "gpm": 605,
+          "id": 183719386
+        },
+        {
+          "name": "Cr1t-",
+          "games": 29,
+          "gpm": 359,
+          "id": 25907144
+        }
+      ]
+    },
+    "9351740": {
+      "names": [
+        "Yakult Brothers"
+      ],
+      "players": [
+        {
+          "name": "flyfly",
+          "games": 16,
+          "gpm": 679,
+          "id": 168028715
+        },
+        {
+          "name": "Emo",
+          "games": 16,
+          "gpm": 545,
+          "id": 202217968
+        },
+        {
+          "name": "Beyond",
+          "games": 16,
+          "gpm": 484,
+          "id": 139031324
+        },
+        {
+          "name": "BoBoKa",
+          "games": 16,
+          "gpm": 322,
+          "id": 207829314
+        },
+        {
+          "name": "Oli~",
+          "games": 16,
+          "gpm": 286,
+          "id": 101259972
+        }
+      ]
+    },
+    "8291895": {
+      "names": [
+        "Tundra Esports"
+      ],
+      "players": [
+        {
+          "name": "33",
+          "games": 21,
+          "gpm": 568,
+          "id": 86698277
+        },
+        {
+          "name": "Tobi",
+          "games": 21,
+          "gpm": 279,
+          "id": 140288368
+        },
+        {
+          "name": "Crystallis",
+          "games": 21,
+          "gpm": 650,
+          "id": 127617979
+        },
+        {
+          "name": "bzm",
+          "games": 21,
+          "gpm": 593,
+          "id": 93618577
+        },
+        {
+          "name": "Saksa",
+          "games": 21,
+          "gpm": 345,
+          "id": 103735745
+        }
+      ]
+    },
+    "2163": {
+      "names": [
+        "Team Liquid"
+      ],
+      "players": [
+        {
+          "name": "Insania ",
+          "games": 16,
+          "gpm": 326,
+          "id": 54580962
+        },
+        {
+          "name": "Saberlight",
+          "games": 16,
+          "gpm": 495,
+          "id": 126212866
+        },
+        {
+          "name": "Nisha",
+          "games": 16,
+          "gpm": 573,
+          "id": 201358612
+        },
+        {
+          "name": "Boxi",
+          "games": 16,
+          "gpm": 326,
+          "id": 77490514
+        },
+        {
+          "name": "m1CKe",
+          "games": 16,
+          "gpm": 636,
+          "id": 152962063
+        }
+      ]
+    },
+    "7732977": {
+      "names": [
+        "BOOM Esports"
+      ],
+      "players": [
+        {
+          "name": "J",
+          "games": 12,
+          "gpm": 484,
+          "id": 100471531
+        },
+        {
+          "name": "TIMS",
+          "games": 12,
+          "gpm": 306,
+          "id": 155494381
+        },
+        {
+          "name": "JACKBOYS",
+          "games": 12,
+          "gpm": 675,
+          "id": 392565237
+        },
+        {
+          "name": "Armel",
+          "games": 12,
+          "gpm": 565,
+          "id": 164532005
+        },
+        {
+          "name": "Jaunuel",
+          "games": 12,
+          "gpm": 310,
+          "id": 148526973
+        }
+      ]
+    },
+    "9303484": {
+      "names": [
+        "HEROIC"
+      ],
+      "players": [
+        {
+          "name": "Yuma",
+          "games": 19,
+          "gpm": 732,
+          "id": 177203952
+        },
+        {
+          "name": "4nalog丶01",
+          "games": 19,
+          "gpm": 606,
+          "id": 131303632
+        },
+        {
+          "name": "Wisper",
+          "games": 19,
+          "gpm": 616,
+          "id": 292921272
+        },
+        {
+          "name": "Scofield",
+          "games": 19,
+          "gpm": 320,
+          "id": 157989498
+        },
+        {
+          "name": "KingJungles",
+          "games": 19,
+          "gpm": 357,
+          "id": 81306398
+        }
+      ]
+    },
+    "9572001": {
+      "names": [
+        "TEAM VISION"
+      ],
+      "players": [
+        {
+          "name": "Satanic",
+          "games": 23,
+          "gpm": 818,
+          "id": 1044002267
+        },
+        {
+          "name": "DM",
+          "games": 23,
+          "gpm": 594,
+          "id": 56351509
+        },
+        {
+          "name": "No[o]ne-",
+          "games": 23,
+          "gpm": 617,
+          "id": 106573901
+        },
+        {
+          "name": "9Class",
+          "games": 23,
+          "gpm": 388,
+          "id": 164199202
+        },
+        {
+          "name": "Dukalis",
+          "games": 23,
+          "gpm": 327,
+          "id": 73401082
+        }
+      ]
+    },
+    "36": {
+      "names": [
+        "Natus Vincere"
+      ],
+      "players": [
+        {
+          "name": "gotthejuice",
+          "games": 13,
+          "gpm": 720,
+          "id": 957204049
+        },
+        {
+          "name": "pma",
+          "games": 13,
+          "gpm": 515,
+          "id": 835864135
+        },
+        {
+          "name": "Riddys",
+          "games": 13,
+          "gpm": 301,
+          "id": 130991304
+        },
+        {
+          "name": "Niku",
+          "games": 13,
+          "gpm": 546,
+          "id": 185590374
+        },
+        {
+          "name": "KG_Zayac",
+          "games": 13,
+          "gpm": 279,
+          "id": 111030315
+        }
+      ]
+    },
+    "9640842": {
+      "names": [
+        "Team Tidebound"
+      ],
+      "players": [
+        {
+          "name": "shiro",
+          "games": 16,
+          "gpm": 760,
+          "id": 320252024
+        },
+        {
+          "name": "NothingToSay",
+          "games": 16,
+          "gpm": 553,
+          "id": 173978074
+        },
+        {
+          "name": "Bach",
+          "games": 16,
+          "gpm": 533,
+          "id": 118134220
+        },
+        {
+          "name": "planet",
+          "games": 16,
+          "gpm": 358,
+          "id": 150961567
+        },
+        {
+          "name": "y`",
+          "games": 16,
+          "gpm": 311,
+          "id": 111114687
+        }
+      ]
+    },
+    "7554697": {
+      "names": [
+        "Nigma Galaxy"
+      ],
+      "players": [
+        {
+          "name": "Ghost",
+          "games": 24,
+          "gpm": 727,
+          "id": 206642367
+        },
+        {
+          "name": "SumaiL-",
+          "games": 24,
+          "gpm": 626,
+          "id": 111620041
+        },
+        {
+          "name": "No!ob™",
+          "games": 24,
+          "gpm": 550,
+          "id": 140297552
+        },
+        {
+          "name": "OmaR",
+          "games": 24,
+          "gpm": 308,
+          "id": 152168157
+        },
+        {
+          "name": "GH",
+          "games": 24,
+          "gpm": 327,
+          "id": 101356886
+        }
+      ]
+    },
+    "8255888": {
+      "names": [
+        "BetBoom Team"
+      ],
+      "players": [
+        {
+          "name": "Pure",
+          "games": 23,
+          "gpm": 757,
+          "id": 331855530
+        },
+        {
+          "name": "gpk~",
+          "games": 23,
+          "gpm": 639,
+          "id": 480412663
+        },
+        {
+          "name": "MieRo",
+          "games": 23,
+          "gpm": 583,
+          "id": 165564598
+        },
+        {
+          "name": "Save-",
+          "games": 23,
+          "gpm": 328,
+          "id": 317880638
+        },
+        {
+          "name": "Kataomi`",
+          "games": 23,
+          "gpm": 324,
+          "id": 196878136
+        }
+      ]
+    }
+  },
+  "2026": {
+    "9247354": {
+      "names": [
+        "Team Falcons"
+      ],
+      "players": [
+        {
+          "name": "Sneyking",
+          "games": 23,
+          "gpm": 396,
+          "id": 10366616
+        },
+        {
+          "name": "skiter",
+          "games": 23,
+          "gpm": 702,
+          "id": 100058342
+        },
+        {
+          "name": "Malr1ne",
+          "games": 23,
+          "gpm": 650,
+          "id": 898455820
+        },
+        {
+          "name": "AMMAR_THE_F",
+          "games": 23,
+          "gpm": 664,
+          "id": 183719386
+        },
+        {
+          "name": "Cr1t-",
+          "games": 23,
+          "gpm": 333,
+          "id": 25907144
+        }
+      ]
+    },
+    "10150538": {
+      "names": [
+        "LGD Gaming"
+      ],
+      "players": [
+        {
+          "name": "Yuma",
+          "games": 16,
+          "gpm": 746,
+          "id": 177203952
+        },
+        {
+          "name": "Topson",
+          "games": 16,
+          "gpm": 653,
+          "id": 94054712
+        },
+        {
+          "name": "Wisper",
+          "games": 16,
+          "gpm": 706,
+          "id": 292921272
+        },
+        {
+          "name": "Thiolicor",
+          "games": 16,
+          "gpm": 343,
+          "id": 105045291
+        },
+        {
+          "name": "KingJungles",
+          "games": 16,
+          "gpm": 321,
+          "id": 81306398
+        }
+      ]
+    },
+    "10136357": {
+      "names": [
+        "Nigma Galaxy "
+      ],
+      "players": [
+        {
+          "name": "SumaiL-",
+          "games": 19,
+          "gpm": 746,
+          "id": 111620041
+        },
+        {
+          "name": "OmaR",
+          "games": 19,
+          "gpm": 335,
+          "id": 152168157
+        },
+        {
+          "name": "Davai",
+          "games": 19,
+          "gpm": 608,
+          "id": 138880576
+        },
+        {
+          "name": "GH",
+          "games": 19,
+          "gpm": 365,
+          "id": 101356886
+        },
+        {
+          "name": "lorenof",
+          "games": 19,
+          "gpm": 722,
+          "id": 210053851
+        }
+      ]
+    },
+    "10150413": {
+      "names": [
+        "Iron Wing"
+      ],
+      "players": [
+        {
+          "name": "33",
+          "games": 21,
+          "gpm": 629,
+          "id": 86698277
+        },
+        {
+          "name": "Ari",
+          "games": 21,
+          "gpm": 324,
+          "id": 346412363
+        },
+        {
+          "name": "Whitemon",
+          "games": 21,
+          "gpm": 334,
+          "id": 136829091
+        },
+        {
+          "name": "bzm",
+          "games": 21,
+          "gpm": 654,
+          "id": 93618577
+        },
+        {
+          "name": "Pure",
+          "games": 21,
+          "gpm": 735,
+          "id": 331855530
+        }
+      ]
+    },
+    "5017210": {
+      "names": [
+        "Team Resilience"
+      ],
+      "players": [
+        {
+          "name": "YSR-04E",
+          "games": 16,
+          "gpm": 721,
+          "id": 170896543
+        },
+        {
+          "name": "Echozz",
+          "games": 16,
+          "gpm": 581,
+          "id": 315272623
+        },
+        {
+          "name": "niu",
+          "games": 16,
+          "gpm": 543,
+          "id": 145957968
+        },
+        {
+          "name": "planet",
+          "games": 16,
+          "gpm": 381,
+          "id": 150961567
+        },
+        {
+          "name": "zzq",
+          "games": 16,
+          "gpm": 335,
+          "id": 249835593
+        }
+      ]
+    },
+    "9572001": {
+      "names": [
+        "TEAM VISION"
+      ],
+      "players": [
+        {
+          "name": "Satanic",
+          "games": 24,
+          "gpm": 862,
+          "id": 1044002267
+        },
+        {
+          "name": "Noticed",
+          "games": 24,
+          "gpm": 642,
+          "id": 195108598
+        },
+        {
+          "name": "No[o]ne-",
+          "games": 24,
+          "gpm": 626,
+          "id": 106573901
+        },
+        {
+          "name": "9Class",
+          "games": 24,
+          "gpm": 354,
+          "id": 164199202
+        },
+        {
+          "name": "Dukalis",
+          "games": 24,
+          "gpm": 358,
+          "id": 73401082
+        }
+      ]
+    },
+    "8255888": {
+      "names": [
+        "BetBoom Team"
+      ],
+      "players": [
+        {
+          "name": "Kiritych~",
+          "games": 24,
+          "gpm": 755,
+          "id": 172099728
+        },
+        {
+          "name": "gpk~",
+          "games": 24,
+          "gpm": 630,
+          "id": 480412663
+        },
+        {
+          "name": "MieRo",
+          "games": 24,
+          "gpm": 563,
+          "id": 165564598
+        },
+        {
+          "name": "Save-",
+          "games": 24,
+          "gpm": 339,
+          "id": 317880638
+        },
+        {
+          "name": "Kataomi`",
+          "games": 24,
+          "gpm": 298,
+          "id": 196878136
+        }
+      ]
+    },
+    "2586976": {
+      "names": [
+        "OG"
+      ],
+      "players": [
+        {
+          "name": "Yopaj-",
+          "games": 11,
+          "gpm": 540,
+          "id": 324277900
+        },
+        {
+          "name": "TIMS",
+          "games": 11,
+          "gpm": 331,
+          "id": 155494381
+        },
+        {
+          "name": "Raven",
+          "games": 11,
+          "gpm": 501,
+          "id": 132309493
+        },
+        {
+          "name": "skem",
+          "games": 11,
+          "gpm": 335,
+          "id": 100594231
+        },
+        {
+          "name": "Natsumi",
+          "games": 11,
+          "gpm": 659,
+          "id": 355168766
+        }
+      ]
+    },
+    "2163": {
+      "names": [
+        "Team Liquid"
+      ],
+      "players": [
+        {
+          "name": "tOfu",
+          "games": 21,
+          "gpm": 349,
+          "id": 16497807
+        },
+        {
+          "name": "Ace ♠",
+          "games": 21,
+          "gpm": 571,
+          "id": 97590558
+        },
+        {
+          "name": "Nisha",
+          "games": 21,
+          "gpm": 632,
+          "id": 201358612
+        },
+        {
+          "name": "Boxi",
+          "games": 21,
+          "gpm": 330,
+          "id": 77490514
+        },
+        {
+          "name": "m1CKe",
+          "games": 21,
+          "gpm": 716,
+          "id": 152962063
+        }
+      ]
+    },
+    "726228": {
+      "names": [
+        "Vici Gaming"
+      ],
+      "players": [
+        {
+          "name": "shiro",
+          "games": 14,
+          "gpm": 717,
+          "id": 320252024
+        },
+        {
+          "name": "Xm",
+          "games": 14,
+          "gpm": 594,
+          "id": 137129583
+        },
+        {
+          "name": "Bach",
+          "games": 14,
+          "gpm": 542,
+          "id": 118134220
+        },
+        {
+          "name": "XinQ",
+          "games": 14,
+          "gpm": 327,
+          "id": 157475523
+        },
+        {
+          "name": "y`",
+          "games": 14,
+          "gpm": 316,
+          "id": 111114687
+        }
+      ]
+    },
+    "9964962": {
+      "names": [
+        "GamerLegion"
+      ],
+      "players": [
+        {
+          "name": "Ghost",
+          "games": 14,
+          "gpm": 692,
+          "id": 206642367
+        },
+        {
+          "name": "RCY",
+          "games": 14,
+          "gpm": 620,
+          "id": 154974246
+        },
+        {
+          "name": "Speeed",
+          "games": 14,
+          "gpm": 344,
+          "id": 191362875
+        },
+        {
+          "name": "Bignum",
+          "games": 14,
+          "gpm": 312,
+          "id": 90423751
+        },
+        {
+          "name": "Fayde",
+          "games": 14,
+          "gpm": 555,
+          "id": 160119017
+        }
+      ]
+    },
+    "9467224": {
+      "names": [
+        "Aurora Gaming"
+      ],
+      "players": [
+        {
+          "name": "Nightfall",
+          "games": 14,
+          "gpm": 689,
+          "id": 124801257
+        },
+        {
+          "name": "Mikoto",
+          "games": 14,
+          "gpm": 623,
+          "id": 301750126
+        },
+        {
+          "name": "Ws`",
+          "games": 14,
+          "gpm": 642,
+          "id": 126842529
+        },
+        {
+          "name": "Mira",
+          "games": 14,
+          "gpm": 334,
+          "id": 256156323
+        },
+        {
+          "name": "kaori",
+          "games": 14,
+          "gpm": 322,
+          "id": 320219866
+        }
+      ]
+    },
+    "9823272": {
+      "names": [
+        "Team Yandex"
+      ],
+      "players": [
+        {
+          "name": "医者watson`",
+          "games": 27,
+          "gpm": 776,
+          "id": 171262902
+        },
+        {
+          "name": "CHIRA_JUNIOR",
+          "games": 27,
+          "gpm": 576,
+          "id": 312436974
+        },
+        {
+          "name": "DM",
+          "games": 27,
+          "gpm": 601,
+          "id": 56351509
+        },
+        {
+          "name": "Maladych",
+          "games": 27,
+          "gpm": 317,
+          "id": 93817671
+        },
+        {
+          "name": "Saksa",
+          "games": 27,
+          "gpm": 360,
+          "id": 103735745
+        }
+      ]
+    },
+    "10149530": {
+      "names": [
+        "HULIGANI"
+      ],
+      "players": [
+        {
+          "name": "Mirage`雨",
+          "games": 10,
+          "gpm": 563,
+          "id": 140251702
+        },
+        {
+          "name": "sayuw",
+          "games": 10,
+          "gpm": 278,
+          "id": 145065875
+        },
+        {
+          "name": "RESPECT",
+          "games": 10,
+          "gpm": 300,
+          "id": 123787715
+        },
+        {
+          "name": "ssnovv1",
+          "games": 10,
+          "gpm": 741,
+          "id": 320017600
+        },
+        {
+          "name": "Corrupted",
+          "games": 10,
+          "gpm": 548,
+          "id": 92487440
+        }
+      ]
+    },
+    "7119388": {
+      "names": [
+        "Team Spirit"
+      ],
+      "players": [
+        {
+          "name": "rue",
+          "games": 29,
+          "gpm": 329,
+          "id": 847565596
+        },
+        {
+          "name": "Yatoro",
+          "games": 29,
+          "gpm": 859,
+          "id": 321580662
+        },
+        {
+          "name": "Larl",
+          "games": 29,
+          "gpm": 595,
+          "id": 106305042
+        },
+        {
+          "name": "not_me",
+          "games": 29,
+          "gpm": 333,
+          "id": 218231587
+        },
+        {
+          "name": "Collapse",
+          "games": 29,
+          "gpm": 600,
+          "id": 302214028
+        }
+      ]
+    },
+    "8261500": {
+      "names": [
+        "Xtreme Gaming"
+      ],
+      "players": [
+        {
+          "name": "Ame",
+          "games": 11,
+          "gpm": 663,
+          "id": 898754153
+        },
+        {
+          "name": "NothingToSay",
+          "games": 11,
+          "gpm": 536,
+          "id": 173978074
+        },
+        {
+          "name": "Xxs",
+          "games": 11,
+          "gpm": 586,
+          "id": 129958758
+        },
+        {
+          "name": "fy",
+          "games": 11,
+          "gpm": 298,
+          "id": 101695162
+        },
+        {
+          "name": "xNova",
+          "games": 11,
+          "gpm": 285,
+          "id": 94296097
+        }
+      ]
+    }
+  },
+  "2016": {
+    "2783913": {
+      "names": [
+        "Escape Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 216,
+          "id": 4281729
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 510,
+          "id": 86738694
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 230,
+          "id": 89117038
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 466,
+          "id": 100317750
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 325,
+          "id": 169025618
+        }
+      ]
+    },
+    "2581813": {
+      "names": [
+        "Execration.安博电竞"
+      ],
+      "players": [
+        {
+          "name": "Abed",
+          "games": 1,
+          "gpm": 313,
+          "id": 154715080
+        },
+        {
+          "name": "TIMS",
+          "games": 1,
+          "gpm": 188,
+          "id": 155494381
+        },
+        {
+          "name": null,
+          "games": 1,
+          "gpm": 235,
+          "id": 91654584
+        },
+        {
+          "name": null,
+          "games": 1,
+          "gpm": 370,
+          "id": 180012313
+        },
+        {
+          "name": null,
+          "games": 1,
+          "gpm": 295,
+          "id": 323792491
+        }
+      ]
+    },
+    "2108395": {
+      "names": [
+        "TNC Predator"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 252,
+          "id": 85805514
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 262,
+          "id": 173476224
+        },
+        {
+          "name": "Kuku^",
+          "games": 20,
+          "gpm": 553,
+          "id": 184950344
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 350,
+          "id": 187619311
+        },
+        {
+          "name": "Raven",
+          "games": 20,
+          "gpm": 632,
+          "id": 132309493
+        }
+      ]
+    },
+    "111474": {
+      "names": [
+        "Alliance"
+      ],
+      "players": [
+        {
+          "name": "s4",
+          "games": 18,
+          "gpm": 477,
+          "id": 41231571
+        },
+        {
+          "name": "Akke",
+          "games": 18,
+          "gpm": 260,
+          "id": 41288955
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 505,
+          "id": 101495620
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 263,
+          "id": 3916428
+        },
+        {
+          "name": null,
+          "games": 18,
+          "gpm": 493,
+          "id": 76482434
+        }
+      ]
+    },
+    "1836806": {
+      "names": [
+        "the wings gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 25,
+          "gpm": 539,
+          "id": 129585121
+        },
+        {
+          "name": null,
+          "games": 25,
+          "gpm": 601,
+          "id": 101586543
+        },
+        {
+          "name": "Bach",
+          "games": 25,
+          "gpm": 386,
+          "id": 118134220
+        },
+        {
+          "name": "ICEICE",
+          "games": 25,
+          "gpm": 318,
+          "id": 102644565
+        },
+        {
+          "name": "y`",
+          "games": 25,
+          "gpm": 267,
+          "id": 111114687
+        }
+      ]
+    },
+    "39": {
+      "names": [
+        "Shopify Rebellion"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 23,
+          "gpm": 276,
+          "id": 86727555
+        },
+        {
+          "name": "SumaiL-",
+          "games": 23,
+          "gpm": 589,
+          "id": 111620041
+        },
+        {
+          "name": null,
+          "games": 23,
+          "gpm": 371,
+          "id": 87276347
+        },
+        {
+          "name": null,
+          "games": 23,
+          "gpm": 305,
+          "id": 73562326
+        },
+        {
+          "name": null,
+          "games": 23,
+          "gpm": 507,
+          "id": 87177591
+        }
+      ]
+    },
+    "15": {
+      "names": [
+        "LGD Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 352,
+          "id": 98887913
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 218,
+          "id": 89217927
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 583,
+          "id": 106863163
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 528,
+          "id": 130416036
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 239,
+          "id": 89407113
+        }
+      ]
+    },
+    "2586976": {
+      "names": [
+        "OG"
+      ],
+      "players": [
+        {
+          "name": "Fly",
+          "games": 19,
+          "gpm": 277,
+          "id": 94155156
+        },
+        {
+          "name": "Cr1t-",
+          "games": 19,
+          "gpm": 311,
+          "id": 25907144
+        },
+        {
+          "name": "Miracle-",
+          "games": 19,
+          "gpm": 569,
+          "id": 105248644
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 388,
+          "id": 38628747
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 540,
+          "id": 19672354
+        }
+      ]
+    },
+    "36": {
+      "names": [
+        "Natus Vincere"
+      ],
+      "players": [
+        {
+          "name": "SoNNeikO",
+          "games": 15,
+          "gpm": 289,
+          "id": 117421467
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 371,
+          "id": 176184718
+        },
+        {
+          "name": "Dendi",
+          "games": 15,
+          "gpm": 492,
+          "id": 70388657
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 516,
+          "id": 169181898
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 384,
+          "id": 89550641
+        }
+      ]
+    },
+    "2512249": {
+      "names": [
+        "123"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 33,
+          "gpm": 286,
+          "id": 87382579
+        },
+        {
+          "name": "Saksa",
+          "games": 33,
+          "gpm": 284,
+          "id": 103735745
+        },
+        {
+          "name": "Resolut1on",
+          "games": 33,
+          "gpm": 592,
+          "id": 86725175
+        },
+        {
+          "name": null,
+          "games": 33,
+          "gpm": 556,
+          "id": 86700461
+        },
+        {
+          "name": null,
+          "games": 33,
+          "gpm": 413,
+          "id": 84429681
+        }
+      ]
+    },
+    "1148284": {
+      "names": [
+        "MVP Phoenix"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 604,
+          "id": 93119769
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 259,
+          "id": 112377459
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 400,
+          "id": 88933594
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 467,
+          "id": 101450083
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 218,
+          "id": 145550466
+        }
+      ]
+    },
+    "350190": {
+      "names": [
+        "Ascent Esports"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 23,
+          "gpm": 580,
+          "id": 89871557
+        },
+        {
+          "name": "DJ",
+          "games": 23,
+          "gpm": 317,
+          "id": 102099826
+        },
+        {
+          "name": "MidOne",
+          "games": 23,
+          "gpm": 507,
+          "id": 116585378
+        },
+        {
+          "name": null,
+          "games": 23,
+          "gpm": 249,
+          "id": 111034589
+        },
+        {
+          "name": null,
+          "games": 23,
+          "gpm": 351,
+          "id": 93616251
+        }
+      ]
+    },
+    "4": {
+      "names": [
+        "EHOME"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 394,
+          "id": 134276083
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 316,
+          "id": 89423756
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 306,
+          "id": 113800818
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 625,
+          "id": 84772440
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 521,
+          "id": 135878232
+        }
+      ]
+    },
+    "1838315": {
+      "names": [
+        "Team Secret"
+      ],
+      "players": [
+        {
+          "name": "Puppey",
+          "games": 15,
+          "gpm": 284,
+          "id": 87278757
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 464,
+          "id": 43276219
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 352,
+          "id": 30237211
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 263,
+          "id": 6922000
+        },
+        {
+          "name": "天鸽",
+          "games": 15,
+          "gpm": 555,
+          "id": 86745912
+        }
+      ]
+    },
+    "2777247": {
+      "names": [
+        ""
+      ],
+      "players": [
+        {
+          "name": "fy",
+          "games": 15,
+          "gpm": 271,
+          "id": 101695162
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 496,
+          "id": 80929738
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 330,
+          "id": 108484186
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 235,
+          "id": 114239371
+        },
+        {
+          "name": null,
+          "games": 15,
+          "gpm": 456,
+          "id": 139280377
+        }
+      ]
+    },
+    "1375614": {
+      "names": [
+        "Newbee"
+      ],
+      "players": [
+        {
+          "name": "kaka",
+          "games": 19,
+          "gpm": 236,
+          "id": 139876032
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 503,
+          "id": 89157606
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 538,
+          "id": 88508515
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 263,
+          "id": 88553213
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 385,
+          "id": 87012746
+        }
+      ]
+    },
+    "2163": {
+      "names": [
+        "Team Liquid"
+      ],
+      "players": [
+        {
+          "name": "kky",
+          "games": 20,
+          "gpm": 265,
+          "id": 82262664
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 575,
+          "id": 86799300
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 263,
+          "id": 26771994
+        },
+        {
+          "name": "mc",
+          "games": 20,
+          "gpm": 327,
+          "id": 34505203
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 592,
+          "id": 72312627
+        }
+      ]
+    }
+  },
+  "2017": {
+    "2640025": {
+      "names": [
+        "iG.Vitality"
+      ],
+      "players": [
+        {
+          "name": "无限",
+          "games": 17,
+          "gpm": 540,
+          "id": 137193239
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 520,
+          "id": 173880329
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 368,
+          "id": 111291593
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 262,
+          "id": 103940975
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 247,
+          "id": 103039499
+        }
+      ]
+    },
+    "2163": {
+      "names": [
+        "Team Liquid"
+      ],
+      "players": [
+        {
+          "name": "Miracle-",
+          "games": 35,
+          "gpm": 595,
+          "id": 105248644
+        },
+        {
+          "name": "mc",
+          "games": 35,
+          "gpm": 446,
+          "id": 34505203
+        },
+        {
+          "name": "kky",
+          "games": 35,
+          "gpm": 258,
+          "id": 82262664
+        },
+        {
+          "name": "GH",
+          "games": 35,
+          "gpm": 315,
+          "id": 101356886
+        },
+        {
+          "name": null,
+          "games": 35,
+          "gpm": 506,
+          "id": 72312627
+        }
+      ]
+    },
+    "2108395": {
+      "names": [
+        "TNC Predator"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 293,
+          "id": 87196890
+        },
+        {
+          "name": "TIMS",
+          "games": 20,
+          "gpm": 284,
+          "id": 155494381
+        },
+        {
+          "name": "Kuku^",
+          "games": 20,
+          "gpm": 551,
+          "id": 184950344
+        },
+        {
+          "name": "Raven",
+          "games": 20,
+          "gpm": 528,
+          "id": 132309493
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 336,
+          "id": 187619311
+        }
+      ]
+    },
+    "39": {
+      "names": [
+        "Shopify Rebellion"
+      ],
+      "players": [
+        {
+          "name": "SumaiL-",
+          "games": 20,
+          "gpm": 510,
+          "id": 111620041
+        },
+        {
+          "name": "天鸽",
+          "games": 20,
+          "gpm": 511,
+          "id": 86745912
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 418,
+          "id": 87276347
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 291,
+          "id": 73562326
+        },
+        {
+          "name": "Cr1t-",
+          "games": 20,
+          "gpm": 260,
+          "id": 25907144
+        }
+      ]
+    },
+    "15": {
+      "names": [
+        "LGD Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 247,
+          "id": 98878010
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 251,
+          "id": 107081378
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 528,
+          "id": 106863163
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 635,
+          "id": 177416702
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 400,
+          "id": 134276083
+        }
+      ]
+    },
+    "350190": {
+      "names": [
+        "Ascent Esports"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 432,
+          "id": 93119769
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 395,
+          "id": 126417273
+        },
+        {
+          "name": "DJ",
+          "games": 16,
+          "gpm": 220,
+          "id": 102099826
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 215,
+          "id": 112377459
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 361,
+          "id": 93616251
+        }
+      ]
+    },
+    "1838315": {
+      "names": [
+        "Team Secret"
+      ],
+      "players": [
+        {
+          "name": "MidOne",
+          "games": 20,
+          "gpm": 522,
+          "id": 116585378
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 285,
+          "id": 89117038
+        },
+        {
+          "name": "Puppey",
+          "games": 20,
+          "gpm": 276,
+          "id": 87278757
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 476,
+          "id": 101450083
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 378,
+          "id": 169025618
+        }
+      ]
+    },
+    "46": {
+      "names": [
+        "Team Empire"
+      ],
+      "players": [
+        {
+          "name": "Miposhka",
+          "games": 21,
+          "gpm": 252,
+          "id": 113331514
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 368,
+          "id": 92847434
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 261,
+          "id": 159020918
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 557,
+          "id": 5150808
+        },
+        {
+          "name": "Resolut1on",
+          "games": 21,
+          "gpm": 598,
+          "id": 86725175
+        }
+      ]
+    },
+    "1883502": {
+      "names": [
+        "Virtus.pro"
+      ],
+      "players": [
+        {
+          "name": "Solo",
+          "games": 23,
+          "gpm": 242,
+          "id": 134556694
+        },
+        {
+          "name": "RAMZES666",
+          "games": 23,
+          "gpm": 547,
+          "id": 132851371
+        },
+        {
+          "name": "No[o]ne-",
+          "games": 23,
+          "gpm": 569,
+          "id": 106573901
+        },
+        {
+          "name": null,
+          "games": 23,
+          "gpm": 379,
+          "id": 92423451
+        },
+        {
+          "name": null,
+          "games": 23,
+          "gpm": 291,
+          "id": 106809101
+        }
+      ]
+    },
+    "2512249": {
+      "names": [
+        "123"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 260,
+          "id": 30237211
+        },
+        {
+          "name": "Abed",
+          "games": 19,
+          "gpm": 561,
+          "id": 154715080
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 384,
+          "id": 88933594
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 521,
+          "id": 315657960
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 230,
+          "id": 145550466
+        }
+      ]
+    },
+    "1333179": {
+      "names": [
+        ""
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 459,
+          "id": 43276219
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 509,
+          "id": 86799300
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 361,
+          "id": 86726887
+        },
+        {
+          "name": "Aui_2000",
+          "games": 17,
+          "gpm": 277,
+          "id": 40547474
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 218,
+          "id": 6922000
+        }
+      ]
+    },
+    "2586976": {
+      "names": [
+        "OG"
+      ],
+      "players": [
+        {
+          "name": "Fly",
+          "games": 21,
+          "gpm": 277,
+          "id": 94155156
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 644,
+          "id": 311360822
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 260,
+          "id": 26771994
+        },
+        {
+          "name": "s4",
+          "games": 21,
+          "gpm": 359,
+          "id": 41231571
+        },
+        {
+          "name": null,
+          "games": 21,
+          "gpm": 470,
+          "id": 19672354
+        }
+      ]
+    },
+    "5": {
+      "names": [
+        "Invictus Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 268,
+          "id": 140153524
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 565,
+          "id": 205813150
+        },
+        {
+          "name": "Xxs",
+          "games": 24,
+          "gpm": 397,
+          "id": 129958758
+        },
+        {
+          "name": "BoBoKa",
+          "games": 24,
+          "gpm": 279,
+          "id": 207829314
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 505,
+          "id": 90892734
+        }
+      ]
+    },
+    "1375614": {
+      "names": [
+        "Newbee"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 27,
+          "gpm": 276,
+          "id": 82327674
+        },
+        {
+          "name": null,
+          "games": 27,
+          "gpm": 571,
+          "id": 149486894
+        },
+        {
+          "name": null,
+          "games": 27,
+          "gpm": 520,
+          "id": 117281554
+        },
+        {
+          "name": "kaka",
+          "games": 27,
+          "gpm": 285,
+          "id": 139876032
+        },
+        {
+          "name": null,
+          "games": 27,
+          "gpm": 389,
+          "id": 87012746
+        }
+      ]
+    },
+    "2581813": {
+      "names": [
+        "Execration.安博电竞"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 448,
+          "id": 192914280
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 488,
+          "id": 180012313
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 272,
+          "id": 91654584
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 464,
+          "id": 122867857
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 238,
+          "id": 323792491
+        }
+      ]
+    },
+    "3331948": {
+      "names": [
+        "LGD.Forever Young"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 256,
+          "id": 114239371
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 268,
+          "id": 119576842
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 524,
+          "id": 90882159
+        },
+        {
+          "name": "Monet",
+          "games": 26,
+          "gpm": 558,
+          "id": 148215639
+        },
+        {
+          "name": null,
+          "games": 26,
+          "gpm": 452,
+          "id": 111189717
+        }
+      ]
+    },
+    "2672298": {
+      "names": [
+        "NoPing Esports"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 369,
+          "id": 242697694
+        },
+        {
+          "name": "Matthew",
+          "games": 17,
+          "gpm": 263,
+          "id": 155332459
+        },
+        {
+          "name": "Timado",
+          "games": 17,
+          "gpm": 471,
+          "id": 97658618
+        },
+        {
+          "name": "Accel",
+          "games": 17,
+          "gpm": 248,
+          "id": 99796146
+        },
+        {
+          "name": "Benjaz",
+          "games": 17,
+          "gpm": 460,
+          "id": 194521913
+        }
+      ]
+    },
+    "1846548": {
+      "names": [
+        "HellRaisers"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 233,
+          "id": 75750590
+        },
+        {
+          "name": "MiLAN",
+          "games": 16,
+          "gpm": 231,
+          "id": 98172857
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 398,
+          "id": 86751819
+        },
+        {
+          "name": "33",
+          "games": 16,
+          "gpm": 389,
+          "id": 86698277
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 478,
+          "id": 86761682
+        }
+      ]
+    },
+    "824543": {
+      "names": [
+        "Team Radiant"
+      ],
+      "players": [
+        {
+          "name": "kky",
+          "games": 1,
+          "gpm": 253,
+          "id": 82262664
+        },
+        {
+          "name": "BoBoKa",
+          "games": 1,
+          "gpm": 447,
+          "id": 207829314
+        },
+        {
+          "name": "SumaiL-",
+          "games": 1,
+          "gpm": 380,
+          "id": 111620041
+        },
+        {
+          "name": "s4",
+          "games": 1,
+          "gpm": 350,
+          "id": 41231571
+        },
+        {
+          "name": "RAMZES666",
+          "games": 1,
+          "gpm": 671,
+          "id": 132851371
+        }
+      ]
+    },
+    "824639": {
+      "names": [
+        "Team Dire"
+      ],
+      "players": [
+        {
+          "name": "Solo",
+          "games": 1,
+          "gpm": 261,
+          "id": 134556694
+        },
+        {
+          "name": null,
+          "games": 1,
+          "gpm": 260,
+          "id": 87276347
+        },
+        {
+          "name": "Miracle-",
+          "games": 1,
+          "gpm": 245,
+          "id": 105248644
+        },
+        {
+          "name": "kaka",
+          "games": 1,
+          "gpm": 268,
+          "id": 139876032
+        },
+        {
+          "name": null,
+          "games": 1,
+          "gpm": 472,
+          "id": 19672354
+        }
+      ]
+    }
+  },
+  "2021": {
+    "1883502": {
+      "names": [
+        "Virtus.pro"
+      ],
+      "players": [
+        {
+          "name": "Nightfall",
+          "games": 24,
+          "gpm": 681,
+          "id": 124801257
+        },
+        {
+          "name": "gpk~",
+          "games": 24,
+          "gpm": 577,
+          "id": 480412663
+        },
+        {
+          "name": "DM",
+          "games": 24,
+          "gpm": 478,
+          "id": 56351509
+        },
+        {
+          "name": "Save-",
+          "games": 24,
+          "gpm": 298,
+          "id": 317880638
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 275,
+          "id": 187758589
+        }
+      ]
+    },
+    "8260983": {
+      "names": [
+        "TSM"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 292,
+          "id": 38628747
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 592,
+          "id": 238239590
+        },
+        {
+          "name": "Saberlight",
+          "games": 17,
+          "gpm": 436,
+          "id": 126212866
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 264,
+          "id": 145550466
+        },
+        {
+          "name": "Timado",
+          "games": 17,
+          "gpm": 630,
+          "id": 97658618
+        }
+      ]
+    },
+    "5": {
+      "names": [
+        "Invictus Gaming"
+      ],
+      "players": [
+        {
+          "name": "JT-",
+          "games": 25,
+          "gpm": 525,
+          "id": 138857296
+        },
+        {
+          "name": "flyfly",
+          "games": 25,
+          "gpm": 634,
+          "id": 168028715
+        },
+        {
+          "name": "kaka",
+          "games": 25,
+          "gpm": 289,
+          "id": 139876032
+        },
+        {
+          "name": "Emo",
+          "games": 25,
+          "gpm": 639,
+          "id": 202217968
+        },
+        {
+          "name": "Oli~",
+          "games": 25,
+          "gpm": 275,
+          "id": 101259972
+        }
+      ]
+    },
+    "8214850": {
+      "names": [
+        "BLEED"
+      ],
+      "players": [
+        {
+          "name": "Kuku^",
+          "games": 24,
+          "gpm": 444,
+          "id": 184950344
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 639,
+          "id": 94281932
+        },
+        {
+          "name": "Whitemon",
+          "games": 24,
+          "gpm": 273,
+          "id": 136829091
+        },
+        {
+          "name": null,
+          "games": 24,
+          "gpm": 291,
+          "id": 121404228
+        },
+        {
+          "name": "23savage",
+          "games": 24,
+          "gpm": 615,
+          "id": 375507918
+        }
+      ]
+    },
+    "111474": {
+      "names": [
+        "Alliance"
+      ],
+      "players": [
+        {
+          "name": "s4",
+          "games": 19,
+          "gpm": 382,
+          "id": 41231571
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 495,
+          "id": 12231202
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 595,
+          "id": 412753955
+        },
+        {
+          "name": "Handsken",
+          "games": 19,
+          "gpm": 291,
+          "id": 18180970
+        },
+        {
+          "name": "Fng",
+          "games": 19,
+          "gpm": 270,
+          "id": 94049589
+        }
+      ]
+    },
+    "2586976": {
+      "names": [
+        "OG"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 22,
+          "gpm": 293,
+          "id": 19672354
+        },
+        {
+          "name": "SumaiL-",
+          "games": 22,
+          "gpm": 647,
+          "id": 111620041
+        },
+        {
+          "name": "Ceb",
+          "games": 22,
+          "gpm": 463,
+          "id": 88271237
+        },
+        {
+          "name": "Saksa",
+          "games": 22,
+          "gpm": 304,
+          "id": 103735745
+        },
+        {
+          "name": "Topson",
+          "games": 22,
+          "gpm": 518,
+          "id": 94054712
+        }
+      ]
+    },
+    "6209166": {
+      "names": [
+        "Team Aster"
+      ],
+      "players": [
+        {
+          "name": "Monet",
+          "games": 17,
+          "gpm": 624,
+          "id": 148215639
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 259,
+          "id": 89423756
+        },
+        {
+          "name": "Xxs",
+          "games": 17,
+          "gpm": 428,
+          "id": 129958758
+        },
+        {
+          "name": "BoBoKa",
+          "games": 17,
+          "gpm": 294,
+          "id": 207829314
+        },
+        {
+          "name": null,
+          "games": 4,
+          "gpm": 395,
+          "id": 182439266
+        },
+        {
+          "name": null,
+          "games": 13,
+          "gpm": 521,
+          "id": 373520478
+        }
+      ]
+    },
+    "39": {
+      "names": [
+        "Shopify Rebellion"
+      ],
+      "players": [
+        {
+          "name": "天鸽",
+          "games": 20,
+          "gpm": 634,
+          "id": 86745912
+        },
+        {
+          "name": "Abed",
+          "games": 20,
+          "gpm": 532,
+          "id": 154715080
+        },
+        {
+          "name": "Fly",
+          "games": 20,
+          "gpm": 268,
+          "id": 94155156
+        },
+        {
+          "name": null,
+          "games": 20,
+          "gpm": 467,
+          "id": 84772440
+        },
+        {
+          "name": "Cr1t-",
+          "games": 20,
+          "gpm": 291,
+          "id": 25907144
+        }
+      ]
+    },
+    "726228": {
+      "names": [
+        "Vici Gaming"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 27,
+          "gpm": 640,
+          "id": 277141004
+        },
+        {
+          "name": null,
+          "games": 27,
+          "gpm": 463,
+          "id": 134276083
+        },
+        {
+          "name": "Ori",
+          "games": 27,
+          "gpm": 570,
+          "id": 107803494
+        },
+        {
+          "name": "Pyw",
+          "games": 27,
+          "gpm": 322,
+          "id": 138543123
+        },
+        {
+          "name": "Dy",
+          "games": 27,
+          "gpm": 303,
+          "id": 143693439
+        }
+      ]
+    },
+    "350190": {
+      "names": [
+        "Ascent Esports"
+      ],
+      "players": [
+        {
+          "name": "J",
+          "games": 19,
+          "gpm": 326,
+          "id": 100471531
+        },
+        {
+          "name": "DJ",
+          "games": 19,
+          "gpm": 285,
+          "id": 102099826
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 428,
+          "id": 99983413
+        },
+        {
+          "name": "Raven",
+          "games": 19,
+          "gpm": 672,
+          "id": 132309493
+        },
+        {
+          "name": "ChYuaN",
+          "games": 19,
+          "gpm": 516,
+          "id": 113435203
+        }
+      ]
+    },
+    "1838315": {
+      "names": [
+        "Team Secret"
+      ],
+      "players": [
+        {
+          "name": "Puppey",
+          "games": 25,
+          "gpm": 319,
+          "id": 87278757
+        },
+        {
+          "name": null,
+          "games": 25,
+          "gpm": 308,
+          "id": 89117038
+        },
+        {
+          "name": null,
+          "games": 25,
+          "gpm": 608,
+          "id": 121769650
+        },
+        {
+          "name": null,
+          "games": 25,
+          "gpm": 424,
+          "id": 73562326
+        },
+        {
+          "name": null,
+          "games": 25,
+          "gpm": 642,
+          "id": 72312627
+        }
+      ]
+    },
+    "7119388": {
+      "names": [
+        "Team Spirit"
+      ],
+      "players": [
+        {
+          "name": "Miposhka",
+          "games": 36,
+          "gpm": 270,
+          "id": 113331514
+        },
+        {
+          "name": "Yatoro",
+          "games": 36,
+          "gpm": 696,
+          "id": 321580662
+        },
+        {
+          "name": "TORONTOTOKYO",
+          "games": 36,
+          "gpm": 579,
+          "id": 431770905
+        },
+        {
+          "name": "Mira",
+          "games": 36,
+          "gpm": 279,
+          "id": 256156323
+        },
+        {
+          "name": "Collapse",
+          "games": 36,
+          "gpm": 444,
+          "id": 302214028
+        }
+      ]
+    },
+    "15": {
+      "names": [
+        "LGD Gaming"
+      ],
+      "players": [
+        {
+          "name": "Ame",
+          "games": 28,
+          "gpm": 723,
+          "id": 898754153
+        },
+        {
+          "name": "NothingToSay",
+          "games": 28,
+          "gpm": 604,
+          "id": 173978074
+        },
+        {
+          "name": "Bach",
+          "games": 28,
+          "gpm": 468,
+          "id": 118134220
+        },
+        {
+          "name": "XinQ",
+          "games": 28,
+          "gpm": 340,
+          "id": 157475523
+        },
+        {
+          "name": "y`",
+          "games": 28,
+          "gpm": 300,
+          "id": 111114687
+        }
+      ]
+    },
+    "7390454": {
+      "names": [
+        "The Oversight"
+      ],
+      "players": [
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 652,
+          "id": 108452107
+        },
+        {
+          "name": "Quinn",
+          "games": 19,
+          "gpm": 507,
+          "id": 221666230
+        },
+        {
+          "name": "Lelis",
+          "games": 19,
+          "gpm": 455,
+          "id": 87063175
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 278,
+          "id": 86726887
+        },
+        {
+          "name": null,
+          "games": 19,
+          "gpm": 261,
+          "id": 47434686
+        }
+      ]
+    },
+    "8204512": {
+      "names": [
+        "Neptune Gaming"
+      ],
+      "players": [
+        {
+          "name": "无限",
+          "games": 17,
+          "gpm": 629,
+          "id": 137193239
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 571,
+          "id": 106863163
+        },
+        {
+          "name": "Yang",
+          "games": 17,
+          "gpm": 462,
+          "id": 139937922
+        },
+        {
+          "name": "fy",
+          "games": 17,
+          "gpm": 280,
+          "id": 101695162
+        },
+        {
+          "name": null,
+          "games": 17,
+          "gpm": 271,
+          "id": 90882159
+        }
+      ]
+    },
+    "8254400": {
+      "names": [
+        "beastcoast"
+      ],
+      "players": [
+        {
+          "name": "Wisper",
+          "games": 17,
+          "gpm": 496,
+          "id": 292921272
+        },
+        {
+          "name": "0000",
+          "games": 17,
+          "gpm": 535,
+          "id": 153836240
+        },
+        {
+          "name": "stingeR",
+          "games": 17,
+          "gpm": 283,
+          "id": 119631156
+        },
+        {
+          "name": "k1",
+          "games": 17,
+          "gpm": 684,
+          "id": 164685175
+        },
+        {
+          "name": "Scofield",
+          "games": 17,
+          "gpm": 278,
+          "id": 157989498
+        }
+      ]
+    },
+    "7391077": {
+      "names": [
+        "Thunder Awaken"
+      ],
+      "players": [
+        {
+          "name": "Wu",
+          "games": 16,
+          "gpm": 256,
+          "id": 186837494
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 562,
+          "id": 95825708
+        },
+        {
+          "name": "Leostyle^^!",
+          "games": 16,
+          "gpm": 445,
+          "id": 59463394
+        },
+        {
+          "name": "MoOz",
+          "games": 16,
+          "gpm": 253,
+          "id": 349310876
+        },
+        {
+          "name": "Devil",
+          "games": 16,
+          "gpm": 373,
+          "id": 407321629
+        }
+      ]
+    },
+    "8255756": {
+      "names": [
+        "Evil Geniuses"
+      ],
+      "players": [
+        {
+          "name": "KingJungles",
+          "games": 16,
+          "gpm": 242,
+          "id": 81306398
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 377,
+          "id": 117956848
+        },
+        {
+          "name": null,
+          "games": 16,
+          "gpm": 492,
+          "id": 85937380
+        },
+        {
+          "name": "Thiolicor",
+          "games": 16,
+          "gpm": 276,
+          "id": 105045291
+        },
+        {
+          "name": "Costabile",
+          "games": 16,
+          "gpm": 596,
+          "id": 86822085
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "dota2-myteam",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Offline TI history draft and six-seat career game",
+  "scripts": {
+    "start": "python3 -m http.server 8930 --bind 127.0.0.1",
+    "build:data": "python3 scripts/build-catalog.py",
+    "test": "node --test tests/*.test.cjs && python3 tests/stats.test.py",
+    "check": "node --check data.js && node --check game.js && node --check script.js"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "source": "OpenDota",
+  "url": "https://api.opendota.com/api/explorer?sql=SELECT%20m.match_id%2Cm.leagueid%2Cm.start_time%2Cm.duration%2Cm.radiant_win%2Cm.radiant_team_id%2Cm.dire_team_id%2Cm.radiant_score%2Cm.dire_score%2Cm.game_mode%2C%0A%20json_agg%28json_build_object%28%27account_id%27%2Cp.account_id%2C%27name%27%2Cn.name%2C%27player_slot%27%2Cp.player_slot%2C%27hero_id%27%2Cp.hero_id%2C%27kills%27%2Cp.kills%2C%27deaths%27%2Cp.deaths%2C%27assists%27%2Cp.assists%2C%27gold_per_min%27%2Cp.gold_per_min%2C%27xp_per_min%27%2Cp.xp_per_min%2C%27hero_damage%27%2Cp.hero_damage%29%20ORDER%20BY%20p.player_slot%29%20players%0A%20FROM%20matches%20m%20JOIN%20player_matches%20p%20USING%28match_id%29%20LEFT%20JOIN%20notable_players%20n%20ON%20n.account_id%3Dp.account_id%0A%20WHERE%20m.leagueid%3D9870%20AND%20m.start_time%3E%3D1533081600%20AND%20m.start_time%3C1535760000%0A%20GROUP%20BY%20m.match_id%20ORDER%20BY%20m.match_id",
+  "fetchedAt": "2026-09-21T08:30:50.990602+00:00",
+  "sha256": "dd6e5589c455dfb6e062e110cef2cf8b69ee21b3ab9f88b84db0997865f4a113",
+  "leagueId": 9870,
+  "year": 2018,
+  "matches": 195,
+  "queryFile": "ti8-query.sql"
+}
