@@ -157,8 +157,9 @@ test('changing only the coach changes BP; missing historical samples remain neut
 });
 test('tournament results are deterministic and agree with destroyed bases and the bracket',()=>{
   const s=fill(320),a=G.tournament(s),b=G.tournament(s);assert.deepEqual(a,b);
-  assert.equal(a.standings.length,9);assert.equal(a.groupSeries.length,36);assert.equal(a.bracket.length,14);
-  assert.equal(a.standings.reduce((n,x)=>n+x.wins,0),72);assert.ok(a.standings.every(x=>x.wins+x.losses===16));
+  assert.equal(a.standings.length,8);assert.equal(a.groupSeries,undefined);assert.equal(a.bracket.length,14);
+  assert.equal(a.standings.reduce((n,x)=>n+x.wins,0),a.standings.reduce((n,x)=>n+x.losses,0));
+  assert.deepEqual(a.standings.map(x=>x.placement),['1','2','3','4','5–6','5–6','7–8','7–8']);
   for(const g of a.games){assert.equal(g.bases[1-g.winner],0);assert.ok(g.bases[g.winner]>0);assert.equal(g.events.at(-1).side,g.winner);assert.ok(g.minutes>0);assert.ok(g.towers.every(n=>n>=0&&n<=9));assert.equal(g.draft.coaches[g.a==='myteam'?0:1],G.lineup(s)[5].name);}
   for(const m of a.bracket){assert.equal(Math.max(...m.score),m.bestOf===5?3:2);assert.ok(Math.min(...m.score)<Math.max(...m.score));}
   assert.equal(a.bracket.at(-1).winner,a.champion);
@@ -179,7 +180,7 @@ test('careers cap at ten consecutive events and skip 2020',()=>{
 });
 test('all fifteen historical tournament fields run; 2026 ends, and team names are preserved',()=>{
   const s=fill(8);
-  for(const year of D.years){const t=structuredClone(s);t.year=year;const result=G.tournament(t);t.history=[result];t.phase='result';assert.equal(result.year,year);assert.equal(G.validate(t).phase,'result');assert.equal(G.next(t),year!==2026);if(year===2025)assert.ok(result.standings.some(x=>x.name==='BetBoom Team'));if(year===2026)assert.ok(result.standings.some(x=>x.name==='BoomBoys'));}
+  for(const year of D.years){const t=structuredClone(s);t.year=year;const result=G.tournament(t);t.history=[result];t.phase='result';assert.equal(result.year,year);assert.equal(G.validate(t).phase,'result');assert.equal(G.next(t),year!==2026);const field=G.eventField(year);assert.equal(result.replacedTeam.id,field.at(-1).team);assert.deepEqual(result.standings.filter(x=>x.id!=='myteam').map(x=>x.name).sort(),field.slice(0,7).map(x=>x.name).sort());}
 });
 test('new and unplayed careers always begin at TI1 and advance to TI2',()=>{
   const draft=G.start(18);assert.equal(draft.year,2011);
@@ -187,7 +188,7 @@ test('new and unplayed careers always begin at TI1 and advance to TI2',()=>{
   const s=fill(18);s.year=2021;
   assert.equal(G.validate(s).year,2011);
   const result=G.finish(s);assert.equal(result.year,2011);assert.equal(s.year,2011);
-  assert.deepEqual(result.standings.filter(t=>t.id!=='myteam').map(t=>t.name).sort(),D.pools.filter(p=>p.year===2011).map(p=>p.name).sort());
+  assert.deepEqual(result.standings.filter(t=>t.id!=='myteam').map(t=>t.name).sort(),G.eventField(2011).slice(0,7).map(p=>p.name).sort());
   assert.ok(G.next(s));assert.equal(s.year,2012);assert.equal(G.validate(s).year,2012);
   assert.equal(G.finish(s).year,2012);
 });
@@ -292,7 +293,7 @@ test('coach round saves reject missing state, earlier years and invalid budgets'
 });
 test('match reports keep the correct five operators on both sides after replacement, including legacy results',()=>{
   const s=fill(84);const result=G.finish(s),original=JSON.stringify(result);
-  assert.equal(Object.keys(result.lineups).length,9);
+  assert.equal(Object.keys(result.lineups).length,8);
   for(const game of result.games)for(const side of ['a','b']){
     const teamId=game[side],players=G.matchLineup(result,teamId);
     const expected=teamId==='myteam'?result.seats.slice(0,5):D.pools.find(p=>p.year===result.year&&p.team===teamId).cards.filter(c=>c.role<=5).map(c=>c.id);
@@ -325,4 +326,44 @@ test('coach style controls picks, restored saves, simulations and replacement wi
   assert.equal(s.tactic,replacement.recommendedTactic);assert.equal(JSON.stringify(s.history),recorded);
   assert.ok(G.next(s));assert.equal(G.validate(s).tactic,replacement.recommendedTactic);
   assert.equal(G.finish(s).tactic,replacement.recommendedTactic);assert.equal(JSON.stringify(s.history.slice(0,1)),recorded);
+});
+
+test('eight-team brackets replace only the last tied team and eliminate teams on the correct loss',()=>{
+  const s=fill(191);
+  for(const year of D.years){
+    s.year=year;const r=G.tournament(s),field=G.eventField(year),ids=[...field.slice(0,7).map(p=>p.team),'myteam'];
+    assert.deepEqual(r.bracket.slice(0,4).map(m=>[m.a,m.b]),[[0,7],[3,4],[1,6],[2,5]].map(pair=>pair.map(i=>ids[i])));
+    assert.equal(r.replacedTeam.id,field.at(-1).team);assert.ok(!r.lineups[r.replacedTeam.id]);
+    assert.equal(r.format,'double-elimination-8');assert.ok(r.games.every(g=>g.stage!=='循环赛'));
+    const losses=Object.fromEntries(ids.map(id=>[id,0]));
+    for(const m of r.bracket){
+      assert.ok(ids.includes(m.a)&&ids.includes(m.b));assert.notEqual(m.a,m.b);
+      assert.ok(losses[m.a]<2&&losses[m.b]<2,'eliminated teams never play again');
+      if(m.stage.startsWith('胜者'))assert.ok(losses[m.a]===0&&losses[m.b]===0);
+      if(m.stage.startsWith('败者'))assert.ok(losses[m.a]===1&&losses[m.b]===1);
+      assert.equal(m.bestOf,m.stage==='总决赛'?5:3);losses[m.winner===m.a?m.b:m.a]++;
+    }
+    const final=r.bracket.at(-1),runner=final.winner===final.a?final.b:final.a;
+    assert.equal(r.standings[0].id,r.champion);assert.equal(r.standings[1].id,runner);
+    for(const id of ids.filter(id=>id!==r.champion&&id!==runner))assert.equal(losses[id],2);
+    assert.equal(r.standings.find(t=>t.id==='myteam').wins,r.wins);
+    assert.equal(r.standings.find(t=>t.id==='myteam').losses,r.losses);
+  }
+});
+
+test('custom team names persist, keep stable identity and preserve historical names',()=>{
+  const s=fill(192);
+  assert.equal(G.renameTeam(s,'  城堡   战队 🛡️  '),'城堡 战队 🛡️');
+  assert.equal(G.validate(s).teamName,s.teamName);
+  for(const invalid of ['', '   ', 'a'.repeat(25), 'hello\nworld', null]){
+    const before=JSON.stringify(s);assert.throws(()=>G.renameTeam(s,invalid));assert.equal(JSON.stringify(s),before);
+    assert.throws(()=>G.validate({...s,teamName:invalid}),/队名/);
+  }
+  G.renameTeam(s,'<Castle & "Legends">');const first=G.finish(s),before=JSON.stringify(first);
+  assert.equal(first.teamName,s.teamName);assert.equal(first.standings.find(t=>t.id==='myteam').name,s.teamName);
+  G.renameTeam(s,'Natus Vincere');assert.equal(JSON.stringify(first),before);
+  G.next(s);const next=G.finish(s);assert.equal(next.teamName,'Natus Vincere');
+  assert.equal(next.standings.filter(t=>t.name==='Natus Vincere').length,2);
+  assert.equal(new Set(next.standings.map(t=>t.id)).size,8);assert.equal(JSON.stringify(s.history[0]),before);
+  assert.deepEqual(G.validate(JSON.parse(JSON.stringify(s))),s);
 });

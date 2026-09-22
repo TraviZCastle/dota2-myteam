@@ -102,3 +102,16 @@ test('coaching honors count repeated podiums but never include player titles or 
  const silent=D.cardMap['2021-spirit-coach-silent'].coachHistory;assert.equal(silent.bestCount,2);assert.equal(silent.winRate,43/57);
  const early=D.cardMap['2011-ehome-coach-71'].coachHistory;assert.equal(early.bestFinish,'2');assert.equal(early.games,65);assert.equal(early.winRate,40/65);assert.equal(early.missingEditions,1);
 });
+
+test('yearly Aegis assets cover every edition with verified image bytes',()=>{
+  const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+  const root=path.resolve(__dirname,'../assets/aegis'),sources=JSON.parse(fs.readFileSync(path.join(root,'sources.json'),'utf8'));
+  assert.deepEqual(sources.missingYears,[]);assert.equal(sources.assets.length,14);
+  assert.deepEqual(sources.assets.flatMap(a=>a.years),D.years);
+  for(const source of sources.assets){
+    const bytes=fs.readFileSync(path.join(root,source.file));
+    assert.equal(bytes.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+    assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),source.sha256);
+    for(const year of source.years)assert.equal(D.aegis[year].file,source.file);
+  }
+});

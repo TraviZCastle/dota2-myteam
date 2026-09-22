@@ -5,7 +5,7 @@ const script=fs.readFileSync(require.resolve('../script.js'),'utf8');
 // Run the real UI controller with a controllable clock and isolated browser storage.
 function page(saved,{reduced=false,mobile=false,route='play'}={}){
   let now=0,id=0,hash='#'+route;
-  const timers=new Map(),listeners={},writes=[],scrolled=[],storage=new Map([['dota2myteam.run.v3',JSON.stringify(saved)]]);
+  const timers=new Map(),listeners={},writes=[],scrolled=[],storage=new Map([['dota2myteam.run.v4',JSON.stringify(saved)]]);
   const element=()=>({addEventListener(){},focus(){},close(){},showModal(){},querySelector(selector){return {focus(){},scrollIntoView(){scrolled.push(selector);}};},innerHTML:''});
   const app=element();Object.defineProperty(app,'innerHTML',{get:()=>writes.at(-1)||'',set:value=>writes.push(value)});
   const elements={app,modal:element(),'modal-content':element(),toast:element()};
@@ -15,9 +15,10 @@ function page(saved,{reduced=false,mobile=false,route='play'}={}){
     crypto:{getRandomValues:values=>{values[0]=42;return values;}},
     setTimeout:(fn,delay)=>{timers.set(++id,{fn,at:now+delay});return id;},clearTimeout:id=>timers.delete(id)};
   context.window=context;vm.runInNewContext(script,context);
-  return {app,writes,scrolled,modal:elements['modal-content'],saved:()=>JSON.parse(storage.get('dota2myteam.run.v3')),
+  return {app,writes,scrolled,modal:elements['modal-content'],saved:()=>JSON.parse(storage.get('dota2myteam.run.v4')),
     archive:()=>elements['archive-grid']?.innerHTML,
     change(id,value){listeners.change({target:{id,value}});},
+    submitName(value){elements['team-name'].value=value;listeners.submit({target:{id:'team-name-form'},preventDefault(){}});},
     click(action,extra={}){listeners.click({target:{closest:selector=>selector==='.skip-link'?null:{disabled:false,dataset:{action,...extra}}}});},
     advance(ms){const end=now+ms;while(true){const next=[...timers].filter(([,t])=>t.at<=end).sort((a,b)=>a[1].at-b[1].at)[0];if(!next)break;now=next[1].at;timers.delete(next[0]);next[1].fn();}now=end;}
   };
@@ -113,4 +114,18 @@ test('coach draft, archive and detail show career statistics instead of hero por
   const archivePage=page(s,{route:'archive'});archivePage.change('archive-role','6');const archive=archivePage.archive();
   const coachCards=[...archive.matchAll(/<button class="archive-card coach-card"[\s\S]*?<\/button>/g)];assert.ok(coachCards.length);
   for(const [html] of coachCards){assert.doesNotMatch(html,/hero-portrait|常用英雄/);assert.match(html,/历史胜率/);}
+});
+
+test('rename form escapes user text and result reports keep the name used for that event',()=>{
+  const s=G.start(197);while(s.phase==='draft')G.pick(s,G.eligible(s,G.currentPool(s))[0].id);
+  const p=page(s);p.click('rename-team');assert.match(p.modal.innerHTML,/team-name-form/);
+  p.submitName('星火 <A&B>');assert.equal(p.saved().teamName,'星火 <A&B>');
+  assert.match(p.app.innerHTML,/星火 &lt;A&amp;B&gt;/);assert.doesNotMatch(p.app.innerHTML,/<A&B>/);
+  p.click('rename-team');p.submitName(' ');assert.equal(p.saved().teamName,'星火 <A&B>');
+  p.click('simulate');p.advance(60);const result=p.saved().history[0];
+  assert.match(p.app.innerHTML,/最终排名/);assert.doesNotMatch(p.app.innerHTML,/循环赛|积分|9 支战队/);
+  assert.match(p.app.innerHTML,/assets\/aegis\/2011-2012.png/);
+  p.click('rename-team');p.submitName('新队名');assert.equal(p.saved().teamName,'新队名');
+  p.click('game-detail',{game:'0'});assert.match(p.modal.innerHTML,/星火 &lt;A&amp;B&gt;/);assert.doesNotMatch(p.modal.innerHTML,/新队名/);
+  assert.deepEqual(p.saved().history[0],result);
 });

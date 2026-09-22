@@ -37,6 +37,7 @@
   const cardMap=Object.fromEntries(historicalCards.map(c=>[c.id,c]));
   const events=C.events.map(e=>({...e,coachCards:coachCards.filter(c=>c.year===e.year).length}));
   const years=events.map(e=>e.year),eventMap=Object.fromEntries(events.map(e=>[e.year,e]));
+  const aegis=Object.fromEntries(years.map(year=>[year,{file:year<2013?'2011-2012.png':year+'.png'}]));
   const teams=Object.fromEntries(pools.map(p=>[p.team,{name:p.name,short:p.team.toUpperCase(),region:p.region}]));
   const poolMap=Object.fromEntries(pools.map(p=>[p.id,p]));
   function personId(name){const key=name.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fff]/g,'');return C.aliases[key]||key;}
@@ -93,5 +94,5 @@
     const deviations=means.map((mean,i)=>Math.sqrt(values.reduce((n,v)=>n+((v[i]??mean)-mean)**2,0)/(values.length||1)));
     cohort.forEach((c,j)=>{const z=means.map((mean,i)=>values[j][i]==null?0:deviations[i]?(values[j][i]-mean)/deviations[i]:0);c.strength=Math.max(-1,Math.min(1,z.reduce((n,v)=>n+v,0)/4))*Math.min(1,c.stats.games/20);});
   }
-  return {version:C.version,coachPoolVersion,coachYears,coachCards,roles,roleEnglish,axes,heroes,heroMap,teams,pools,poolMap,cards,cardMap,tactics,years,events,eventMap,personId,heroScore,statsMeta:{events:eventMap}};
+  return {aegis,version:C.version,coachPoolVersion,coachYears,coachCards,roles,roleEnglish,axes,heroes,heroMap,teams,pools,poolMap,cards,cardMap,tactics,years,events,eventMap,personId,heroScore,statsMeta:{events:eventMap}};
 });

@@ -4,7 +4,7 @@
   if(typeof module==='object'&&module.exports) module.exports=api; else root.DotaGame=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function(D){
   'use strict';
-  const VERSION='dota2-career-v3',MAX_EVENTS=10,START_YEAR=2011;
+  const VERSION='dota2-career-v4',MAX_EVENTS=10,START_YEAR=2011;
   const coachPools=year=>D.coachYears.includes(year)?D.pools.filter(p=>p.year===year):[];
   const coachIds=new Set(D.coachCards.map(c=>c.id));
   const teamIds=new Set(D.pools.map(p=>p.team));
@@ -13,6 +13,15 @@
   const canAdvance=s=>s.history.length<MAX_EVENTS&&Boolean(nextYear(s));
   const clone=x=>JSON.parse(JSON.stringify(x));
   const coachTactic=coach=>coach?.recommendedTactic||'balanced';
+  function normalizeTeamName(value){
+    if(typeof value!=='string'||/[\u0000-\u001f\u007f]/.test(value))throw Error('请输入有效队名');
+    const name=value.trim().replace(/\s+/g,' ');
+    if(!name||Array.from(name).length>24)throw Error('队名需为 1–24 个字符');
+    return name;
+  }
+  function renameTeam(s,name){s.teamName=normalizeTeamName(name);return s.teamName;}
+  // Equal historical finishes retain catalog order; the last 7–8th team is replaced.
+  const eventField=year=>D.pools.filter(p=>p.year===year).sort((a,b)=>parseInt(a.finish,10)-parseInt(b.finish,10));
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
   function rng(seed){let s=seed>>>0;return()=>{s=(s+0x6D2B79F5)>>>0;let t=Math.imul(s^(s>>>15),1|s);t^=t+Math.imul(t^(t>>>7),61|t);return((t^(t>>>14))>>>0)/4294967296;};}
   const pickOne=(list,random)=>list[Math.floor(random()*list.length)];
@@ -70,7 +79,7 @@
     if(kind)s.rerolls--;
     return true;
   }
-  function start(seed){const s={version:VERSION,seed:seed>>>0,drawStep:0,phase:'draft',catalogVersion:D.version,coachPoolVersion:D.coachPoolVersion,seats:Array(6).fill(null),poolId:null,drawnTeams:[],rerolls:3,replacementRerollBonuses:0,coachDraft:{year:null,rerolls:1},year:START_YEAR,tactic:'balanced',history:[],replacement:null,replacementUsed:false};draw(s);return s;}
+  function start(seed){const s={version:VERSION,seed:seed>>>0,drawStep:0,phase:'draft',teamName:'MyTeam',catalogVersion:D.version,coachPoolVersion:D.coachPoolVersion,seats:Array(6).fill(null),poolId:null,drawnTeams:[],rerolls:3,replacementRerollBonuses:0,coachDraft:{year:null,rerolls:1},year:START_YEAR,tactic:'balanced',history:[],replacement:null,replacementUsed:false};draw(s);return s;}
   function pick(s,id){
     const card=D.cardMap[id];
     if(!currentPool(s)?.cards.some(c=>c.id===id)||!canPick(s,card))return false;
@@ -105,6 +114,7 @@
   function validate(value){
     const s=clone(value);
     if(s.version!==VERSION||s.catalogVersion!==D.version||!Number.isInteger(s.seed)||s.seed<0||s.seed>4294967295||!Number.isInteger(s.drawStep)||s.drawStep<1||!['draft','ready','result','replace'].includes(s.phase)||!D.years.includes(s.year)||!D.tactics[s.tactic])throw Error('存档版本或内容无效');
+    try{s.teamName=normalizeTeamName(s.teamName);}catch{throw Error('存档队名无效');}
     if(!Array.isArray(s.seats)||s.seats.length!==6||s.seats.some((id,i)=>id!==null&&(!D.cardMap[id]||D.cardMap[id].role!==i+1)))throw Error('存档阵容无效');
     const people=lineup(s).filter(Boolean).map(c=>c.person);if(new Set(people).size!==people.length||(!s.seats.every(Boolean)&&s.phase!=='draft')||(s.seats.every(Boolean)&&s.phase==='draft'))throw Error('存档席位无效');
     if(s.rerolls&&typeof s.rerolls==='object'){
@@ -203,30 +213,22 @@
   }
   function tournament(s){
     const random=rng((s.seed^Math.imul(s.year,0x49f18b35))>>>0);
-    const us={id:'myteam',name:'MyTeam',cards:lineup(s).slice(0,5),coach:lineup(s)[5],tactic:coachTactic(lineup(s)[5])};
-    const participants=[us,...D.pools.filter(p=>p.year===s.year).map(p=>{const coach=p.cards.find(c=>c.role===6)||null;return {id:p.team,name:p.name,cards:p.cards.filter(c=>c.role<=5),coach,tactic:coachTactic(coach)};})];
+    const field=eventField(s.year),replaced=field.at(-1);
+    if(field.length!==8)throw Error('当届八强名单不完整');
+    const us={id:'myteam',name:normalizeTeamName(s.teamName),cards:lineup(s).slice(0,5),coach:lineup(s)[5],tactic:coachTactic(lineup(s)[5])};
+    const participants=[...field.slice(0,7).map(p=>{const coach=p.cards.find(c=>c.role===6)||null;return {id:p.team,name:p.name,cards:p.cards.filter(c=>c.role<=5),coach,tactic:coachTactic(coach)};}),us];
     const participantMap=Object.fromEntries(participants.map(p=>[p.id,p]));
-    const standings=participants.map((t,i)=>({id:t.id,name:t.name,wins:0,losses:0,seed:i,h2h:{}}));
-    const standingsMap=Object.fromEntries(standings.map(t=>[t.id,t]));
-    const games=[],groupSeries=[],bracket=[];
+    const games=[],bracket=[],placements={},qualified=participants.map(p=>p.id);
     function series(a,b,bestOf,stage){
       const teamA=participantMap[a],teamB=participantMap[b],scores=[0,0],maps=[];const first=random()<.5?0:1;
-      const limit=bestOf===2?2:Math.floor(bestOf/2)+1;
-      while(bestOf===2?maps.length<2:Math.max(...scores)<limit){
+      const limit=Math.floor(bestOf/2)+1;
+      while(Math.max(...scores)<limit){
         const map=playMap(teamA,teamB,random,(first+maps.length)%2);scores[map.winner]++;
         if(a==='myteam'||b==='myteam')games.push({a,b,stage,...clone(map)});
         maps.push(a==='myteam'||b==='myteam'?map:{winner:map.winner});
       }
       return {a,b,score:scores,winner:scores[0]>scores[1]?a:scores[1]>scores[0]?b:null,loser:scores[0]>scores[1]?b:scores[1]>scores[0]?a:null,stage,bestOf,maps};
     }
-    for(let i=0;i<participants.length;i++)for(let j=i+1;j<participants.length;j++){
-      const r=series(participants[i].id,participants[j].id,2,'循环赛');groupSeries.push({a:r.a,b:r.b,score:r.score});
-      const a=standingsMap[r.a],b=standingsMap[r.b];a.wins+=r.score[0];a.losses+=r.score[1];b.wins+=r.score[1];b.losses+=r.score[0];a.h2h[b.id]=r.score[0];b.h2h[a.id]=r.score[1];
-    }
-    const lots=shuffle(standings.map(x=>x.id),random);
-    standings.forEach(t=>{const tied=standings.filter(x=>x.wins===t.wins&&x.id!==t.id);t.tieScore=tied.reduce((n,x)=>n+(t.h2h[x.id]||0),0);t.lot=lots.indexOf(t.id);});
-    standings.sort((a,b)=>b.wins-a.wins||b.tieScore-a.tieScore||a.lot-b.lot);
-    const qualified=standings.slice(0,8).map(x=>x.id),placements={};standings.slice(8).forEach((t,i)=>{placements[t.id]=String(i+9);});
     function match(a,b,stage,bestOf=3,loserPlace=null){const r=series(a,b,bestOf,stage);bracket.push({a:r.a,b:r.b,score:r.score,winner:r.winner,stage,bestOf});if(loserPlace)placements[r.loser]=loserPlace;return r;}
     const q=[[0,7],[3,4],[1,6],[2,5]].map(([a,b])=>match(qualified[a],qualified[b],'胜者组首轮'));
     const l1=[match(q[0].loser,q[1].loser,'败者组第一轮',3,'7–8'),match(q[2].loser,q[3].loser,'败者组第一轮',3,'7–8')];
@@ -237,8 +239,12 @@
     const lower=match(l3.winner,upper.loser,'败者组决赛',3,'3');
     const final=match(upper.winner,lower.winner,'总决赛',5,'2');placements[final.winner]='1';
     const wins=games.filter(g=>(g.winner===0?g.a:g.b)==='myteam').length;
-    return {model:'historical-inputs-game-rules-4',year:s.year,seats:[...s.seats],lineups:Object.fromEntries(participants.map(t=>[t.id,t.cards.map(c=>c.id)])),tactic:us.tactic,placement:placements.myteam,champion:final.winner,standings,groupSeries,bracket,games,wins,losses:games.length-wins,seed:s.seed};
+    const standings=participants.map((t,seed)=>{
+      const matches=bracket.filter(m=>m.a===t.id||m.b===t.id);
+      return {id:t.id,name:t.name,seed,placement:placements[t.id],wins:matches.reduce((n,m)=>n+m.score[m.a===t.id?0:1],0),losses:matches.reduce((n,m)=>n+m.score[m.a===t.id?1:0],0)};
+    }).sort((a,b)=>parseInt(a.placement,10)-parseInt(b.placement,10)||a.seed-b.seed);
+    return {model:'historical-inputs-game-rules-5',format:'double-elimination-8',year:s.year,teamName:us.name,replacedTeam:{id:replaced.team,name:replaced.name,placement:replaced.finish},seats:[...s.seats],lineups:Object.fromEntries(participants.map(t=>[t.id,t.cards.map(c=>c.id)])),tactic:us.tactic,placement:placements.myteam,champion:final.winner,standings,bracket,games,wins,losses:games.length-wins,seed:s.seed};
   }
   function finish(s){if(s.phase!=='ready'||!s.seats.every(Boolean)||!coachIds.has(s.seats[5])||s.history.some(r=>r.year===s.year))return false;if(!s.history.length)s.year=START_YEAR;s.tactic=coachTactic(lineup(s)[5]);const result=tournament(s);s.history.push(result);s.phase='result';return result;}
-  return {VERSION,MAX_EVENTS,nextYear,canAdvance,coachFit,experience,rng,shuffle,start,validate,currentPool,lineup,canPick,canComplete,eligible,alternatives,draw,pick,coachPools,isCoachDraft,coachSelection,canReplaceRole,beginReplacement,replacementTarget,cancelReplacement,next,matchLineup,autoDraft,playMap,tournament,finish};
+  return {VERSION,MAX_EVENTS,nextYear,canAdvance,coachFit,experience,rng,shuffle,start,renameTeam,eventField,validate,currentPool,lineup,canPick,canComplete,eligible,alternatives,draw,pick,coachPools,isCoachDraft,coachSelection,canReplaceRole,beginReplacement,replacementTarget,cancelReplacement,next,matchLineup,autoDraft,playMap,tournament,finish};
 });

@@ -1,0 +1,192 @@
+{
+  "owner": "Valve Corporation",
+  "host": "Liquipedia",
+  "fetchedAt": "2026-09-22",
+  "note": "TI1 and TI2 share the early Aegis. Original image bytes retained; no generated or recolored substitutes.",
+  "missingYears": [],
+  "assets": [
+    {
+      "file": "2011-2012.png",
+      "years": [
+        2011,
+        2012
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/b/ba/Dota2_Aegis_allmode.png/317px-Dota2_Aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        317,
+        300
+      ],
+      "sha256": "c484ea2ffe3137120a92aa5362310eca8cae4c501d5f13af065ebf900f661af9"
+    },
+    {
+      "file": "2013.png",
+      "years": [
+        2013
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/5/53/The_International_2013_aegis_allmode.png/309px-The_International_2013_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        309,
+        300
+      ],
+      "sha256": "20fdbe4b32d7af841ef0d987d5fad9b8a74b335401d6f056aa5a1e46fcfeef73"
+    },
+    {
+      "file": "2014.png",
+      "years": [
+        2014
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/5/51/The_International_2014_aegis_allmode.png/307px-The_International_2014_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        307,
+        300
+      ],
+      "sha256": "91ea5644ce1c9daa67b4187ec6767783cccabcc801f80ba5f355175275186884"
+    },
+    {
+      "file": "2015.png",
+      "years": [
+        2015
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/a/a4/The_International_2015_aegis_allmode.png/302px-The_International_2015_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        302,
+        300
+      ],
+      "sha256": "afec4a3f48c41152260b87c1cff254d8a2baf01e11a3d5bce9bead8e4d8945b1"
+    },
+    {
+      "file": "2016.png",
+      "years": [
+        2016
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/c/c6/The_International_2016_aegis_allmode.png/301px-The_International_2016_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        301,
+        300
+      ],
+      "sha256": "52c6fb1904be56b8c2a7695f382bf06a9b4a11f91e95623b7b1dd151204a537c"
+    },
+    {
+      "file": "2017.png",
+      "years": [
+        2017
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/b/b9/The_International_2017_aegis_allmode.png/301px-The_International_2017_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        301,
+        300
+      ],
+      "sha256": "83858cfa35ff033da647e0b7352a1484c852fbcff65cabede1064ad8f2babf7d"
+    },
+    {
+      "file": "2018.png",
+      "years": [
+        2018
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/1/19/The_International_2018_aegis_allmode.png/305px-The_International_2018_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        305,
+        300
+      ],
+      "sha256": "c23c5e4a755a9a36417cdfd5b3600ba3b006b444598928bd6fe520b46c6ae263"
+    },
+    {
+      "file": "2019.png",
+      "years": [
+        2019
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/5/50/The_International_2019_aegis_allmode.png/300px-The_International_2019_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        300,
+        300
+      ],
+      "sha256": "4adb9350bb20539f10c23004d66b1d42a05aa41a95bc5438f536e91295ea90d2"
+    },
+    {
+      "file": "2021.png",
+      "years": [
+        2021
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/0/02/The_International_2021_aegis_allmode.png/300px-The_International_2021_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        300,
+        300
+      ],
+      "sha256": "2f5ade973238b7a05a63da248f701c70e16d8c0324cab9301aca3ee23804cdf4"
+    },
+    {
+      "file": "2022.png",
+      "years": [
+        2022
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/f/fd/The_International_2022_aegis_allmode.png/305px-The_International_2022_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        305,
+        300
+      ],
+      "sha256": "3009d3b31f8ff944e5ea5f0f2e419fb7c0eef0c866fbd7e5335a8c8bb598ce35"
+    },
+    {
+      "file": "2023.png",
+      "years": [
+        2023
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/9/95/The_International_2023_aegis_allmode.png/301px-The_International_2023_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        301,
+        300
+      ],
+      "sha256": "45dadf3b3c9a6a17e5a742afb5d72b750925b3eb984ac8fcca5cc993f0f2083a"
+    },
+    {
+      "file": "2024.png",
+      "years": [
+        2024
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/f/f6/The_International_2024_aegis_allmode.png/306px-The_International_2024_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        306,
+        300
+      ],
+      "sha256": "0d5604ee68711723de1102e457fbe07f9f67d75322c39b78d8923a903cf1aa32"
+    },
+    {
+      "file": "2025.png",
+      "years": [
+        2025
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/6/6e/The_International_2025_aegis_allmode.png/305px-The_International_2025_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        305,
+        300
+      ],
+      "sha256": "305d0c9a2a18c6a1da6f9def8424b54a21185f9c6d773cbd38004d9d6fedeb23"
+    },
+    {
+      "file": "2026.png",
+      "years": [
+        2026
+      ],
+      "url": "https://liquipedia.net/commons/images/thumb/0/02/The_International_2026_aegis_allmode.png/300px-The_International_2026_aegis_allmode.png",
+      "sourcePage": "https://liquipedia.net/dota2/The_International/Gallery",
+      "dimensions": [
+        300,
+        300
+      ],
+      "sha256": "aae68d0352d79bf6b6e3ef343afe89f3d847a2aec8e34622c2a63ce018db9d3e"
+    }
+  ]
+}
