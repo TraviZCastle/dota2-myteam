@@ -70,7 +70,7 @@
     if(kind)s.rerolls--;
     return true;
   }
-  function start(seed){const s={version:VERSION,seed:seed>>>0,drawStep:0,phase:'draft',catalogVersion:D.version,coachPoolVersion:D.coachPoolVersion,seats:Array(6).fill(null),poolId:null,drawnTeams:[],rerolls:3,coachDraft:{year:null,rerolls:1},year:START_YEAR,tactic:'balanced',history:[],replacement:null,replacementUsed:false};draw(s);return s;}
+  function start(seed){const s={version:VERSION,seed:seed>>>0,drawStep:0,phase:'draft',catalogVersion:D.version,coachPoolVersion:D.coachPoolVersion,seats:Array(6).fill(null),poolId:null,drawnTeams:[],rerolls:3,replacementRerollBonuses:0,coachDraft:{year:null,rerolls:1},year:START_YEAR,tactic:'balanced',history:[],replacement:null,replacementUsed:false};draw(s);return s;}
   function pick(s,id){
     const card=D.cardMap[id];
     if(!currentPool(s)?.cards.some(c=>c.id===id)||!canPick(s,card))return false;
@@ -83,7 +83,13 @@
   }
   function beginReplacement(s){
     if(s.phase!=='result'||!canAdvance(s)||s.replacementUsed)return false;
-    s.phase='replace';if(!s.replacement){s.replacement={poolId:null,drawnTeams:[],target:null,coachDraft:{year:null,rerolls:1}};draw(s);}return true;
+    s.phase='replace';
+    if(!s.replacement){
+      s.replacement={poolId:null,drawnTeams:[],target:null,coachDraft:{year:null,rerolls:1}};
+      // The replacement persists on cancel, so only a new offseason grants a bonus.
+      s.replacementRerollBonuses++;s.rerolls++;draw(s);
+    }
+    return true;
   }
   function canReplaceRole(s,role){
     if(s.phase!=='replace'||![1,2,3,4,5,6].includes(role))return false;
@@ -106,11 +112,13 @@
       // Each historical reroll counts once toward the shared three-use budget.
       s.rerolls=Math.max(0,s.rerolls.event+s.rerolls.team-3);
     }
-    if(!Number.isInteger(s.rerolls)||s.rerolls<0||s.rerolls>3||!D.pools.some(p=>p.id===s.poolId))throw Error('存档抽签无效');
     // Automatic BP replaces manual preferences; completed reports remain untouched.
     delete s.preferences;
     s.tactic=coachTactic(lineup(s)[5]);
     if(!Array.isArray(s.history)||s.history.length>MAX_EVENTS||new Set(s.history.map(r=>r.year)).size!==s.history.length||s.history.some(r=>!D.years.includes(r.year)||!r.placement||!Array.isArray(r.standings)||!Array.isArray(r.bracket)||!Array.isArray(r.games)||!Array.isArray(r.seats)||r.seats.length!==6||r.seats.some(id=>!D.cardMap[id])))throw Error('存档赛果无效');
+    if(s.replacementRerollBonuses===undefined)s.replacementRerollBonuses=0;
+    if(!Number.isInteger(s.replacementRerollBonuses)||s.replacementRerollBonuses<0||s.replacementRerollBonuses>Math.min(s.history.length,MAX_EVENTS-1))throw Error('存档抽签奖励无效');
+    if(!Number.isInteger(s.rerolls)||s.rerolls<0||s.rerolls>3+s.replacementRerollBonuses||!D.pools.some(p=>p.id===s.poolId))throw Error('存档抽签无效');
     if(!s.history.length)s.year=START_YEAR;
     if(['result','replace'].includes(s.phase)&&s.history.at(-1)?.year!==s.year)throw Error('存档缺少赛果');
     if(s.replacement&&(!D.pools.some(p=>p.id===s.replacement.poolId)||![null,1,2,3,4,5,6].includes(s.replacement.target)))throw Error('存档换人无效');
@@ -118,7 +126,8 @@
       // Older saves can only establish the team currently on screen.
       if(selection.drawnTeams===undefined)selection.drawnTeams=[D.poolMap[selection.poolId].team];
       const seen=selection.drawnTeams;
-      if(!Array.isArray(seen)||!seen.length||seen.length>4||new Set(seen).size!==seen.length||seen.some(team=>!teamIds.has(team))||seen.at(-1)!==D.poolMap[selection.poolId].team)throw Error('存档抽签记录无效');
+      const maxDraws=4+(selection===s?0:s.replacementRerollBonuses);
+      if(!Array.isArray(seen)||!seen.length||seen.length>maxDraws||new Set(seen).size!==seen.length||seen.some(team=>!teamIds.has(team))||seen.at(-1)!==D.poolMap[selection.poolId].team)throw Error('存档抽签记录无效');
     }
     if(s.phase==='replace'&&(!s.replacement||s.replacementUsed||!canAdvance(s)))throw Error('存档换人阶段无效');
     if(s.seats[5]&&!s.seats.slice(0,5).every(Boolean))throw Error('存档教练席位无效');

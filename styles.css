@@ -67,7 +67,6 @@ dialog{border:1px solid var(--line);border-radius:12px;background:var(--panel);c
 .combined-reroll{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 25px}
 .combined-reroll .secondary{gap:9px;color:var(--accent);border-color:#df795e44}
 .combined-reroll .secondary span{color:var(--muted);font-size:11px;margin-left:7px}
-.combined-reroll p{color:var(--faint);font-size:10px}
 .coach-round-grid{display:grid;gap:16px}
 .coach-group{border:1px solid #c5ad7633;border-radius:8px;overflow:hidden;background:var(--panel)}
 .coach-group-heading{display:flex;gap:14px;align-items:center;padding:13px 17px;border-bottom:1px solid #c5ad7622}

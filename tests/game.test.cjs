@@ -65,7 +65,7 @@ test('every player round excludes all previously drawn teams across years and re
 test('replacement rerolls keep seen teams through cancellation, reload and coach switching',()=>{
   let s=fill(7);G.finish(s);const drafted=[...s.drawnTeams];assert.ok(G.beginReplacement(s));
   const seen=new Set([G.currentPool(s).team]);
-  for(let i=0;i<3;i++){
+  for(let i=0;i<4;i++){
     assert.ok(G.draw(s,'both'));const team=G.currentPool(s).team;assert.ok(!seen.has(team));seen.add(team);
     assert.ok(G.replacementTarget(s,6));const coachDraw=structuredClone(s.replacement.coachDraft);
     G.cancelReplacement(s);s=G.validate(JSON.parse(JSON.stringify(s)));assert.ok(G.beginReplacement(s));
@@ -74,6 +74,54 @@ test('replacement rerolls keep seen teams through cancellation, reload and coach
     assert.deepEqual(s.drawnTeams,drafted);
   }
   const before=JSON.stringify(s);assert.equal(G.draw(s,'both'),false);assert.equal(JSON.stringify(s),before);
+});
+test('each new offseason grants one usable reroll without duplicating it on resume or coach switches',()=>{
+  let s=G.start(113);
+  for(let i=0;i<3;i++)assert.ok(G.draw(s,'both'));
+  while(s.phase==='draft')assert.ok(G.pick(s,G.eligible(s,G.currentPool(s))[0].id));
+  G.finish(s);assert.equal(s.rerolls,0);
+  for(let round=0;round<2;round++){
+    assert.ok(G.beginReplacement(s));assert.equal(s.rerolls,1);assert.equal(s.replacementRerollBonuses,round+1);
+    assert.equal(G.beginReplacement(s),false);
+    s=G.validate(JSON.parse(JSON.stringify(s)));assert.equal(s.rerolls,1);
+    assert.ok(G.cancelReplacement(s));s=G.validate(s);assert.ok(G.beginReplacement(s));assert.equal(s.rerolls,1);
+    assert.ok(G.replacementTarget(s,6));assert.ok(G.draw(s,'event'));assert.equal(s.rerolls,1);
+    const role=[1,2,3,4,5].find(role=>G.canReplaceRole(s,role));assert.ok(G.replacementTarget(s,role));
+    const previous=G.currentPool(s);assert.ok(G.draw(s,'both'));assert.equal(s.rerolls,0);
+    assert.notEqual(G.currentPool(s).team,previous.team);assert.notEqual(G.currentPool(s).year,previous.year);
+    G.cancelReplacement(s);s=G.validate(s);G.beginReplacement(s);assert.equal(s.rerolls,0);assert.equal(G.draw(s,'both'),false);
+    const card=G.eligible(s,G.currentPool(s))[0];G.replacementTarget(s,card.role);assert.ok(G.pick(s,card.id));
+    assert.equal(G.beginReplacement(s),false);assert.equal(G.validate(s).rerolls,0);
+    assert.ok(G.next(s));assert.equal(s.rerolls,0);G.finish(s);
+  }
+});
+test('unused offseason rerolls accumulate, keep long draw histories valid and stop at career end',()=>{
+  let s=fill(114);
+  const skipped=structuredClone(s);G.finish(skipped);G.next(skipped);
+  assert.equal(skipped.rerolls,3);assert.equal(skipped.replacementRerollBonuses,0);
+  for(let round=0;round<G.MAX_EVENTS;round++){
+    G.finish(s);
+    if(round===G.MAX_EVENTS-1){
+      const before=JSON.stringify(s);assert.equal(G.beginReplacement(s),false);assert.equal(JSON.stringify(s),before);break;
+    }
+    const before=s.rerolls;assert.ok(G.beginReplacement(s));assert.equal(s.rerolls,before+1);
+    s=G.validate(s);assert.equal(s.replacementRerollBonuses,round+1);
+    if(round===G.MAX_EVENTS-2){
+      assert.equal(s.rerolls,12);const seen=new Set([G.currentPool(s).team]);
+      while(s.rerolls){
+        assert.ok(G.draw(s,'both'));assert.ok(!seen.has(G.currentPool(s).team));seen.add(G.currentPool(s).team);
+        s=G.validate(JSON.parse(JSON.stringify(s)));assert.deepEqual(s.replacement.drawnTeams,[...seen]);
+      }
+      assert.equal(seen.size,13);
+    }
+    G.cancelReplacement(s);assert.ok(G.next(s));
+  }
+  assert.equal(G.validate(s).replacementRerollBonuses,9);
+  for(const replacementRerollBonuses of [-1,10,1.5,null])assert.throws(()=>G.validate({...s,replacementRerollBonuses}),/抽签/);
+  assert.throws(()=>G.validate({...s,rerolls:13}),/抽签/);
+  const legacy=fill(115);delete legacy.replacementRerollBonuses;
+  assert.equal(G.validate(legacy).replacementRerollBonuses,0);
+  assert.throws(()=>G.validate({...legacy,replacementRerollBonuses:1}),/抽签/);
 });
 test('draw history validates team identities and initializes absent older history from the current team',()=>{
   const s=G.start(7),team=G.currentPool(s).team,legacy=structuredClone(s);delete legacy.drawnTeams;

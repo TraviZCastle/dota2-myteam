@@ -59,7 +59,6 @@
   .draw-info{font-size:11px;gap:4px 10px;margin-bottom:12px}
   .combined-reroll{display:grid;gap:5px;margin-bottom:21px}
   .combined-reroll .secondary{width:100%;min-height:46px}
-  .combined-reroll p{font-size:11px;text-align:center}
   .draw-box .text-button{font-size:12px;gap:8px}
   .draw-box .text-button span{font-size:11px}
   .coach-draw-controls .draw-value{min-height:44px;margin:7px 0}
