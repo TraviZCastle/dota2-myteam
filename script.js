@@ -7,9 +7,9 @@
   const escape=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
   const heroBadge=id=>`<span class="hero-chip">${escape(D.heroMap[id]?.name||'未知英雄')}</span>`;
-  function heroPortrait(id,uses){
+  function heroPortrait(id){
     const hero=D.heroMap[id];if(!hero)return heroBadge(id);
-    return `<span class="hero-portrait" title="${escape(hero.name)}${uses?' · '+uses+' 局':''}"><img src="assets/heroes/${hero.id}.png" alt="" width="256" height="144" loading="lazy" decoding="async"><span class="hero-portrait-name">${escape(hero.name)}</span>${uses?`<span class="hero-portrait-uses">${uses} 局</span>`:''}</span>`;
+    return `<span class="hero-portrait" title="${escape(hero.name)}"><img src="assets/heroes/${hero.id}.png" alt="" width="256" height="144" loading="lazy" decoding="async"><span class="hero-portrait-name">${escape(hero.name)}</span></span>`;
   }
   const eventName=year=>D.eventMap[year]?.name||String(year);
   const roleLabel=c=>c.role===6?D.roles[5]:c.role+' 号位 · '+D.roles[c.role-1];
@@ -62,7 +62,7 @@
   function saveStatus(){return `<span class="save-status ${storageWorks?'':'failed'}">${icon(storageWorks?'check':'info')}${storageWorks?'已保存在此浏览器':'进度保存失败，请勿关闭页面'}</span>`;}
   function steps(active){return `<div class="step-indicator" aria-label="当前步骤：${['阵容选秀','阵容确认','赛事结果'][active]}">${['阵容选秀','阵容确认','赛事结果'].map((name,i)=>`${i?'<span class="step-connector"></span>':''}<div class="step-dot ${i===active?'active':i<active?'done':''}"><span>${i<active?'✓':String(i+1).padStart(2,'0')}</span>${name}</div>`).join('')}</div>`;}
   function crumbs(label){return `<div class="breadcrumb"><a href="#home">MYTEAM</a>${icon('chevron')}<span>${label}</span></div>`;}
-  function heroThumbs(card,label=true){if(card.role===6)return '';return `<div class="hero-top-three">${label?`<div class="hero-thumbs-label">当届常用英雄 · TOP 3</div>`:''}<div class="hero-thumbs">${card.heroes.slice(0,3).map(id=>heroPortrait(id,card.heroUsage[id])).join('')||'<span class="fine-print">暂无英雄样本</span>'}</div></div>`;}
+  function heroThumbs(card,label=true){if(card.role===6)return '';return `<div class="hero-top-three">${label?`<div class="hero-thumbs-label">当届常用英雄 · TOP 3</div>`:''}<div class="hero-thumbs">${card.heroes.slice(0,3).map(id=>heroPortrait(id)).join('')||'<span class="fine-print">暂无英雄样本</span>'}</div></div>`;}
   function stats(card,cls='candidate-stats'){
     if(card.role===6){const r=card.coachHistory;return `<div class="${cls} coach-stats"><div class="candidate-stat"><span>擅长风格</span><b>${D.tactics[card.recommendedTactic].name}</b></div><div class="candidate-stat"><span>历史胜率</span><b>${r.winRate===null?'未收录':(r.winRate*100).toFixed(1)+'%'}</b></div><div class="candidate-stat"><span>历史局数</span><b>${r.games?r.games+' 局':'未收录'}</b></div><div class="candidate-stat"><span>最高成绩</span><b>${placementLabel(r.bestFinish)} × ${r.bestCount}</b></div></div>`;}
     if(!card.stats)return `<p class="missing-stats">${icon('info')}TI1 逐场统计暂未收录。名单可选，比赛使用中性能力参数。</p>`;
