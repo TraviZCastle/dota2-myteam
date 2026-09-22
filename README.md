@@ -2,6 +2,8 @@
 
 五位传奇，一位名帅。可离线运行的 Dota 2 历史选秀与生涯游戏。
 
+在线游玩：[dota2-myteam.vercel.app](https://dota2-myteam.vercel.app/)
+
 ## 运行
 
 ```sh
@@ -82,7 +84,7 @@ python3 tests/stats.test.py
 
 教练档案与自动风格更新验收：34 项 Node 测试通过，统计逐项对照原始名单和比赛数据，覆盖选手/教练身份隔离、多次冠军和亚军、缺失局数、总胜率加权、换教练自动换风格、旧存档迁移和历史赛果不变。
 
-网站尚未部署。Dota 2 属于 Valve，本项目为非官方社区游戏。
+Dota 2 属于 Valve，本项目为非官方社区游戏。
 
 2026-09-21 验收：14 项 Node 测试、4 项 Python 测试通过；静态引用/安全预检 0 阻断、0 警告。浏览器完成五人选秀 → 独立教练轮 → TI9 结算 → 教练换人 → 刷新恢复 → TI10（2021）→ 再次结算；验证新教练不改写旧赛果，同一人物选手/教练冲突会禁选。默认桌面和 320 像素手机视口检查图鉴、备战、换人、详情、赛果，无横向溢出，无选手人物头像，无控制台错误。
 
@@ -92,12 +94,16 @@ python3 tests/stats.test.py
 
 本次验收：36 项 Node 测试、4 项 Python 测试通过；浏览器验证五人选秀、TI10—TI15 年份重抽一次、八强后四名教练入队、自动风格、赛事结算、战报定位，以及 375 像素阵容布局。图鉴 Coach 筛选显示 48 张卡，控制台无错误。
 
-## GitHub 维护
+## 发布与维护
 
 - 项目：Dota 2 MyTeam；本地目录 `/Users/test/Documents/ForFun/Dota2MyTeam`，使用独立 Git 仓库。
 - 公开仓库：[TraviZCastle/dota2-myteam](https://github.com/TraviZCastle/dota2-myteam)；默认分支 `main`。
 - Git 远程：`git@github.com:TraviZCastle/dota2-myteam.git`（SSH）。
 - 提交作者：`TraviZCastle <122432577+TraviZCastle@users.noreply.github.com>`，仅在本仓库配置。
-- 运行时无需环境变量；未配置 Vercel、GitHub Pages 或自动部署。
+- Vercel 空间：`chengzhangcs-9520s-projects`（Hobby）；项目：`dota2-myteam`。
+- 公网地址：[dota2-myteam.vercel.app](https://dota2-myteam.vercel.app/)；[部署控制台](https://vercel.com/chengzhangcs-9520s-projects/dota2-myteam)。
+- 部署配置：`Other` 静态站点，根目录 `./`，无构建或输出目录覆盖；运行时无需环境变量，没有服务端 API。
+- GitHub `main` 已连接 Vercel Production，推送后自动部署。
+- 本机推送使用仓库专用可写 Deploy Key：`~/.ssh/dota2-myteam-deploy`。公钥指纹为 `SHA256:pmL/3dA2lthVBWmMOkiZm7jHzvccfY8d951LrWShTwg`；私钥不进入仓库。
 
-修改后运行上述检查，再执行 `git add`、`git commit` 和 `git push origin main`。推送只更新 GitHub 源码，不会自动发布网站。遇到 `Permission denied (publickey)` 时，检查本仓库的 SSH 凭据及 GitHub 写入权限。
+修改后运行上述检查，再执行 `git add`、`git commit` 和 `git push origin main`。在 Vercel 确认对应提交的 Production 部署为 `Ready`，再访问公网地址检查页面。遇到 `Permission denied (publickey)` 时，检查本仓库的 `core.sshCommand` 与 Deploy Key 写入权限；若推送后未部署，检查 Vercel 的 GitHub 仓库授权、`main` 分支连接和构建日志。
