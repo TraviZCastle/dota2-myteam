@@ -129,3 +129,23 @@ test('rename form escapes user text and result reports keep the name used for th
   p.click('game-detail',{game:'0'});assert.match(p.modal.innerHTML,/星火 &lt;A&amp;B&gt;/);assert.doesNotMatch(p.modal.innerHTML,/新队名/);
   assert.deepEqual(p.saved().history[0],result);
 });
+
+test('connected bracket opens every matchup and map with correct spectator winner and operators',()=>{
+  const s=G.start(293);while(s.phase==='draft')G.pick(s,G.eligible(s,G.currentPool(s))[0].id);
+  const r=G.finish(s),p=page(s);
+  assert.equal((p.app.innerHTML.match(/class="bracket-match /g)||[]).length,14);
+  assert.match(p.app.innerHTML,/class="bracket-connectors"/);assert.match(p.app.innerHTML,/aria-label="本届冠军"/);
+  assert.doesNotMatch(p.app.innerHTML,/我的淘汰赛之路|完整淘汰赛对阵|class="bracket-grid"/);
+  for(let series=0;series<14;series++){
+    p.click('series-detail',{series:String(series)});const m=r.bracket[series];
+    for(let map=0;map<m.games.length;map++){
+      p.click('series-map',{series:String(series),map:String(map)});
+      const g=r.games[m.games[map]],winner=r.standings.find(t=>t.id===(g.winner===0?g.a:g.b)).name;
+      assert.ok(p.modal.innerHTML.includes(winner+' 胜利'));
+      for(const side of ['a','b'])for(const c of G.matchLineup(r,g[side]))assert.ok(p.modal.innerHTML.includes(c.name));
+      for(const hero of [...g.draft.a,...g.draft.b])assert.ok(p.modal.innerHTML.includes(D.heroMap[hero].name));
+      assert.match(p.modal.innerHTML,new RegExp(`data-map="${map}" aria-pressed="true"`));
+    }
+  }
+  assert.deepEqual(p.saved(),s);
+});

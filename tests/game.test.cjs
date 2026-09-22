@@ -160,7 +160,7 @@ test('tournament results are deterministic and agree with destroyed bases and th
   assert.equal(a.standings.length,8);assert.equal(a.groupSeries,undefined);assert.equal(a.bracket.length,14);
   assert.equal(a.standings.reduce((n,x)=>n+x.wins,0),a.standings.reduce((n,x)=>n+x.losses,0));
   assert.deepEqual(a.standings.map(x=>x.placement),['1','2','3','4','5–6','5–6','7–8','7–8']);
-  for(const g of a.games){assert.equal(g.bases[1-g.winner],0);assert.ok(g.bases[g.winner]>0);assert.equal(g.events.at(-1).side,g.winner);assert.ok(g.minutes>0);assert.ok(g.towers.every(n=>n>=0&&n<=9));assert.equal(g.draft.coaches[g.a==='myteam'?0:1],G.lineup(s)[5].name);}
+  for(const g of a.games){assert.equal(g.bases[1-g.winner],0);assert.ok(g.bases[g.winner]>0);assert.equal(g.events.at(-1).side,g.winner);assert.ok(g.minutes>0);assert.ok(g.towers.every(n=>n>=0&&n<=9));if(g.a==='myteam'||g.b==='myteam')assert.equal(g.draft.coaches[g.a==='myteam'?0:1],G.lineup(s)[5].name);}
   for(const m of a.bracket){assert.equal(Math.max(...m.score),m.bestOf===5?3:2);assert.ok(Math.min(...m.score)<Math.max(...m.score));}
   assert.equal(a.bracket.at(-1).winner,a.champion);
 });
@@ -366,4 +366,54 @@ test('custom team names persist, keep stable identity and preserve historical na
   assert.equal(next.standings.filter(t=>t.name==='Natus Vincere').length,2);
   assert.equal(new Set(next.standings.map(t=>t.id)).size,8);assert.equal(JSON.stringify(s.history[0]),before);
   assert.deepEqual(G.validate(JSON.parse(JSON.stringify(s))),s);
+});
+
+test('BP rejects pure cores in support seats and carries in the offlane by noisy observed slots',()=>{
+  assert.equal(D.heroes.length,require('../catalog-data.js').heroes.length,'every catalog hero has reviewed draft positions');
+  const cores=['antimage','juggernaut','phantom_lancer','morphling','nevermore','storm_spirit','sniper','templar_assassin','luna','life_stealer','spectre','ursa','alchemist','invoker','chaos_knight','slark','medusa','terrorblade','arc_warden'];
+  for(const id of cores)assert.ok(!D.heroMap[id].roles.some(role=>role>=4),id);
+  assert.ok(D.heroMap.faceless_void.roles.includes(1));
+  assert.ok(!D.heroMap.axe.roles.includes(5));assert.ok(!D.heroMap.beastmaster.roles.includes(5));
+  for(let i=0;i<D.pools.length;i++)for(let seed=0;seed<4;seed++){
+    const teams=[team(D.pools[i]),team(D.pools[(i+5)%D.pools.length])],bp=G.autoDraft(...teams,G.rng(seed+i*10),seed%2);
+    for(const decision of bp.decisions.filter(d=>d.kind==='pick')){
+      const card=teams[decision.side].cards[decision.role-1];
+      if(decision.role>=4)assert.ok(!cores.includes(decision.hero));
+      if(decision.source==='event')assert.ok(card.heroUsage[decision.hero]>0);
+      else if(decision.source==='career')assert.ok(D.playerHeroUsage[card.person][decision.hero]>0);
+      else assert.equal(decision.source,'role');
+    }
+  }
+});
+
+test('BP reserves narrow player pools during bans and early picks instead of forcing off-role heroes',()=>{
+  const ids=['antimage','storm_spirit','axe','earthshaker','chen','juggernaut','puck','tidehunter','rubick','crystal_maiden'];
+  const a={cards:ids.slice(0,5).map((id,i)=>({person:'test-a-'+i,role:i+1,heroUsage:{[id]:10}}))},b={cards:ids.slice(5).map((id,i)=>({person:'test-b-'+i,role:i+1,heroUsage:{[id]:10}}))};
+  for(let seed=0;seed<20;seed++){
+    const bp=G.autoDraft(a,b,G.rng(seed),seed%2);
+    assert.deepEqual([...bp.a,...bp.b],ids);assert.ok(bp.banned.every(id=>!ids.includes(id)));
+    assert.ok(bp.decisions.filter(d=>d.kind==='pick').every(d=>d.source==='event'));
+  }
+  const duplicate=structuredClone(b);duplicate.cards[4].heroUsage={chen:10};
+  const bp=G.autoDraft(a,duplicate,G.rng(21),0);
+  assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,14);
+  assert.ok([...bp.a.slice(3),...bp.b.slice(3)].every(id=>D.heroMap[id].roles.some(r=>r>=4)));
+});
+
+test('all fourteen series retain every map, both lineups and per-series scores across save reload',()=>{
+  const s=fill(391),r=G.finish(s),indices=r.bracket.flatMap(m=>m.games);
+  assert.deepEqual(indices,r.games.map((_,i)=>i));assert.ok(r.games.some(g=>g.a!=='myteam'&&g.b!=='myteam'));
+  r.bracket.forEach((m,index)=>{
+    const score=[0,0];m.games.forEach((id,map)=>{
+      const g=r.games[id];assert.equal(g.seriesId,index);assert.equal(g.mapNumber,map+1);assert.equal(g.a,m.a);assert.equal(g.b,m.b);
+      assert.equal(g.stage,m.stage);score[g.winner]++;
+      for(const side of ['a','b']){
+        assert.equal(G.matchLineup(r,g[side]).filter(Boolean).length,5);assert.equal(g.draft[side].length,5);
+      }
+    });assert.deepEqual(score,m.score);
+  });
+  assert.equal(r.wins+r.losses,r.games.filter(g=>g.a==='myteam'||g.b==='myteam').length);
+  assert.deepEqual(G.validate(JSON.parse(JSON.stringify(s))),s);
+  for(let i=1;i<10;i++){G.next(s);G.finish(s);}
+  assert.ok(JSON.stringify(s).length*2<4*1024*1024,'ten full events fit within ordinary browser storage');
 });

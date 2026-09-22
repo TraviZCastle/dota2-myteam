@@ -162,24 +162,53 @@
     return coach?.tacticFits?.[tactic]||0;
   }
   function experience(card,id){const counts=Object.values(card?.heroUsage||{});return counts.length?(card.heroUsage[id]||0)/Math.max(...counts):0;}
+  function draftPool(card,role,tier=0){
+    const event=card?.heroUsage||{},career=D.playerHeroUsage[card?.person]||{};
+    const compatible=D.heroes.filter(h=>h.roles.includes(role));
+    const current=compatible.filter(h=>event[h.id]>0),known=compatible.filter(h=>career[h.id]>0);
+    const fallback=compatible.filter(h=>role>=4?h.tags.includes('Support')&&!h.tags.includes('Carry'):!h.tags.includes('Support')||h.tags.includes('Carry'));
+    const expanded=compatible.filter(h=>event[h.id]>0||career[h.id]>0||fallback.includes(h));
+    const heroes=tier===2?expanded:tier===1?(known.length?known:fallback):(current.length?current:known.length?known:fallback);
+    return heroes.map(h=>({hero:h.id,source:event[h.id]>0?'event':career[h.id]>0?'career':'role',familiarity:event[h.id]>0?experience(card,h.id):experience({heroUsage:career},h.id)}));
+  }
+  // Bipartite matching reserves a distinct legal hero for every remaining seat.
+  function canAssign(pools,blocked){
+    const assigned=new Map();
+    function visit(seat,seen){
+      for(const pick of pools[seat]){
+        if(blocked.has(pick.hero)||seen.has(pick.hero))continue;
+        seen.add(pick.hero);
+        if(!assigned.has(pick.hero)||visit(assigned.get(pick.hero),seen)){assigned.set(pick.hero,seat);return true;}
+      }
+      return false;
+    }
+    return pools.every((_,seat)=>visit(seat,new Set()));
+  }
   function autoDraft(a,b,random,first){
     const teams=[a,b].map(t=>({...t,tactic:coachTactic(t.coach)})),banned=[],used=new Set(),picks=[[],[]],roles=[0,0],decisions=[];
-    // Keep a large per-role reserve so flexible heroes cannot exhaust a later seat.
-    const safe=id=>[1,2,3,4,5].every(role=>D.heroes.filter(h=>h.id!==id&&h.roles.includes(role)&&!used.has(h.id)).length>=10);
+    let pools;
+    for(let tier=0;tier<=2;tier++){
+      pools=teams.flatMap(t=>t.cards.slice(0,5).map((c,i)=>draftPool(c,i+1,tier)));
+      if(canAssign(pools,used))break;
+    }
+    if(!canAssign(pools,used))throw Error('无法生成符合位置的完整 BP');
+    const safe=(id,remaining=pools)=>canAssign(remaining,new Set([...used,id]));
     for(let i=0;i<4;i++){
-      const side=(i+(first?1:0))%2,team=teams[side],opponent=teams[1-side];
+      const side=(i+(first?1:0))%2,team=teams[side],opponentPools=pools.slice((1-side)*5,(1-side)*5+5);
       const candidates=D.heroes.filter(h=>!used.has(h.id)&&safe(h.id));
-      const ranked=candidates.map(h=>({h,score:random()*2+(team.coach?Math.max(...opponent.cards.slice(0,5).map(c=>experience(c,h.id)))*3:0)})).sort((x,y)=>y.score-x.score);
+      const threats=candidates.filter(h=>opponentPools.some(pool=>pool.some(p=>p.hero===h.id)));
+      const ranked=(threats.length?threats:candidates).map(h=>({h,score:random()*2+Math.max(...opponentPools.map(pool=>pool.find(p=>p.hero===h.id)?.familiarity||0))*(team.coach?4:3)})).sort((x,y)=>y.score-x.score);
       const id=ranked[0].h.id;banned.push(id);used.add(id);
       decisions.push({kind:'ban',side,hero:id,coach:team.coach?.name||null});
     }
     const order=[0,1,1,0,0,1,1,0,0,1].map(x=>first?1-x:x);
     for(const side of order){
-      const role=++roles[side],team=teams[side],card=team.cards[role-1];
-      const candidates=D.heroes.filter(h=>h.roles.includes(role)&&!used.has(h.id));
-      const ranked=candidates.map(h=>({h,score:D.heroScore(h,team.tactic)+experience(card,h.id)*3+experience(team.coach,h.id)*2+random()*2})).sort((x,y)=>y.score-x.score);
-      const hero=ranked[0].h.id;picks[side].push(hero);used.add(hero);
-      decisions.push({kind:'pick',side,role,hero,coach:team.coach?.name||null,coachExperience:experience(team.coach,hero)});
+      const role=++roles[side],team=teams[side];
+      const remaining=pools.filter((_,i)=>i%5>=roles[Math.floor(i/5)]);
+      const candidates=pools[side*5+role-1].filter(p=>!used.has(p.hero)&&safe(p.hero,remaining));
+      const ranked=candidates.map(p=>({...p,score:(p.source==='event'?40:p.source==='career'?20:0)+p.familiarity*5+D.heroScore(D.heroMap[p.hero],team.tactic)/5*.5+experience(team.coach,p.hero)*1.2+random()*1.5})).sort((x,y)=>y.score-x.score);
+      const chosen=ranked[0],hero=chosen.hero;picks[side].push(hero);used.add(hero);
+      decisions.push({kind:'pick',side,role,hero,source:chosen.source,coach:team.coach?.name||null,coachExperience:experience(team.coach,hero)});
     }
     return {banned,a:picks[0],b:picks[1],decisions,coaches:teams.map(t=>t.coach?.name||null),coachFit:teams.map(t=>coachFit(t.coach,t.tactic))};
   }
@@ -224,12 +253,12 @@
       const limit=Math.floor(bestOf/2)+1;
       while(Math.max(...scores)<limit){
         const map=playMap(teamA,teamB,random,(first+maps.length)%2);scores[map.winner]++;
-        if(a==='myteam'||b==='myteam')games.push({a,b,stage,...clone(map)});
-        maps.push(a==='myteam'||b==='myteam'?map:{winner:map.winner});
+        maps.push(games.length);
+        games.push({a,b,stage,mapNumber:maps.length,seriesId:bracket.length,...map});
       }
       return {a,b,score:scores,winner:scores[0]>scores[1]?a:scores[1]>scores[0]?b:null,loser:scores[0]>scores[1]?b:scores[1]>scores[0]?a:null,stage,bestOf,maps};
     }
-    function match(a,b,stage,bestOf=3,loserPlace=null){const r=series(a,b,bestOf,stage);bracket.push({a:r.a,b:r.b,score:r.score,winner:r.winner,stage,bestOf});if(loserPlace)placements[r.loser]=loserPlace;return r;}
+    function match(a,b,stage,bestOf=3,loserPlace=null){const r=series(a,b,bestOf,stage);bracket.push({a:r.a,b:r.b,score:r.score,winner:r.winner,stage,bestOf,games:r.maps});if(loserPlace)placements[r.loser]=loserPlace;return r;}
     const q=[[0,7],[3,4],[1,6],[2,5]].map(([a,b])=>match(qualified[a],qualified[b],'胜者组首轮'));
     const l1=[match(q[0].loser,q[1].loser,'败者组第一轮',3,'7–8'),match(q[2].loser,q[3].loser,'败者组第一轮',3,'7–8')];
     const semi=[match(q[0].winner,q[1].winner,'胜者组第二轮'),match(q[2].winner,q[3].winner,'胜者组第二轮')];
@@ -238,13 +267,14 @@
     const upper=match(semi[0].winner,semi[1].winner,'胜者组决赛');
     const lower=match(l3.winner,upper.loser,'败者组决赛',3,'3');
     const final=match(upper.winner,lower.winner,'总决赛',5,'2');placements[final.winner]='1';
-    const wins=games.filter(g=>(g.winner===0?g.a:g.b)==='myteam').length;
+    const ourGames=games.filter(g=>g.a==='myteam'||g.b==='myteam');
+    const wins=ourGames.filter(g=>(g.winner===0?g.a:g.b)==='myteam').length;
     const standings=participants.map((t,seed)=>{
       const matches=bracket.filter(m=>m.a===t.id||m.b===t.id);
       return {id:t.id,name:t.name,seed,placement:placements[t.id],wins:matches.reduce((n,m)=>n+m.score[m.a===t.id?0:1],0),losses:matches.reduce((n,m)=>n+m.score[m.a===t.id?1:0],0)};
     }).sort((a,b)=>parseInt(a.placement,10)-parseInt(b.placement,10)||a.seed-b.seed);
-    return {model:'historical-inputs-game-rules-5',format:'double-elimination-8',year:s.year,teamName:us.name,replacedTeam:{id:replaced.team,name:replaced.name,placement:replaced.finish},seats:[...s.seats],lineups:Object.fromEntries(participants.map(t=>[t.id,t.cards.map(c=>c.id)])),tactic:us.tactic,placement:placements.myteam,champion:final.winner,standings,bracket,games,wins,losses:games.length-wins,seed:s.seed};
+    return {model:'historical-inputs-game-rules-6',format:'double-elimination-8',year:s.year,teamName:us.name,replacedTeam:{id:replaced.team,name:replaced.name,placement:replaced.finish},seats:[...s.seats],lineups:Object.fromEntries(participants.map(t=>[t.id,t.cards.map(c=>c.id)])),tactic:us.tactic,placement:placements.myteam,champion:final.winner,standings,bracket,games,wins,losses:ourGames.length-wins,seed:s.seed};
   }
   function finish(s){if(s.phase!=='ready'||!s.seats.every(Boolean)||!coachIds.has(s.seats[5])||s.history.some(r=>r.year===s.year))return false;if(!s.history.length)s.year=START_YEAR;s.tactic=coachTactic(lineup(s)[5]);const result=tournament(s);s.history.push(result);s.phase='result';return result;}
-  return {VERSION,MAX_EVENTS,nextYear,canAdvance,coachFit,experience,rng,shuffle,start,renameTeam,eventField,validate,currentPool,lineup,canPick,canComplete,eligible,alternatives,draw,pick,coachPools,isCoachDraft,coachSelection,canReplaceRole,beginReplacement,replacementTarget,cancelReplacement,next,matchLineup,autoDraft,playMap,tournament,finish};
+  return {VERSION,MAX_EVENTS,nextYear,canAdvance,coachFit,experience,draftPool,rng,shuffle,start,renameTeam,eventField,validate,currentPool,lineup,canPick,canComplete,eligible,alternatives,draw,pick,coachPools,isCoachDraft,coachSelection,canReplaceRole,beginReplacement,replacementTarget,cancelReplacement,next,matchLineup,autoDraft,playMap,tournament,finish};
 });

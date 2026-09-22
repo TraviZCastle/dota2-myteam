@@ -21,17 +21,32 @@
   };
 
   const axes=['farm','tempo','push','control','save'];
+  // Conservative draft positions, distinct from raw observed roster slots.
+  // Flexible picks still need player history to outrank a conventional pick.
+  const draftPositions={
+    1:'antimage bloodseeker drow_ranger juggernaut mirana morphling nevermore phantom_lancer razor sven tiny windrunner riki faceless_void skeleton_king phantom_assassin templar_assassin luna dragon_knight leshrac furion life_stealer clinkz huskar weaver spectre ursa gyrocopter alchemist lone_druid chaos_knight naga_siren wisp slark medusa troll_warlord bristleback abaddon ember_spirit terrorblade arc_warden monkey_king dark_willow marci muerta kez',
+    2:'bloodseeker earthshaker mirana morphling nevermore puck pudge razor storm_spirit tiny windrunner zuus kunkka lina tinker sniper necrolyte queenofpain death_prophet pugna templar_assassin viper dragon_knight dazzle leshrac furion huskar broodmother batrider doom_bringer alchemist invoker obsidian_destroyer brewmaster lone_druid meepo keeper_of_the_light visage medusa magnataur shredder ember_spirit earth_spirit arc_warden monkey_king pangolier void_spirit snapfire primal_beast',
+    3:'axe bloodseeker earthshaker mirana pudge razor sand_king tiny windrunner slardar tidehunter enigma necrolyte beastmaster venomancer faceless_void skeleton_king death_prophet viper dragon_knight furion dark_seer omniknight enchantress night_stalker broodmother bounty_hunter weaver batrider doom_bringer spirit_breaker alchemist lycan brewmaster lone_druid chaos_knight undying nyx_assassin visage centaur magnataur shredder bristleback tusk abaddon elder_titan legion_commander abyssal_underlord phoenix winter_wyvern pangolier snapfire mars dawnbreaker marci primal_beast largo',
+    4:'bane crystal_maiden earthshaker mirana pudge sand_king tiny vengefulspirit windrunner kunkka lina lion shadow_shaman witch_doctor lich enigma venomancer pugna dazzle rattletrap leshrac furion enchantress bounty_hunter jakiro batrider chen ancient_apparition spirit_breaker silencer shadow_demon treant ogre_magi undying rubick disruptor nyx_assassin naga_siren keeper_of_the_light wisp visage tusk skywrath_mage abaddon elder_titan techies earth_spirit phoenix oracle winter_wyvern monkey_king dark_willow grimstroke hoodwink snapfire ringmaster dawnbreaker marci muerta',
+    5:'bane crystal_maiden mirana vengefulspirit lion shadow_shaman witch_doctor lich warlock venomancer pugna dazzle rattletrap furion omniknight enchantress jakiro chen ancient_apparition silencer shadow_demon treant ogre_magi undying rubick disruptor naga_siren keeper_of_the_light wisp abaddon elder_titan phoenix oracle winter_wyvern dark_willow grimstroke snapfire ringmaster marci'
+  };
+  const rolePools=Object.fromEntries(Object.entries(draftPositions).map(([role,ids])=>[role,ids.split(' ')]));
   const designed=Object.fromEntries(heroRows.map(([id,name,role,vector])=>[id,{name,role,vector}]));
   const heroes=C.heroes.map(h=>{
     const base=designed[h.id],tags=h.tags;
     const v=base?.vector||[tags.includes('Carry')?4:2,tags.includes('Initiator')?4:3,tags.includes('Pusher')?4:2,tags.includes('Disabler')?4:2,tags.includes('Support')?4:1];
-    const compatible=[...new Set([...h.observedRoles,...(base?[base.role]:[])])];
+    const compatible=[1,2,3,4,5].filter(role=>rolePools[role].includes(h.id));
     return {...h,roles:compatible,...Object.fromEntries(axes.map((k,i)=>[k,v[i]]))};
   }).filter(h=>h.roles.length);
   const heroMap=Object.fromEntries(heroes.map(h=>[h.id,h]));
   const coachPoolVersion=C.coachSelection.version,coachYears=C.coachSelection.years;
   const coachIds=new Set(C.coachSelection.ids);
   const historicalCards=C.pools.flatMap(p=>p.cards);
+  const playerHeroUsage={};
+  for(const c of historicalCards.filter(c=>c.role<=5)){
+    const usage=playerHeroUsage[c.person]||(playerHeroUsage[c.person]={});
+    for(const [id,count] of Object.entries(c.heroUsage))usage[id]=(usage[id]||0)+count;
+  }
   const pools=C.pools.map(p=>({...p,cards:p.cards.filter(c=>c.role<=5||coachIds.has(c.id))}));
   const cards=pools.flatMap(p=>p.cards),coachCards=cards.filter(c=>c.role===6);
   const cardMap=Object.fromEntries(historicalCards.map(c=>[c.id,c]));
@@ -94,5 +109,5 @@
     const deviations=means.map((mean,i)=>Math.sqrt(values.reduce((n,v)=>n+((v[i]??mean)-mean)**2,0)/(values.length||1)));
     cohort.forEach((c,j)=>{const z=means.map((mean,i)=>values[j][i]==null?0:deviations[i]?(values[j][i]-mean)/deviations[i]:0);c.strength=Math.max(-1,Math.min(1,z.reduce((n,v)=>n+v,0)/4))*Math.min(1,c.stats.games/20);});
   }
-  return {aegis,version:C.version,coachPoolVersion,coachYears,coachCards,roles,roleEnglish,axes,heroes,heroMap,teams,pools,poolMap,cards,cardMap,tactics,years,events,eventMap,personId,heroScore,statsMeta:{events:eventMap}};
+  return {aegis,playerHeroUsage,version:C.version,coachPoolVersion,coachYears,coachCards,roles,roleEnglish,axes,heroes,heroMap,teams,pools,poolMap,cards,cardMap,tactics,years,events,eventMap,personId,heroScore,statsMeta:{events:eventMap}};
 });

@@ -171,3 +171,75 @@ dialog:has(.bp-side){max-width:840px}
 .bracket-team>span:first-child,.result-hero p,.standings td:nth-child(2){overflow-wrap:anywhere}
 @media(max-width:700px){.team-identity h2{font-size:20px}.team-identity .text-button{min-height:40px}.result-facts{flex-wrap:wrap}.result-emblem.is-champion{display:flex;max-width:100px}.standings td:nth-child(2){max-width:160px}}
 @media(max-width:380px){.result-hero:has(.is-champion){grid-template-columns:minmax(0,1fr) 65px}.result-emblem.is-champion{width:65px;height:82px}.history-aegis{width:28px;height:32px}}
+/* A connected double-elimination bracket, with every series opening its maps. */
+.champion-banner{display:flex;align-items:center;gap:24px;padding:20px 28px;border:1px solid #c5ad764d;border-radius:10px;background:radial-gradient(ellipse at left,#a3844024,transparent 60%),var(--panel)}
+.champion-aegis{width:82px;height:92px;object-fit:contain;flex-shrink:0}
+.champion-banner .eyebrow{color:var(--gold);font-size:9px}
+.champion-banner h2{font-size:29px;margin:7px 0;overflow-wrap:anywhere}
+.champion-banner p{font-size:11px;color:var(--muted)}
+.champion-banner>div{min-width:0}
+.champion-banner>.text-button{margin-left:auto;flex-shrink:0;color:var(--gold)}
+.our-result{display:flex;align-items:center;gap:24px;padding:20px 0 28px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.our-result strong{color:var(--ink);font-weight:500;overflow-wrap:anywhere}
+.our-result strong span{color:var(--gold);margin-left:12px}
+.playoff-section{min-width:0}
+.bracket-scroll{overflow-x:auto;overscroll-behavior-x:contain;padding:8px 0 5px;scrollbar-color:#566263 var(--bg);scrollbar-width:thin}
+.bracket-canvas{position:relative;min-width:1100px;width:100%;height:810px}
+.bracket-connectors{position:absolute;inset:0;width:100%;height:100%;stroke:#586262;stroke-width:1.5;fill:none;pointer-events:none}
+.bracket-round{position:absolute;left:calc(var(--column)*20%);top:var(--top);width:18%;display:flex;align-items:center;justify-content:space-between;gap:8px;background:#242c2e;border-radius:4px;padding:9px 11px;height:36px}
+.bracket-round h3{font-size:12px;font-weight:500;letter-spacing:0}
+.bracket-round>span{font-size:9px;color:var(--faint)}
+.bracket-match{position:absolute;left:calc(var(--column)*20%);top:var(--top);width:18%;height:84px;display:block;padding:0;border:1px solid #3a4344;background:var(--panel);border-radius:5px;text-align:left;z-index:1;overflow:visible}
+.bracket-match:hover{border-color:var(--gold);background:var(--panel-high)}
+.bracket-match.has-myteam{border-color:#df795e80}
+.bracket-match.is-final{box-shadow:0 0 24px #c5ad760a;border-color:#c5ad7670}
+.bracket-side{display:grid;grid-template-columns:minmax(0,1fr) 34px;align-items:center;height:41px;color:var(--muted);font-size:12px}
+.bracket-side+.bracket-side{border-top:1px solid #ffffff09}
+.bracket-side.is-winner{color:var(--ink);background:#ffffff04;font-weight:650}
+.bracket-team-name{padding:0 10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.bracket-team-name i{display:block;color:var(--accent);font-size:8px;line-height:1.2;font-style:normal;font-weight:400}
+.bracket-side>b{height:100%;display:grid;place-items:center;background:#ffffff05;font-size:15px;font-variant-numeric:tabular-nums}
+.bracket-info{position:absolute;right:-6px;top:35px;background:#343e3f;border-radius:50%;color:#aab6b7;width:14px;height:14px;display:grid;place-items:center}
+.bracket-info svg{width:12px;height:12px}
+.result-page .section-heading{margin-bottom:10px}
+.series-report{padding-top:4px}
+dialog:has(.series-report){max-width:900px}
+.series-title{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:18px;align-items:center;padding:12px 0 18px;border-bottom:1px solid var(--line)}
+.series-title span{font-size:20px;overflow-wrap:anywhere;line-height:1.35}
+.series-title span:last-child{text-align:right}
+.series-title b{font-size:28px;color:var(--gold);font-weight:500;white-space:nowrap}
+.series-tabs{display:flex;gap:8px;margin:0 0 18px;flex-wrap:wrap}
+.series-tabs button{padding:8px 17px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--muted);font-size:12px}
+.series-tabs button.active{background:#c5ad761c;border-color:var(--gold);color:var(--gold)}
+.map-overview{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:11px;color:var(--muted);padding:10px 13px;background:#10181a;border-radius:5px}
+.map-overview strong{font-weight:500;color:var(--green);overflow-wrap:anywhere}
+.bp-side h3{display:flex;align-items:center;flex-wrap:wrap;gap:10px;overflow-wrap:anywhere}
+.bp-victory{font-size:10px;color:var(--green);font-weight:400}
+.bp-ban-list{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:18px}
+.bp-ban-list>.hero-portrait{width:70px;gap:5px}
+.bp-ban-list .hero-portrait-name{font-size:9px}
+.report-coaches{font-size:10px!important;margin-top:18px;color:var(--faint)!important}
+.report-events{margin-top:20px;border-top:1px solid var(--line)}
+.report-events summary{padding:14px 0;color:var(--muted);font-size:12px;cursor:pointer}
+.report-events .event-list{margin-top:0}
+@media(max-width:700px){
+  .champion-banner{padding:16px;gap:15px;flex-wrap:wrap}
+  .champion-aegis{width:60px;height:70px}
+  .champion-banner>div{flex:1}
+  .champion-banner h2{font-size:22px}
+  .champion-banner>.text-button{flex-basis:100%;justify-content:flex-end;min-height:30px}
+  .our-result{gap:8px 18px;padding:17px 0 22px;font-size:11px}
+  .our-result strong{width:100%}
+  .playoff-section .section-heading small{font-size:10px}
+  .bracket-scroll{border:1px solid var(--line);border-radius:6px;padding:12px;max-width:100%}
+  .bracket-canvas{min-width:1080px}
+  .series-title{gap:10px}
+  .series-title span{font-size:17px}
+  .series-title b{font-size:23px}
+  .series-tabs{gap:6px}
+  .series-tabs button{min-height:44px;padding:8px 13px;flex:1;white-space:nowrap}
+  .map-overview{font-size:11px;gap:7px 14px}
+  .map-overview strong{width:100%}
+  .bp-ban-list{gap:8px}
+  .bp-ban-list>.hero-portrait{width:60px}
+}
