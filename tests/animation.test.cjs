@@ -90,7 +90,15 @@ test('ready screen keeps hero portraits while removing manual hero controls',()=
   const expected=G.lineup(s).slice(0,5).reduce((n,c)=>n+c.heroes.slice(0,3).length,0);
   assert.equal((html.match(/class="hero-portrait"/g)||[]).length,expected);
   assert.doesNotMatch(html,/data-action="tactic"|选择本届战术/);assert.match(html,/data-action="simulate"/);
-  const saved=p.saved();p.click('tactic',{tactic:'tempo'});assert.deepEqual(p.saved(),saved);
+  assert.doesNotMatch(html,/data-action="year"|year-button|选择生涯起点/);assert.match(html,/生涯起点 · TI1（2011）/);assert.match(html,/征战 TI1/);
+  const saved=p.saved();p.click('tactic',{tactic:'tempo'});p.click('year',{year:'2026'});assert.deepEqual(p.saved(),saved);
+});
+
+test('continued careers show their next event without a year selector',()=>{
+  const s=G.start(45);while(s.phase==='draft')G.pick(s,G.eligible(s,G.currentPool(s))[0].id);
+  G.finish(s);G.next(s);
+  const p=page(s);assert.match(p.app.innerHTML,/下一站 · TI2（2012）/);assert.match(p.app.innerHTML,/征战 TI2/);
+  assert.doesNotMatch(p.app.innerHTML,/data-action="year"|year-button|生涯起点/);
 });
 
 test('coach draft, archive and detail show career statistics instead of hero portraits',()=>{

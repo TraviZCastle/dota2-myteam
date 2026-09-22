@@ -90,9 +90,19 @@ test('careers cap at ten consecutive events and skip 2020',()=>{
   for(let i=0;i<10;i++){G.finish(s);assert.equal(s.history.length,i+1);assert.equal(G.validate(s).phase,'result');if(i<9)assert.ok(G.next(s));}
   assert.equal(s.year,2021);assert.equal(G.next(s),false);assert.equal(G.beginReplacement(s),false);assert.equal(G.finish(s),false);
 });
-test('all fifteen starting events run; 2026 ends, and historical team names are preserved',()=>{
+test('all fifteen historical tournament fields run; 2026 ends, and team names are preserved',()=>{
   const s=fill(8);
-  for(const year of D.years){const t=structuredClone(s);t.year=year;const result=G.finish(t);assert.ok(result);assert.equal(G.validate(t).phase,'result');assert.equal(G.next(t),year!==2026);if(year===2025)assert.ok(result.standings.some(x=>x.name==='BetBoom Team'));if(year===2026)assert.ok(result.standings.some(x=>x.name==='BoomBoys'));}
+  for(const year of D.years){const t=structuredClone(s);t.year=year;const result=G.tournament(t);t.history=[result];t.phase='result';assert.equal(result.year,year);assert.equal(G.validate(t).phase,'result');assert.equal(G.next(t),year!==2026);if(year===2025)assert.ok(result.standings.some(x=>x.name==='BetBoom Team'));if(year===2026)assert.ok(result.standings.some(x=>x.name==='BoomBoys'));}
+});
+test('new and unplayed careers always begin at TI1 and advance to TI2',()=>{
+  const draft=G.start(18);assert.equal(draft.year,2011);
+  draft.year=2026;assert.equal(G.validate(draft).year,2011);
+  const s=fill(18);s.year=2021;
+  assert.equal(G.validate(s).year,2011);
+  const result=G.finish(s);assert.equal(result.year,2011);assert.equal(s.year,2011);
+  assert.deepEqual(result.standings.filter(t=>t.id!=='myteam').map(t=>t.name).sort(),D.pools.filter(p=>p.year===2011).map(p=>p.name).sort());
+  assert.ok(G.next(s));assert.equal(s.year,2012);assert.equal(G.validate(s).year,2012);
+  assert.equal(G.finish(s).year,2012);
 });
 test('incompatible, malformed, duplicate or skipped-event saved states are rejected',()=>{
   const s=fill(10);s.seats[1]=s.seats[0];assert.throws(()=>G.validate(s),/阵容|席位/);
@@ -194,11 +204,11 @@ test('coach round saves reject missing state, earlier years and invalid budgets'
   delete finished.replacement.coachDraft;assert.throws(()=>G.validate(finished));
 });
 test('match reports keep the correct five operators on both sides after replacement, including legacy results',()=>{
-  const s=fill(84);s.year=2021;const result=G.finish(s),original=JSON.stringify(result);
+  const s=fill(84);const result=G.finish(s),original=JSON.stringify(result);
   assert.equal(Object.keys(result.lineups).length,9);
   for(const game of result.games)for(const side of ['a','b']){
     const teamId=game[side],players=G.matchLineup(result,teamId);
-    const expected=teamId==='myteam'?result.seats.slice(0,5):D.pools.find(p=>p.year===2021&&p.team===teamId).cards.filter(c=>c.role<=5).map(c=>c.id);
+    const expected=teamId==='myteam'?result.seats.slice(0,5):D.pools.find(p=>p.year===result.year&&p.team===teamId).cards.filter(c=>c.role<=5).map(c=>c.id);
     assert.deepEqual(players.map(c=>c.id),expected);assert.deepEqual(players.map(c=>c.role),[1,2,3,4,5]);
     assert.equal(game.draft[side].length,players.length);
   }
