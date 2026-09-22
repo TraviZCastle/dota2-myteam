@@ -7,6 +7,7 @@
   const VERSION='dota2-career-v3',MAX_EVENTS=10,START_YEAR=2011;
   const coachPools=year=>D.coachYears.includes(year)?D.pools.filter(p=>p.year===year):[];
   const coachIds=new Set(D.coachCards.map(c=>c.id));
+  const teamIds=new Set(D.pools.map(p=>p.team));
   const byRole=Array.from({length:6},(_,i)=>D.cards.filter(c=>c.role===i+1&&(i!==5||coachIds.has(c.id))));
   const nextYear=s=>D.years[D.years.indexOf(s.year)+1];
   const canAdvance=s=>s.history.length<MAX_EVENTS&&Boolean(nextYear(s));
@@ -18,6 +19,7 @@
   function shuffle(list,random){const out=[...list];for(let i=out.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;}
   const isCoachDraft=s=>(s.phase==='draft'&&s.seats.slice(0,5).every(Boolean)&&!s.seats[5])||(s.phase==='replace'&&s.replacement?.target===6);
   const coachSelection=s=>s.phase==='replace'?s.replacement.coachDraft:s.coachDraft;
+  const playerSelection=s=>s.phase==='replace'?s.replacement:s;
   function currentPool(s){
     if(isCoachDraft(s)){const year=coachSelection(s).year;return {id:'coaches-'+year,year,name:'当届八强教练',cards:coachPools(year).flatMap(p=>p.cards.filter(c=>c.role===6))};}
     return D.poolMap[s.phase==='replace'?s.replacement?.poolId:s.poolId];
@@ -45,8 +47,8 @@
   function alternatives(s,kind){
     if(isCoachDraft(s))return kind&&kind!=='event'?[]:coachYears(s).filter(year=>!kind||year!==coachSelection(s).year);
     if(kind&&kind!=='both')return [];
-    const pool=currentPool(s);
-    return D.pools.filter(p=>eligible(s,p).length&&(!kind||(p.year!==pool.year&&p.team!==pool.team)));
+    const pool=currentPool(s),seen=new Set(playerSelection(s).drawnTeams||[pool?.team]);
+    return D.pools.filter(p=>!seen.has(p.team)&&eligible(s,p).length&&(!kind||p.year!==pool.year));
   }
   function draw(s,kind){
     if(!['draft','replace'].includes(s.phase))return false;
@@ -62,11 +64,13 @@
     const random=rng((s.seed+Math.imul(++s.drawStep,0x9e3779b9))>>>0);
     const year=pickOne([...new Set(pools.map(p=>p.year))],random);
     const pool=pickOne(pools.filter(p=>p.year===year),random);
+    const selection=playerSelection(s);
+    selection.drawnTeams=[...(selection.drawnTeams||[]),pool.team];
     if(s.phase==='replace')s.replacement={...s.replacement,poolId:pool.id,target:null};else s.poolId=pool.id;
     if(kind)s.rerolls--;
     return true;
   }
-  function start(seed){const s={version:VERSION,seed:seed>>>0,drawStep:0,phase:'draft',catalogVersion:D.version,coachPoolVersion:D.coachPoolVersion,seats:Array(6).fill(null),poolId:null,rerolls:3,coachDraft:{year:null,rerolls:1},year:START_YEAR,tactic:'balanced',history:[],replacement:null,replacementUsed:false};draw(s);return s;}
+  function start(seed){const s={version:VERSION,seed:seed>>>0,drawStep:0,phase:'draft',catalogVersion:D.version,coachPoolVersion:D.coachPoolVersion,seats:Array(6).fill(null),poolId:null,drawnTeams:[],rerolls:3,coachDraft:{year:null,rerolls:1},year:START_YEAR,tactic:'balanced',history:[],replacement:null,replacementUsed:false};draw(s);return s;}
   function pick(s,id){
     const card=D.cardMap[id];
     if(!currentPool(s)?.cards.some(c=>c.id===id)||!canPick(s,card))return false;
@@ -74,12 +78,12 @@
     const replacing=s.phase==='replace';s.seats[card.role-1]=id;
     if(card.role===6)s.tactic=coachTactic(card);
     if(replacing){s.replacementUsed=true;s.replacement=null;s.phase='result';}
-    else if(s.seats.every(Boolean))s.phase='ready';else draw(s);
+    else if(s.seats.every(Boolean))s.phase='ready';else{if(!isCoachDraft(s))s.drawnTeams=[];draw(s);}
     return true;
   }
   function beginReplacement(s){
     if(s.phase!=='result'||!canAdvance(s)||s.replacementUsed)return false;
-    s.phase='replace';if(!s.replacement){s.replacement={poolId:null,target:null,coachDraft:{year:null,rerolls:1}};draw(s);}return true;
+    s.phase='replace';if(!s.replacement){s.replacement={poolId:null,drawnTeams:[],target:null,coachDraft:{year:null,rerolls:1}};draw(s);}return true;
   }
   function canReplaceRole(s,role){
     if(s.phase!=='replace'||![1,2,3,4,5,6].includes(role))return false;
@@ -110,6 +114,12 @@
     if(!s.history.length)s.year=START_YEAR;
     if(['result','replace'].includes(s.phase)&&s.history.at(-1)?.year!==s.year)throw Error('存档缺少赛果');
     if(s.replacement&&(!D.pools.some(p=>p.id===s.replacement.poolId)||![null,1,2,3,4,5,6].includes(s.replacement.target)))throw Error('存档换人无效');
+    for(const selection of [s,...(s.replacement?[s.replacement]:[])]){
+      // Older saves can only establish the team currently on screen.
+      if(selection.drawnTeams===undefined)selection.drawnTeams=[D.poolMap[selection.poolId].team];
+      const seen=selection.drawnTeams;
+      if(!Array.isArray(seen)||!seen.length||seen.length>4||new Set(seen).size!==seen.length||seen.some(team=>!teamIds.has(team))||seen.at(-1)!==D.poolMap[selection.poolId].team)throw Error('存档抽签记录无效');
+    }
     if(s.phase==='replace'&&(!s.replacement||s.replacementUsed||!canAdvance(s)))throw Error('存档换人阶段无效');
     if(s.seats[5]&&!s.seats.slice(0,5).every(Boolean))throw Error('存档教练席位无效');
     if(s.history.some((r,i)=>i&&D.years.indexOf(r.year)!==D.years.indexOf(s.history[i-1].year)+1))throw Error('存档赛事顺序无效');

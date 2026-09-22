@@ -42,6 +42,45 @@ test('legacy reroll counters migrate consumed clicks once and preserve lineups, 
   }
   for(const rerolls of [-1,4,1.5,null,{},[],{event:4,team:3},{event:3,team:-1}])assert.throws(()=>G.validate({...s,rerolls}),/抽签/);
 });
+test('every player round excludes all previously drawn teams across years and reloads',()=>{
+  for(let seed=1;seed<=50;seed++)for(let round=0;round<5;round++){
+    let s=G.start(seed);
+    for(let i=0;i<round;i++)assert.ok(G.pick(s,G.eligible(s,G.currentPool(s))[0].id));
+    const seen=new Set([G.currentPool(s).team]);
+    for(let i=0;i<3;i++){
+      assert.ok(G.alternatives(s,'both').every(p=>!seen.has(p.team)));
+      const year=G.currentPool(s).year;assert.ok(G.draw(s,'both'));
+      const current=G.currentPool(s);assert.notEqual(current.year,year);assert.ok(!seen.has(current.team),`seed ${seed}, round ${round}`);seen.add(current.team);
+      assert.deepEqual(s.drawnTeams,[...seen]);assert.equal(s.rerolls,2-i);
+      s=G.validate(JSON.parse(JSON.stringify(s)));assert.deepEqual(s.drawnTeams,[...seen]);
+    }
+    assert.ok(G.pick(s,G.eligible(s,G.currentPool(s))[0].id));
+    if(round<4){
+      assert.deepEqual(s.drawnTeams,[G.currentPool(s).team]);
+      const candidates=G.alternatives(s,'both');
+      for(const p of D.pools.filter(p=>seen.has(p.team)&&p.team!==G.currentPool(s).team&&p.year!==G.currentPool(s).year&&G.eligible(s,p).length))assert.ok(candidates.some(x=>x.id===p.id),'previous rounds do not blacklist teams');
+    }
+  }
+});
+test('replacement rerolls keep seen teams through cancellation, reload and coach switching',()=>{
+  let s=fill(7);G.finish(s);const drafted=[...s.drawnTeams];assert.ok(G.beginReplacement(s));
+  const seen=new Set([G.currentPool(s).team]);
+  for(let i=0;i<3;i++){
+    assert.ok(G.draw(s,'both'));const team=G.currentPool(s).team;assert.ok(!seen.has(team));seen.add(team);
+    assert.ok(G.replacementTarget(s,6));const coachDraw=structuredClone(s.replacement.coachDraft);
+    G.cancelReplacement(s);s=G.validate(JSON.parse(JSON.stringify(s)));assert.ok(G.beginReplacement(s));
+    const role=[1,2,3,4,5].find(r=>G.canReplaceRole(s,r));assert.ok(G.replacementTarget(s,role));
+    assert.deepEqual(s.replacement.drawnTeams,[...seen]);assert.deepEqual(s.replacement.coachDraft,coachDraw);
+    assert.deepEqual(s.drawnTeams,drafted);
+  }
+  const before=JSON.stringify(s);assert.equal(G.draw(s,'both'),false);assert.equal(JSON.stringify(s),before);
+});
+test('draw history validates team identities and initializes absent older history from the current team',()=>{
+  const s=G.start(7),team=G.currentPool(s).team,legacy=structuredClone(s);delete legacy.drawnTeams;
+  assert.deepEqual(G.validate(legacy).drawnTeams,[team]);
+  for(const drawnTeams of [null,[],[team,team],['unknown'],['toString'],[...new Set(D.pools.map(p=>p.team))]])assert.throws(()=>G.validate({...s,drawnTeams}),/抽签记录/);
+  const other=D.pools.find(p=>p.team!==team).team;assert.throws(()=>G.validate({...s,drawnTeams:[other]}),/抽签记录/);
+});
 test('duplicate identities are blocked across aliases, years, player and coach roles',()=>{
   const s=G.start(4);s.poolId='2024-gg';assert.ok(G.pick(s,'2024-gg-quinn'));
   assert.equal(G.canPick(s,D.cardMap['2018-optic-quinn']),false);
