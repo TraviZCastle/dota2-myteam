@@ -1,0 +1,175 @@
+/* Keep phone navigation within thumb reach without changing desktop navigation. */
+.nav-icon{display:none}
+
+@media(max-width:700px){
+  :root{--mobile-nav-height:70px}
+  html{scroll-padding-bottom:calc(var(--mobile-nav-height) + env(safe-area-inset-bottom) + 16px)}
+  body{padding-bottom:calc(var(--mobile-nav-height) + env(safe-area-inset-bottom))}
+  body:has(dialog[open]){overflow:hidden}
+  .site-header{padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top));gap:12px;flex-wrap:nowrap}
+  .brand{min-height:44px;font-size:20px;gap:9px}
+  .brand small{font-size:8px;letter-spacing:1.2px}
+  .header-actions .icon-button{width:44px;height:44px}
+  .site-header nav{position:fixed;z-index:40;inset:auto 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:auto;gap:6px;margin:0;padding:7px max(12px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));border-top:1px solid var(--line);background:#151c20f5;backdrop-filter:blur(12px);box-shadow:0 -6px 24px #0002}
+  .site-header nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;padding:5px 8px;border-radius:9px;font-size:11px;line-height:1.5;color:var(--muted)}
+  .site-header nav .nav-icon{display:block;width:21px;height:21px}
+  .site-header nav a.active{color:var(--accent-bright);background:#df795e12}
+  .site-header nav a.active:after{display:none}
+  .primary,.secondary,.text-button{min-height:44px}
+  .icon-button{min-width:44px;min-height:44px}
+  input,select,.archive-controls select,.search-field input{font-size:16px}
+  .page-shell{padding:22px 16px 32px}
+  .page-heading{gap:12px;margin-bottom:18px}
+  .page-heading h1{font-size:clamp(24px,6.4vw,30px);line-height:1.35;letter-spacing:-.6px}
+  .page-heading p{font-size:12px;line-height:1.7}
+  .page-heading .eyebrow{font-size:8px;letter-spacing:1.3px}
+  .breadcrumb{display:none}
+  .step-indicator{gap:10px;flex-wrap:wrap}
+  .step-dot{font-size:10px}
+  .step-connector{width:16px}
+  .section-heading{gap:6px;margin-bottom:12px}
+  .section-heading h2{font-size:20px}
+  .section-heading small{font-size:11px}
+
+  /* The roster stays available, but no longer fills the first screen. */
+  .draft-layout{gap:14px}
+  .roster-panel{padding:8px 13px 12px}
+  .roster-heading{gap:10px;margin:0;min-height:44px}
+  .roster-heading h2{font-size:14px}
+  .roster-heading>span{font-size:12px}
+  .mobile-roster-toggle{display:inline-flex;margin-left:auto;font-size:12px;color:var(--muted)}
+  .mobile-roster-toggle .icon{width:14px;height:14px;transform:rotate(90deg)}
+  .is-expanded .mobile-roster-toggle .icon{transform:rotate(-90deg)}
+  .roster-progress{margin:2px 0 0}
+  .roster-panel:not(.is-expanded):not(.is-replacing) #roster-content{display:none}
+  .roster-list{margin-top:10px;gap:8px}
+  .seat{min-height:62px;padding:9px 4px 9px 21px}
+  .seat-detail strong,.seat.empty .seat-detail strong{font-size:11px}
+  .seat-detail small{font-size:10px;line-height:1.5}
+  .seat.empty small{display:none}
+  .roster-bottom .fine-print{font-size:11px}
+  .replacement-target{min-height:62px}
+  .replacement-target .seat{min-height:62px}
+  .draw-controls{margin-bottom:18px;scroll-margin-top:14px}
+  .draw-box{padding:15px}
+  .combined-draw .draw-pair{min-height:72px;margin:7px 0 0}
+  .draw-pair .draw-reel{--reel-height:72px}
+  .draw-pool-year{font-size:23px}
+  .draw-pool-team{font-size:23px}
+  .draw-info{font-size:11px;gap:4px 10px;margin-bottom:12px}
+  .combined-reroll{display:grid;gap:5px;margin-bottom:21px}
+  .combined-reroll .secondary{width:100%;min-height:46px}
+  .combined-reroll p{font-size:11px;text-align:center}
+  .draw-box .text-button{font-size:12px;gap:8px}
+  .draw-box .text-button span{font-size:11px}
+  .coach-draw-controls .draw-value{min-height:44px;margin:7px 0}
+  .coach-draw-controls .draw-reel{--reel-height:44px}
+  .empty-pool{padding:28px 16px}
+
+  .candidate,.candidate.coach-card{grid-template-columns:28px minmax(0,1fr) 94px;gap:10px;padding:14px}
+  .candidate-position{font-size:23px}
+  .candidate-position small{display:none}
+  .candidate-title .text-button{font-size:20px;line-height:1.25;min-height:30px;padding-block:7px}
+  .candidate-meta{font-size:10px;flex-wrap:wrap;gap:2px 5px;margin:0}
+  .candidate .pick-button{min-height:44px;padding:9px 10px;font-size:12px;gap:4px}
+  .candidate-heroes .hero-top-three{max-width:none}
+  .hero-thumbs{gap:8px}
+  .hero-portrait-name{font-size:11px}
+  .hero-portrait-uses{font-size:10px}
+  .candidate-stats{padding-top:10px;gap:10px}
+  .candidate-stat span{font-size:10px;color:var(--muted)}
+  .candidate-stat b{font-size:15px;color:#c2c9c8}
+  .coach-group-heading{padding:11px 14px;gap:12px}
+  .coach-group-heading h3{font-size:14px}
+  .coach-stats .candidate-stat b{font-size:15px}
+  .draft-footer{gap:8px;margin-top:17px}
+  .draft-footer .text-button,.draft-footer .fine-print{font-size:11px}
+  .year-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .year-button{min-width:0;min-height:54px;padding:9px 10px}
+  .launch-panel{padding:20px 16px}
+  .launch-action .primary{min-height:50px;font-size:15px}
+  .archive-controls{gap:10px}
+  .search-field{min-width:0;min-height:46px}
+  .archive-controls select{min-height:46px}
+  .archive-summary{font-size:12px}
+  .game-button{min-height:52px;font-size:13px}
+  .game-button span>small{font-size:11px}
+  .standings{font-size:12px}
+  .standings td{padding:11px 7px}
+  .offseason-actions .primary,.offseason-actions .secondary{min-height:48px}
+  .site-footer{padding:20px 16px;gap:8px}
+  .site-footer .text-button{font-size:11px}
+  .toast{bottom:calc(var(--mobile-nav-height) + env(safe-area-inset-bottom) + 12px);font-size:12px;pointer-events:none}
+
+  /* A scrollable sheet keeps the close button reachable on long reports. */
+  dialog,dialog:has(.bp-side){inset:auto 0 0;width:100%;max-width:none;max-height:calc(100vh - 12px);max-height:calc(100dvh - 12px - env(safe-area-inset-top));margin:0;border-radius:18px 18px 0 0;padding:18px 16px max(24px,env(safe-area-inset-bottom));overscroll-behavior:contain;scroll-padding-top:62px}
+  dialog::backdrop{backdrop-filter:blur(3px)}
+  .modal-close{position:sticky;float:right;top:0;margin:-4px -2px 0 10px;background:var(--panel-high);box-shadow:0 2px 12px #0003}
+  dialog h2{font-size:25px;line-height:1.35;margin-top:12px}
+  dialog p{font-size:13px;line-height:1.8}
+  .dialog-actions{flex-wrap:wrap;gap:10px}
+  .dialog-actions button{flex:1;min-height:48px}
+  .detail-stats b{font-size:19px}
+  .detail-heroes{gap:18px 10px}
+  .detail-hero .hero-portrait-name{font-size:12px}
+  .bp-side h3{font-size:15px}
+  .bp-heroes{grid-template-columns:1fr;gap:8px}
+  .bp-hero{display:grid;grid-template-columns:minmax(0,1fr) 108px;gap:10px;align-items:center;padding:9px}
+  .bp-hero .hero-portrait{display:grid;grid-template-columns:76px minmax(0,1fr);align-items:center;gap:9px}
+  .bp-hero .hero-portrait img{margin:0}
+  .bp-hero .hero-portrait-name{font-size:12px}
+  .bp-operator{padding:0 0 0 10px;margin:0;border:0;border-left:1px solid var(--line)}
+  .bp-operator small{font-size:10px}
+  .bp-operator p{margin:2px 0 0;line-height:1.4}
+  .bp-operator strong{font-size:13px}
+  .event-list li{font-size:12px;grid-template-columns:40px minmax(0,1fr);gap:10px;padding-block:12px}
+
+  .home-hero-inner{min-height:520px;padding:27px 16px 125px}
+  .home-keyart{height:340px;bottom:-15px}
+  .home-edition{margin-bottom:20px}
+  .home-copy h1{margin:15px 0 18px}
+  .home-description{font-size:13px}
+  .home-actions{gap:10px;margin-top:22px}
+  .home-start{flex:1;min-width:200px;font-size:15px;min-height:58px}
+  .home-actions>.text-button{font-size:12px;padding-inline:8px}
+  .home-save-note{font-size:10px}
+  .home-content{padding-inline:16px}
+  .home-hero-bottom{margin-inline:16px}
+  .home-section-heading>.text-button{font-size:12px}
+  .home-legend-position{letter-spacing:.3px;font-size:9px}
+  .home-legend-team,.home-legend-link{font-size:10px}
+  .home-coach-stats .candidate-stat span{font-size:9px}
+  .home-steps p{font-size:12px}
+}
+
+@media(max-width:520px){
+  .ready-grid,.archive-grid{grid-template-columns:1fr;gap:12px}
+  .ready-card{padding:15px}
+  .ready-position-text{padding:0;font-size:11px}
+  .ready-body{padding:5px 0 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:0 12px;align-items:center}
+  .ready-name{font-size:23px;min-height:44px;line-height:1.3}
+  .ready-body>p{font-size:11px;margin:0;text-align:right;line-height:1.6}
+  .ready-body .hero-top-three{grid-column:1/-1;margin:10px 0 0}
+  .hero-top-three .hero-thumbs-label{font-size:10px;margin-bottom:8px}
+  .ready-coach{padding:18px}
+  .ready-coach-stats .candidate-stat span{font-size:11px}
+  .archive-card-top{padding:11px 15px;font-size:11px}
+  .archive-card-top small{display:inline;font-size:10px}
+  .archive-card-body{padding:13px 15px}
+  .archive-card-body h3{font-size:25px}
+  .archive-card-body p{font-size:11px;margin:6px 0 14px}
+  .archive-card-bottom{font-size:11px}
+  .archive-coach-stats .candidate-stat span{font-size:11px}
+  .archive-coach-stats .candidate-stat b{font-size:16px}
+}
+
+@media(max-width:360px){
+  .brand small{display:none}
+  .candidate,.candidate.coach-card{grid-template-columns:24px minmax(0,1fr) 86px;padding:12px;gap:8px}
+  .candidate-title .text-button{font-size:18px}
+  .candidate .pick-button{font-size:11px}
+  .bp-hero{grid-template-columns:minmax(0,1fr) 91px;gap:7px;padding:8px}
+  .bp-hero .hero-portrait{grid-template-columns:66px minmax(0,1fr);gap:7px}
+  .bp-hero .hero-portrait-name{font-size:11px}
+  .home-copy h1{font-size:32px}
+}

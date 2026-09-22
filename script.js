@@ -3,7 +3,7 @@
   const D=window.DotaData,G=window.DotaGame,app=document.getElementById('app');
   const SAVE='dota2myteam.run.v3',modal=document.getElementById('modal'),modalContent=document.getElementById('modal-content');
   let storageWorks=true,loadMessage='',state=load(),rolling=null,rollTimer=null,toastTimer=null,processing=false;
-  let archiveFilter={query:'',year:'',role:'',team:'',limit:24};
+  let archiveFilter={query:'',year:'',role:'',team:'',limit:24},rosterExpanded=false;
   const escape=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
   const heroBadge=id=>`<span class="hero-chip">${escape(D.heroMap[id]?.name||'未知英雄')}</span>`;
@@ -31,12 +31,12 @@
     const winner=stage==='event'?yearValue(pool.year):poolValue(pool);
     const previews=values.filter(value=>value!==winner),frames=[];
     // Presentation randomness never advances the saved draft seed or spends a reroll.
-    for(let i=0;i<24;i++){
+    for(let i=0;i<16;i++){
       const choices=previews.filter(value=>value!==frames.at(-1));
       frames.push(choices.length?choices[Math.floor(Math.random()*choices.length)]:previews[0]||'…');
     }
     frames.push(winner);
-    Object.assign(rolling,{stage,frames,startedAt:performance.now(),duration:rolling.reduced?150:stage==='pool'?2300:1700});
+    Object.assign(rolling,{stage,frames,startedAt:performance.now(),duration:rolling.reduced?150:stage==='pool'?1000:800});
     render();
     rollTimer=setTimeout(endReveal,rolling.duration);
   }
@@ -128,12 +128,12 @@
   }
   function roster(){
     const cards=G.lineup(state),count=cards.filter(Boolean).length,replacing=state.phase==='replace';
-    return `<aside class="roster-panel" aria-label="五名选手与一名教练"><div class="roster-heading"><h2>${replacing?'选择换人位置':'我的战队'}</h2><span>${count} <span class="muted">/ 6</span></span></div><div class="roster-progress" aria-hidden="true">${cards.map(c=>`<span class="${c?'filled':''}"></span>`).join('')}</div><div class="roster-list">${cards.map((c,i)=>{
+    return `<aside class="roster-panel ${replacing?'is-replacing':rosterExpanded?'is-expanded':''}" aria-label="五名选手与一名教练"><div class="roster-heading"><h2>${replacing?'选择换人位置':'我的战队'}</h2><span>${count} <span class="muted">/ 6</span></span>${replacing?'':`<button class="text-button mobile-roster-toggle" data-action="toggle-roster" aria-expanded="${rosterExpanded}" aria-controls="roster-content">${rosterExpanded?'收起阵容':'展开阵容'}${icon('chevron')}</button>`}</div><div class="roster-progress" aria-hidden="true">${cards.map(c=>`<span class="${c?'filled':''}"></span>`).join('')}</div><div id="roster-content"><div class="roster-list">${cards.map((c,i)=>{
       const seat=`<div class="seat ${c?'':'empty'} ${i===5?'coach-seat':''}"><span class="seat-number">${i===5?'C':i+1}</span><div class="seat-detail"><strong>${c?escape(c.name):D.roles[i]}</strong><small>${c?eventName(c.year)+' · '+escape(c.teamName):i===5?'五名选手齐备后选择':D.roleEnglish[i]}</small></div>${c?icon('check','seat-check'):''}</div>`;
       if(!replacing)return seat;
       const possible=G.canReplaceRole(state,i+1);
       return `<button class="replacement-target" data-action="replace-target" data-role="${i+1}" aria-label="替换 ${escape(c.name)}，${D.roles[i]}" aria-pressed="${state.replacement.target===i+1}" ${possible&&!rolling?'':'disabled'}>${seat}</button>`;
-    }).join('')}</div><div class="roster-bottom">${replacing?`<p class="fine-print">${state.replacement.target?'已选择 '+D.roles[state.replacement.target-1]+'，确认新人后生效。':'选手或教练均可替换，每届共用一次机会。'}</p><button class="secondary full" data-action="cancel-replace">暂不换人，返回结果</button>`:`<p class="roster-prompt">${count<5?'还需 '+(5-count)+' 名选手 + 1 名教练':'最后一席：选择你的教练'}</p><p class="fine-print">同一人跨届、跨身份只能占一席。</p>`}</div></aside>`;
+    }).join('')}</div><div class="roster-bottom">${replacing?`<p class="fine-print">${state.replacement.target?'已选择 '+D.roles[state.replacement.target-1]+'，确认新人后生效。':'选手或教练均可替换，每届共用一次机会。'}</p><button class="secondary full" data-action="cancel-replace">暂不换人，返回结果</button>`:`<p class="roster-prompt">${count<5?'还需 '+(5-count)+' 名选手 + 1 名教练':'最后一席：选择你的教练'}</p><p class="fine-print">同一人跨届、跨身份只能占一席。</p>`}</div></div></aside>`;
   }
   function candidate(c){
     const used=G.lineup(state).some(p=>p?.person===c.person),available=G.canPick(state,c),replacing=state.phase==='replace',targetReady=!replacing||state.replacement.target===c.role;
@@ -181,7 +181,8 @@
     startRollStage(G.isCoachDraft(state)?'event':'pool');
   }
   function endReveal(){clearTimeout(rollTimer);rolling=null;render();}
-  function newRun(){clearTimeout(rollTimer);state=G.start(randomSeed());rolling=null;closeModal();reveal();navigate('play');}
+  function scrollToDraw(){if(matchMedia('(max-width: 700px)').matches){app.querySelector('.draw-controls')?.scrollIntoView({block:'start',behavior:'instant'});app.focus({preventScroll:true});}}
+  function newRun(){clearTimeout(rollTimer);state=G.start(randomSeed());rolling=null;rosterExpanded=false;closeModal();reveal();navigate('play');}
   function confirmStart(){if(!state){newRun();return;}showModal(`<div class="eyebrow">A NEW CHAPTER</div><h2 id="modal-title">开始新的组队旅程？</h2><p>当前阵容和生涯进度将被替换。选手重抽恢复 3 次，教练年份重抽恢复 1 次。</p><div class="dialog-actions"><button class="secondary" data-action="close-modal">保留当前进度</button><button class="primary" data-action="confirm-start">开始新一局 ${icon('arrow')}</button></div>`);}
   function rules(){showModal(`<div class="eyebrow">HOW TO PLAY</div><h2 id="modal-title">五位传奇，一位名帅。</h2><ol class="rules-list"><li>每轮随机遇见一届 TI 的八强战队，选择一名选手。1—5 号位各一人。</li><li>五名选手齐备后，只抽 TI10—TI15 的年份，从当届八强各一名代表教练中选择第六席，可独立重抽年份 1 次。同一人跨届、跨选手和教练身份不能重复。</li><li>选手轮一次重抽同时更换年份和战队，整段生涯共 3 次。教练轮只重抽年份，有独立的 1 次机会。没有合法候选不扣次数。</li><li>组队后确认阵容和生涯起点即可出征，战队风格自动跟随教练，无需选择风格或英雄。自动 BP 参考历史样本；选手保留常用英雄头像，教练展示擅长风格和 TI 执教统计。</li><li>MyTeam 加当届八强共 9 队，自定义 BO2 循环赛、八强双败，决赛 BO5。不是复刻原届赛制。</li><li>一段生涯最多 10 届，在 TI2026 截止。每届结束可换一名选手或教练，下届生效。换教练同样只抽年份，可重抽 1 次；取消或切换位置不会重置。</li></ol><p class="fine-print">结果由游戏规则生成，不预测真实比赛。进度保存在当前浏览器。</p><div class="dialog-actions"><button class="primary" data-action="close-modal">明白了 ${icon('check')}</button></div>`);}
   function dataInfo(){showModal(`<div class="eyebrow">DATA & GAME RULES</div><h2 id="modal-title">历史数据，新的旅程。</h2><p><b>卡库：</b>TI1（2011）至 TI15（2026），15 届、120 个八强战队池、600 张选手卡、${D.cards.length-600} 张教练卡。2020 年无赛事。每届名单保留历史队名，改名人物共享身份。</p><p><b>统计：</b>560 张选手卡按当届战队、账号关联 OpenDota 样本。TI1 暂无逐场样本，不虚构 KDA、GPM 等数据。位置为固定游戏席位，不代表逐局分路。早期统计可能有缺项，各指标展示独立样本数。</p><p><b>教练：</b>选秀与图鉴仅保留 TI10—TI15 八强，每队一张代表教练卡，共 48 张。多人教练组不额外生成可选卡。教练卡展示擅长风格、历史胜率、历史局数和最高成绩次数。历史统计只汇总已收录的 TI 八强执教经历，排除选手时期；未收录比赛不计入胜率。战队自动采用教练卡的风格。</p><p><b>模拟：</b>全时期共用英雄池和统一游戏参数，不还原各届补丁。选手统计在同届同位置内归一化，并对小样本收缩；缺失统计用中性参数。教练影响针对性禁用、英雄选择及战术适配，以上属于游戏设计，未做真实比赛预测校准。</p><details class="stats-method"><summary>逐届数据覆盖与名单来源</summary><div class="coverage-table">${D.events.map(e=>`<a href="${e.rosterSource}" target="_blank" rel="noopener noreferrer"><b>${e.name} · ${e.year}</b><span>8 队 · 40 选手 · ${e.coachCards} 教练</span><small>${e.statsStatus==='available'?'选手统计已接入':'逐场统计未收录'}</small></a>`).join('')}</div></details><p><a class="source-link" href="https://github.com/odota/core" target="_blank" rel="noopener noreferrer">OpenDota 数据项目 ↗</a></p><p class="fine-print">当前版本使用 TI10—TI15 八强教练池，新生涯不读取旧版存档。</p>`);}
@@ -213,11 +214,12 @@
       else if(action==='rules')rules();
       else if(action==='data-info')dataInfo();
       else if(action==='card-detail')cardDetail(button.dataset.card);
+      else if(action==='toggle-roster'){rosterExpanded=!rosterExpanded;render();app.querySelector('[data-action="toggle-roster"]')?.focus({preventScroll:true});}
       else if(action==='skip-reveal')endReveal();
       else if(action==='reroll'){if(G.draw(state,button.dataset.kind))reveal();}
       else if(action==='pick'){
         const card=D.cardMap[button.dataset.card];if(!G.pick(state,card.id))return;save();toast(card.name+' 已加入你的战队');
-        if(state.phase==='draft')reveal();else{render();window.scrollTo({top:0,behavior:'instant'});app.focus({preventScroll:true});}
+        if(state.phase==='draft'){rosterExpanded=false;reveal();scrollToDraw();}else{render();window.scrollTo({top:0,behavior:'instant'});app.focus({preventScroll:true});}
       }
       else if(action==='year'&&state.phase==='ready'&&!state.history.length&&D.years.includes(Number(button.dataset.year))){state.year=Number(button.dataset.year);save();render();app.querySelector(`[data-year="${state.year}"]`).focus({preventScroll:true});}
       else if(action==='simulate'&&state.phase==='ready'){

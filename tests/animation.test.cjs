@@ -3,19 +3,19 @@ const D=require('../data.js'),G=require('../game.js');
 const script=fs.readFileSync(require.resolve('../script.js'),'utf8');
 
 // Run the real UI controller with a controllable clock and isolated browser storage.
-function page(saved,{reduced=false,route='play'}={}){
+function page(saved,{reduced=false,mobile=false,route='play'}={}){
   let now=0,id=0,hash='#'+route;
-  const timers=new Map(),listeners={},writes=[],storage=new Map([['dota2myteam.run.v3',JSON.stringify(saved)]]);
-  const element=()=>({addEventListener(){},focus(){},close(){},showModal(){},querySelector(){return {focus(){}};},innerHTML:''});
+  const timers=new Map(),listeners={},writes=[],scrolled=[],storage=new Map([['dota2myteam.run.v3',JSON.stringify(saved)]]);
+  const element=()=>({addEventListener(){},focus(){},close(){},showModal(){},querySelector(selector){return {focus(){},scrollIntoView(){scrolled.push(selector);}};},innerHTML:''});
   const app=element();Object.defineProperty(app,'innerHTML',{get:()=>writes.at(-1)||'',set:value=>writes.push(value)});
   const elements={app,modal:element(),'modal-content':element(),toast:element()};
   const context={DotaData:D,DotaGame:G,document:{getElementById:id=>elements[id]||(elements[id]=element()),querySelectorAll:()=>[],addEventListener:(name,fn)=>listeners[name]=fn},
     localStorage:{getItem:key=>storage.get(key)||null,setItem:(key,value)=>storage.set(key,value)},location:{get hash(){return hash;},set hash(value){hash=value.startsWith('#')?value:'#'+value;}},
-    performance:{now:()=>now},matchMedia:()=>({matches:reduced}),scrollTo(){},addEventListener(){},
+    performance:{now:()=>now},matchMedia:query=>({matches:query.includes('reduced-motion')?reduced:mobile}),scrollTo(){},addEventListener(){},
     crypto:{getRandomValues:values=>{values[0]=42;return values;}},
     setTimeout:(fn,delay)=>{timers.set(++id,{fn,at:now+delay});return id;},clearTimeout:id=>timers.delete(id)};
   context.window=context;vm.runInNewContext(script,context);
-  return {app,writes,modal:elements['modal-content'],saved:()=>JSON.parse(storage.get('dota2myteam.run.v3')),
+  return {app,writes,scrolled,modal:elements['modal-content'],saved:()=>JSON.parse(storage.get('dota2myteam.run.v3')),
     archive:()=>elements['archive-grid']?.innerHTML,
     change(id,value){listeners.change({target:{id,value}});},
     click(action,extra={}){listeners.click({target:{closest:selector=>selector==='.skip-link'?null:{disabled:false,dataset:{action,...extra}}}});},
@@ -37,8 +37,8 @@ test('one reel scrolls valid year-team pairs together and reveals both only when
     const year=Number(row.match(/· (\d{4})<\/small>/)?.[1]),team=row.match(/class="draw-pool-team">([^<]+)</)?.[1];
     assert.ok(D.pools.some(p=>p.year===year&&p.name===team),row);
   }
-  p.advance(1300);assert.deepEqual(frames(p.app.innerHTML),rows);
-  p.advance(999);assert.doesNotMatch(p.app.innerHTML,/class="candidate-list"/);
+  p.advance(400);assert.deepEqual(frames(p.app.innerHTML),rows);
+  p.advance(599);assert.doesNotMatch(p.app.innerHTML,/class="candidate-list"/);
   p.advance(1);assert.doesNotMatch(p.app.innerHTML,/draw-reel/);assert.match(p.app.innerHTML,/class="candidate-list"/);
   assert.ok(p.app.innerHTML.includes(`class="draw-pool-team">${pool.name}</strong>`));assert.ok(p.app.innerHTML.includes(`· ${pool.year}</small>`));
   assert.deepEqual(p.saved(),saved);
@@ -66,9 +66,21 @@ test('coach draws conceal counts and all eight teams until the year stops, inclu
     assert.equal(saved.coachDraft.rerolls,0);assert.doesNotMatch(p.app.innerHTML,/class="coach-group"|team-draw/);
     assert.match(p.app.innerHTML,/揭晓后显示教练候选/);
     if(reduced){assert.doesNotMatch(p.app.innerHTML,/draw-reel/);assert.match(p.app.innerHTML,/正在抽取…/);}else checkReel(p.app.innerHTML);
-    p.advance(reduced?150:1700);assert.equal((p.app.innerHTML.match(/class="coach-group"/g)||[]).length,8);
+    p.advance(reduced?149:799);assert.doesNotMatch(p.app.innerHTML,/class="coach-group"/);
+    p.advance(1);assert.equal((p.app.innerHTML.match(/class="coach-group"/g)||[]).length,8);
     assert.deepEqual(p.saved(),saved);
   }
+});
+
+test('mobile roster expansion does not spend draws and a pick returns to the next reel',()=>{
+  const s=G.start(48),p=page(s,{mobile:true});
+  p.click('toggle-roster');assert.match(p.app.innerHTML,/aria-expanded="true"/);assert.deepEqual(p.saved(),s);
+  p.click('pick',{card:G.eligible(s,G.currentPool(s))[0].id});
+  assert.equal(p.saved().seats.filter(Boolean).length,1);assert.equal(p.saved().rerolls,s.rerolls);
+  assert.match(p.app.innerHTML,/aria-expanded="false"/);assert.deepEqual(p.scrolled,['.draw-controls']);
+  const drawn=p.saved();p.click('toggle-roster');p.advance(999);
+  assert.doesNotMatch(p.app.innerHTML,/class="candidate-list"/);
+  p.advance(1);assert.match(p.app.innerHTML,/class="candidate-list"/);assert.deepEqual(p.saved(),drawn);
 });
 
 test('ready screen keeps hero portraits while removing manual hero controls',()=>{

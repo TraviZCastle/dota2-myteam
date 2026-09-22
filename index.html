@@ -2,17 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#111619">
   <meta name="description" content="五位传奇，一位名帅。组建跨时代的 Dota 2 五人战队与教练组，开启你的传奇。">
   <title>Dota 2 MyTeam · 五位传奇，一位名帅</title>
   <link rel="icon" type="image/png" href="assets/brand/dota2-symbol.png">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="mobile.css?v=20260922-mobile">
   <script defer src="catalog-data.js"></script>
   <script defer src="data.js"></script>
   <script defer src="game.js"></script>
-  <script defer src="script.js"></script>
+  <script defer src="script.js?v=20260922-mobile"></script>
 </head>
 <body>
   <a class="skip-link" href="#app">跳至主要内容</a>
@@ -30,10 +31,12 @@
     <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.01"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
     <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/></symbol>
+    <symbol id="i-cards" viewBox="0 0 24 24"><rect x="8" y="5" width="12" height="16" rx="2"/><path d="M5 17H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2m-3 6h4m-4 4h4"/></symbol>
   </svg>
   <header class="site-header">
     <a class="brand" href="#home" aria-label="MyTeam 首页"><img class="dota-brand-symbol" src="assets/brand/dota2-symbol.png" alt="" width="29" height="29"><span>MYTEAM<small>DOTA 2</small></span></a>
-    <nav aria-label="主导航"><a href="#home" data-nav="home">首页</a><a href="#play" data-nav="play">我的战队</a><a href="#archive" data-nav="archive">传奇图鉴</a></nav>
+    <nav aria-label="主导航"><a href="#home" data-nav="home"><svg class="nav-icon" aria-hidden="true"><use href="#i-home"/></svg><span>首页</span></a><a href="#play" data-nav="play"><svg class="nav-icon" aria-hidden="true"><use href="#i-shield"/></svg><span>我的战队</span></a><a href="#archive" data-nav="archive"><svg class="nav-icon" aria-hidden="true"><use href="#i-cards"/></svg><span>传奇图鉴</span></a></nav>
     <div class="header-actions"><span class="local-status"><i></i>单人 · 离线</span><button class="icon-button" data-action="rules" aria-label="玩法说明"><svg><use href="#i-info"/></svg></button></div>
   </header>
   <main id="app" tabindex="-1"></main>
