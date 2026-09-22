@@ -84,31 +84,33 @@ dialog{border:1px solid var(--line);border-radius:12px;background:var(--panel);c
 .archive-coach-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 9px;margin:18px 0 8px}
 .archive-coach-stats .candidate-stat span{font-size:9px}
 .archive-coach-stats .candidate-stat b{font-size:13px;margin-top:5px}
-.ready-coach{display:block}
-.ready-coach-heading{display:flex;align-items:center;gap:22px}
-.ready-coach-heading>.tag{margin-left:auto;color:var(--gold);border-color:#c5ad7644}
-.ready-coach-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;border-top:1px solid #c5ad7622;padding-top:20px;margin-top:20px}
-.ready-coach-stats .candidate-stat b{font-size:21px;margin-top:7px;color:var(--gold)}
+.ready-page .ready-grid{margin:16px 0 20px}
+.ready-page .launch-panel{padding:18px 0 0;gap:16px}
+.ready-page .draft-footer{margin-top:18px}
+.ready-coach{display:grid;grid-template-columns:minmax(190px,.9fr) minmax(0,2.6fr);gap:22px;padding:18px 20px}
+.ready-coach-heading{display:flex;align-items:center;gap:14px;min-width:0}
+.ready-coach-heading>div:last-child{min-width:0}
+.ready-coach .coach-wordmark{flex-shrink:0}
+.ready-coach .coach-wordmark svg{width:24px;height:24px}
+.ready-coach-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;border-left:1px solid #c5ad7622;padding-left:22px}
+.ready-coach-stats .candidate-stat b{font-size:21px;margin-top:5px;color:var(--gold)}
 .ready-coach-stats .candidate-stat span{font-size:10px}
-.coach-style-note{display:flex;align-items:flex-start;gap:15px;margin:0 0 27px;padding:19px 22px;border-left:2px solid var(--gold);background:#c5ad7608}
-.coach-style-note>.icon{color:var(--gold);margin-top:3px;width:22px;height:22px}
-.coach-style-note span,.coach-style-note small{font-size:10px;color:var(--faint)}
-.coach-style-note strong{display:block;font-size:17px;font-weight:500;color:var(--gold);margin:5px 0}
-.coach-style-note p{font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:5px}
 .coach-history-list{margin:13px 0}
 .coach-history-row{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted)}
 .coach-history-row b{display:block;font-size:13px;color:var(--ink);font-weight:500;margin-top:4px}
 .coach-history-row>span:last-child{text-align:right;color:var(--gold);flex-shrink:0}
 .coach-history-row small{display:block;color:var(--faint);margin-top:4px;font-size:10px}
+@media(max-width:900px){
+  .ready-coach{grid-template-columns:1fr;gap:14px}
+  .ready-coach-stats{border-left:0;border-top:1px solid #c5ad7622;padding:12px 0 0}
+}
 @media(max-width:700px){
   .candidate.coach-card{grid-template-columns:34px minmax(0,1fr) 90px}
   .ready-coach-heading{gap:13px;flex-wrap:wrap}
-  .ready-coach-heading>.tag{font-size:9px}
-  .ready-coach-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:17px 10px}
+  .ready-coach-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 10px}
   .ready-coach-stats .candidate-stat b{font-size:18px}
   .archive-coach-stats{gap:13px 8px}
   .archive-coach-stats .candidate-stat b{font-size:12px}
-  .coach-style-note{padding:15px;gap:11px}
 }
 @media(max-width:380px){.candidate.coach-card{grid-template-columns:29px minmax(0,1fr) 80px}}
 /* The reel moves through different labels, with the actual result at its end. */

@@ -86,7 +86,7 @@ test('mobile roster expansion does not spend draws and a pick returns to the nex
 test('ready screen keeps hero portraits while removing manual hero controls',()=>{
   const s=G.start(44);while(s.phase==='draft')G.pick(s,G.eligible(s,G.currentPool(s))[0].id);
   const p=page(s),html=p.app.innerHTML;
-  assert.match(html,/英雄由教练自动 BP/);assert.doesNotMatch(html,/data-preference|hero-select|优先选择英雄/);
+  assert.doesNotMatch(html,/data-preference|hero-select|优先选择英雄/);
   const expected=G.lineup(s).slice(0,5).reduce((n,c)=>n+c.heroes.slice(0,3).length,0);
   assert.equal((html.match(/class="hero-portrait"/g)||[]).length,expected);
   assert.doesNotMatch(html,/data-action="tactic"|选择本届战术/);assert.match(html,/data-action="simulate"/);
