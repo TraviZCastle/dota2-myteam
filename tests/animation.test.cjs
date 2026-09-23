@@ -158,9 +158,24 @@ test('connected bracket opens every matchup and map with correct spectator winne
       for(const side of ['a','b'])for(const c of G.matchLineup(r,g[side]))assert.ok(p.modal.innerHTML.includes(c.name));
       for(const hero of [...g.draft.a,...g.draft.b])assert.ok(p.modal.innerHTML.includes(D.heroMap[hero].name));
       assert.match(p.modal.innerHTML,new RegExp(`data-map="${map}" aria-pressed="true"`));
+      assert.equal((p.modal.innerHTML.match(/class="bp-action is-ban"/g)||[]).length,14);
+      assert.equal((p.modal.innerHTML.match(/class="bp-action is-pick"/g)||[]).length,10);
+      assert.equal((p.modal.innerHTML.match(/class="bp-phase"/g)||[]).length,6);
+      assert.match(p.modal.innerHTML,/14 Ban · 10 Pick/);
     }
   }
   assert.deepEqual(p.saved(),s);
+});
+
+test('old four-ban reports are labeled honestly and never expanded or rewritten',()=>{
+  const s=G.start(296);while(s.phase==='draft')G.pick(s,G.eligible(s,G.currentPool(s))[0].id);
+  const result=G.finish(s),game=result.games[0];
+  delete game.draft.ruleset;delete game.draft.first;
+  game.draft.banned=game.draft.banned.slice(0,4);delete game.draft.decisions;
+  const before=JSON.stringify(s),p=page(s);p.click('game-detail',{game:'0'});
+  assert.match(p.modal.innerHTML,/旧版战报 · 当时仅记录 4 个 Ban/);
+  assert.doesNotMatch(p.modal.innerHTML,/class="bp-phase"|class="bp-action /);
+  assert.equal(JSON.stringify(p.saved()),before);
 });
 
 test('archive and homepage count only selectable cards and omit TI1 filters',()=>{

@@ -215,6 +215,23 @@ dialog:has(.series-report){max-width:900px}
 .map-overview strong{font-weight:500;color:var(--green);overflow-wrap:anywhere}
 .bp-side h3{display:flex;align-items:center;flex-wrap:wrap;gap:10px;overflow-wrap:anywhere}
 .bp-victory{font-size:10px;color:var(--green);font-weight:400}
+.bp-draft-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:30px}
+.bp-draft-heading h3{margin:0}.bp-draft-heading h3 span{font-size:.8rem;font-weight:400;color:#91a1a6;margin-left:8px}
+.bp-draft-heading>small{color:#b5c0c2}
+.bp-timeline{display:grid;gap:18px;margin-top:16px}
+.bp-phase h4{margin:0 0 9px;color:#a7b4b7;font-size:.78rem;font-weight:500}
+.bp-phase h4 span{color:#d2ba76;margin-left:6px;font-size:.7rem;letter-spacing:.08em}
+.bp-action-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;list-style:none;padding:0;margin:0}
+.bp-action{min-width:0;border:1px solid #303a3e;background:#10171b;border-radius:7px;padding:7px}
+.bp-action-head{display:flex;justify-content:space-between;gap:4px;font-size:.64rem;color:#859498;margin-bottom:6px}
+.bp-action-head b{color:#d2ba76;font-size:.74rem;font-variant-numeric:tabular-nums}
+.bp-action .hero-portrait{width:100%;min-width:0}.bp-action .hero-portrait img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.bp-action .hero-portrait-name{font-size:.69rem;white-space:normal}.bp-action>strong{font-size:.68rem;display:block;margin-top:6px;overflow-wrap:anywhere}
+.bp-action>small{display:block;font-size:.64rem;color:#91a1a6;margin-top:3px}
+.bp-action.is-ban{border-color:#533735}.bp-action.is-ban img{filter:saturate(.35);opacity:.7}
+.bp-action.is-pick{border-color:#3e554c}
+.legacy-bp-note{color:#c5ad76;font-size:.82rem;margin:24px 0 10px}
+@media(max-width:600px){.bp-draft-heading{align-items:flex-start;flex-direction:column;gap:5px}.bp-action-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.bp-action{padding:6px}.bp-draft-heading h3 span{display:block;margin:4px 0 0}}
 .bp-ban-list{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:18px}
 .bp-ban-list>.hero-portrait{width:70px;gap:5px}
 .bp-ban-list .hero-portrait-name{font-size:9px}

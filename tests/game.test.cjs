@@ -136,12 +136,57 @@ test('duplicate identities are blocked across aliases, years, player and coach r
   assert.equal(G.canPick(t,D.cardMap['2025-falcons-coach-aui2000']),false);
   const before=JSON.stringify(t);assert.equal(G.pick(t,'2015-eg-aui2000'),false);assert.equal(JSON.stringify(t),before);
 });
-test('BP picks ten heroes from each seat union and four disjoint bans across the full archive',()=>{
+test('BP follows all 24 modern CM actions with fourteen disjoint bans across the full archive',()=>{
+  const sequence='B0 B0 B1 B1 B0 B1 B1 P0 P1 B0 B0 B1 P1 P0 P0 P1 P1 P0 B0 B1 B0 B1 P0 P1';
   for(let i=0;i<D.pools.length;i++){
     const a=team(D.pools[i]),b=team(D.pools[(i+3)%D.pools.length]),bp=G.autoDraft(a,b,G.rng(i),i%2);
-    assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,14);
+    assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,24);assert.equal(bp.banned.length,14);
+    assert.equal(bp.decisions.map(a=>a.kind[0].toUpperCase()+(a.side===bp.first?0:1)).join(' '),sequence);
+    assert.deepEqual(bp.decisions.map(d=>d.order),Array.from({length:24},(_,i)=>i+1));
+    assert.deepEqual(G.BP_RULESET.phases.map((_,i)=>bp.decisions.filter(d=>d.phase===i+1).length),[7,2,3,6,4,2]);
+    for(const side of [0,1]){
+      assert.equal(bp.decisions.filter(d=>d.kind==='ban'&&d.side===side).length,7);
+      assert.equal(bp.decisions.filter(d=>d.kind==='pick'&&d.side===side).length,5);
+    }
     for(const [side,roster] of [[bp.a,a],[bp.b,b]])side.forEach((id,role)=>assert.ok(G.draftPool(roster.cards[role],role+1).some(p=>p.hero===id)));
-    assert.equal(bp.decisions.length,14);assert.ok(bp.coachFit.every(v=>v>=0&&v<=1));
+    assert.equal(bp.decisions.length,24);assert.ok(bp.coachFit.every(v=>v>=0&&v<=1));
+    assert.equal(bp.ruleset,G.BP_RULESET.id);
+  }
+});
+test('historical placement adds only a small monotonic bonus to the exact edition roster',()=>{
+  for(const year of D.years){
+    const field=G.eventField(year),bonuses=field.map(pool=>G.historicalPerformance({...team(pool),id:pool.team},year));
+    assert.equal(bonuses[0].powerBonus,.05);assert.equal(bonuses.at(-1).powerBonus,0);
+    for(let i=0;i<bonuses.length;i++){
+      const h=bonuses[i];assert.equal(h.finish,field[i].finish);assert.equal(h.year,year);
+      assert.ok(h.powerBonus>=0&&h.powerBonus<=.05);assert.ok(h.powerBonus*.14<=.007000000000000001);
+      if(i)assert.ok(bonuses[i-1].powerBonus>=h.powerBonus);
+      if(i&&field[i-1].finish===field[i].finish)assert.equal(bonuses[i-1].powerBonus,h.powerBonus);
+    }
+  }
+  const pool=D.poolMap['2024-liquid'],a={...team(pool),id:pool.team};
+  for(const [roster,year] of [[{...a,id:'myteam',name:pool.name},2024],[{...a,id:'unknown'},2024],[a,2017],[a,undefined],[a,2020],
+    [{...a,cards:[...a.cards.slice(0,4),D.poolMap['2021-lgd'].cards[4]]},2024],[{...a,cards:[a.cards[0],a.cards[0],...a.cards.slice(2)]},2024]]){
+    assert.equal(G.historicalPerformance(roster,year).powerBonus,0);
+  }
+  assert.deepEqual(G.historicalPerformance({...a,name:' renamed ',coach:null},2024),G.historicalPerformance(a,2024));
+});
+test('real finishes affect existing map simulation but never BP or a custom team, and are saved on both sides',()=>{
+  const p=D.poolMap['2024-liquid'],q=D.poolMap['2024-gg'],a={...team(p),id:p.team},b={...team(q),id:q.team};
+  let changed=0;
+  for(let seed=0;seed<80;seed++){
+    const normal=G.playMap(a,b,G.rng(seed),seed%2),boosted=G.playMap(a,b,G.rng(seed),seed%2,{year:2024});
+    assert.deepEqual(boosted.draft,normal.draft);assert.equal(normal.historical[0].powerBonus,0);
+    assert.equal(boosted.historical[0].powerBonus,.05);assert.ok(boosted.historical[1].powerBonus<.05);
+    if(JSON.stringify(boosted.events)!==JSON.stringify(normal.events))changed++;
+  }
+  assert.ok(changed>0,'the historical term reaches the existing combat engine');
+  const state=fill(591);state.year=2024;const result=G.tournament(state);
+  for(const game of result.games)for(const side of [0,1]){
+    const id=side?game.b:game.a,h=game.historical[side];
+    if(id==='myteam'){assert.equal(h.finish,null);assert.equal(h.powerBonus,0);}
+    else{const pool=D.pools.find(p=>p.year===2024&&p.team===id);assert.equal(h.finish,pool.finish);assert.equal(h.poolId,pool.id);}
+    assert.equal(game.draft.decisions.length,24);
   }
 });
 test('changing only the coach changes BP; missing historical samples remain neutral',()=>{
@@ -437,9 +482,10 @@ test('full BP respects union membership and heavily favors the available interse
   let eligible=0,preferred=0,playerOnly=0;
   for(let i=0;i<D.pools.length;i++)for(let seed=0;seed<4;seed++){
     const teams=[team(D.pools[i]),team(D.pools[(i+5)%D.pools.length])],bp=G.autoDraft(...teams,G.rng(seed+i*10),seed%2);
-    const blocked=new Set(bp.banned);
-    assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,14);
-    for(const decision of bp.decisions.filter(d=>d.kind==='pick')){
+    const blocked=new Set();
+    assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,24);
+    for(const decision of bp.decisions){
+      if(decision.kind==='ban'){blocked.add(decision.hero);continue;}
       const card=teams[decision.side].cards[decision.role-1];
       const usage=Object.values(card.heroUsage).some(n=>n>0)?card.heroUsage:D.playerHeroUsage[card.person]||{};
       const inRole=D.roleHeroPools[decision.role].includes(decision.hero),inPlayer=usage[decision.hero]>0;
@@ -462,7 +508,7 @@ test('BP completes narrow or shared personal pools without escaping the union af
   const a={cards:ids.slice(0,5).map((id,i)=>({person:'test-a-'+i,role:i+1,heroUsage:{[id]:10}}))},b={cards:ids.slice(5).map((id,i)=>({person:'test-b-'+i,role:i+1,heroUsage:{[id]:10}}))};
   for(let seed=0;seed<20;seed++){
     const bp=G.autoDraft(a,b,G.rng(seed),seed%2);
-    assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,14);
+    assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,24);
     for(const decision of bp.decisions.filter(d=>d.kind==='pick')){
       const personal=ids[decision.side*5+decision.role-1];
       assert.ok(D.roleHeroPools[decision.role].includes(decision.hero)||decision.hero===personal);
@@ -470,7 +516,7 @@ test('BP completes narrow or shared personal pools without escaping the union af
   }
   const duplicate=structuredClone(b);duplicate.cards[4].heroUsage={chen:10};
   const bp=G.autoDraft(a,duplicate,G.rng(21),0);
-  assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,14);
+  assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,24);
   assert.ok([...bp.a.slice(3),...bp.b.slice(3)].every(id=>D.heroMap[id].roles.some(r=>r>=4)));
 });
 

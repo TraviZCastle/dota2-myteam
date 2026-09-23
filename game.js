@@ -5,6 +5,14 @@
 })(typeof globalThis!=='undefined'?globalThis:this,function(D){
   'use strict';
   const VERSION='dota2-career-v4',START_YEAR=2011,MAX_EVENTS=D.years.filter(year=>year>=START_YEAR).length;
+  // Modern Captain's Mode, applied uniformly to every edition as a game rule.
+  // 0 = first pick, 1 = second pick. Valve 7.34 + 7.40: 7 bans and 5 picks each.
+  const BP_RULESET=Object.freeze({id:'cm-7.40-24',phases:Object.freeze([
+    {kind:'ban',sides:[0,0,1,1,0,1,1]}, {kind:'pick',sides:[0,1]},
+    {kind:'ban',sides:[0,0,1]}, {kind:'pick',sides:[1,0,0,1,1,0]},
+    {kind:'ban',sides:[0,1,0,1]}, {kind:'pick',sides:[0,1]}
+  ].map(p=>Object.freeze({...p,sides:Object.freeze(p.sides)})))});
+  const HISTORICAL_POWER_MAX=.05;
   const coachPools=year=>D.coachYears.includes(year)?D.pools.filter(p=>p.year===year):[];
   const coachIds=new Set(D.coachCards.map(c=>c.id));
   const selectableIds=new Set(D.cards.map(c=>c.id));
@@ -198,31 +206,48 @@
     }
     return pools.every((_,seat)=>visit(seat,new Set()));
   }
-  function autoDraft(a,b,random,first){
+  function autoDraft(a,b,random,first=0){
+    if(![0,1].includes(first))throw Error('首选权无效');
+    if([a,b].some(t=>t.cards.length!==5))throw Error('BP 需要双方各五名选手');
     const teams=[a,b].map(t=>({...t,tactic:coachTactic(t.coach)})),banned=[],used=new Set(),picks=[[],[]],roles=[0,0],decisions=[];
     const pools=teams.flatMap(t=>t.cards.slice(0,5).map((c,i)=>draftPool(c,i+1)));
     if(!canAssign(pools,used))throw Error('无法在各席位的英雄并集中完成 BP');
     const safe=(id,remaining=pools)=>canAssign(remaining,new Set([...used,id]));
-    for(let i=0;i<4;i++){
-      const side=(i+(first?1:0))%2,team=teams[side],opponentPools=pools.slice((1-side)*5,(1-side)*5+5);
-      const candidates=D.heroes.filter(h=>!used.has(h.id)&&safe(h.id));
-      const threats=candidates.filter(h=>opponentPools.some(pool=>pool.some(p=>p.hero===h.id)));
-      const ranked=(threats.length?threats:candidates).map(h=>({h,score:random()*2+Math.max(...opponentPools.map(pool=>pool.find(p=>p.hero===h.id)?.familiarity||0))*(team.coach?4:3)})).sort((x,y)=>y.score-x.score);
-      const id=ranked[0].h.id;banned.push(id);used.add(id);
-      decisions.push({kind:'ban',side,hero:id,coach:team.coach?.name||null});
+    for(const [phase,rule] of BP_RULESET.phases.entries())for(const actor of rule.sides){
+      const side=first?1-actor:actor,team=teams[side],action={order:decisions.length+1,phase:phase+1,kind:rule.kind,side,coach:team.coach?.name||null};
+      if(rule.kind==='ban'){
+        const remaining=pools.filter((_,i)=>i%5>=roles[Math.floor(i/5)]);
+        const opponentPools=pools.slice((1-side)*5+roles[1-side],(1-side)*5+5);
+        const candidates=D.heroes.filter(h=>!used.has(h.id)&&safe(h.id,remaining));
+        const threats=candidates.filter(h=>opponentPools.some(pool=>pool.some(p=>p.hero===h.id)));
+        const ranked=(threats.length?threats:candidates).map(h=>({h,score:random()*2+Math.max(0,...opponentPools.map(pool=>pool.find(p=>p.hero===h.id)?.familiarity||0))*(team.coach?4:3)})).sort((x,y)=>y.score-x.score);
+        if(!ranked.length)throw Error('无法在保留双方剩余席位的前提下完成禁用');
+        const hero=ranked[0].h.id;banned.push(hero);used.add(hero);decisions.push({...action,hero});
+      }else{
+        const role=++roles[side],remaining=pools.filter((_,i)=>i%5>=roles[Math.floor(i/5)]);
+        const candidates=pools[side*5+role-1].filter(p=>!used.has(p.hero)&&safe(p.hero,remaining));
+        const chosen=chooseDraftHero(candidates,team,random),hero=chosen.hero;picks[side].push(hero);used.add(hero);
+        decisions.push({...action,role,hero,pool:chosen.pool,source:chosen.source,coachExperience:experience(team.coach,hero)});
+      }
     }
-    const order=[0,1,1,0,0,1,1,0,0,1].map(x=>first?1-x:x);
-    for(const side of order){
-      const role=++roles[side],team=teams[side];
-      const remaining=pools.filter((_,i)=>i%5>=roles[Math.floor(i/5)]);
-      const candidates=pools[side*5+role-1].filter(p=>!used.has(p.hero)&&safe(p.hero,remaining));
-      const chosen=chooseDraftHero(candidates,team,random),hero=chosen.hero;picks[side].push(hero);used.add(hero);
-      decisions.push({kind:'pick',side,role,hero,pool:chosen.pool,source:chosen.source,coach:team.coach?.name||null,coachExperience:experience(team.coach,hero)});
-    }
-    return {banned,a:picks[0],b:picks[1],decisions,coaches:teams.map(t=>t.coach?.name||null),coachFit:teams.map(t=>coachFit(t.coach,t.tactic))};
+    return {ruleset:BP_RULESET.id,first,banned,a:picks[0],b:picks[1],decisions,coaches:teams.map(t=>t.coach?.name||null),coachFit:teams.map(t=>coachFit(t.coach,t.tactic))};
   }
-  function playMap(a,b,random,first){
+  function historicalPerformance(team,year){
+    const neutral={year,finish:null,rank:null,score:0,powerBonus:0};
+    if(!D.years.includes(year)||!team.id||team.id==='myteam')return neutral;
+    const pool=D.pools.find(p=>p.year===year&&p.team===team.id);
+    const cards=pool?.cards.filter(c=>c.role<=5);
+    // Honor belongs to this edition's exact historical five, never a name or a
+    // drafted player. Reject mixed rosters and the same team's other-year cards.
+    if(!cards||team.cards.length!==5||cards.some(c=>!team.cards.some(p=>p.id===c.id)))return neutral;
+    const ranks=String(pool.finish).split(/[–—-]/).map(Number);
+    if(ranks.some(rank=>!Number.isInteger(rank)||rank<1||rank>8))return neutral;
+    const rank=ranks.reduce((n,r)=>n+r,0)/ranks.length,score=clamp((7.5-rank)/6.5,0,1);
+    return {year,poolId:pool.id,finish:pool.finish,rank,score,powerBonus:score*HISTORICAL_POWER_MAX};
+  }
+  function playMap(a,b,random,first,options={}){
     const draft=autoDraft(a,b,random,first),vectors=[vector(draft.a),vector(draft.b)],sides=[a,b].map(t=>({...t,tactic:coachTactic(t.coach)}));
+    const historical=sides.map(t=>historicalPerformance(t,options.year));
     const score=[{kills:0,towers:0,base:100,gold:0},{kills:0,towers:0,base:100,gold:0}];
     const events=[];let minutes=0,turn=0;
     while(score[0].base>0&&score[1].base>0){
@@ -232,7 +257,7 @@
         const tactic=sides[i].tactic;
         const timing=tactic==='protect'?(minutes<20?-.35:.35):tactic==='tempo'?(minutes<20?.3:-.15):tactic==='push'?(minutes<30?.15:-.15):0;
         const ability=sides[i].cards.slice(0,5).reduce((n,c)=>n+(c.strength||0),0)/5;
-        return ability*.35+draft.coachFit[i]*.2+v[1]*.2+v[3]*.2+v[4]*.12+Math.log1p(score[i].gold)*.6+timing;
+        return ability*.35+draft.coachFit[i]*.2+v[1]*.2+v[3]*.2+v[4]*.12+Math.log1p(score[i].gold)*.6+timing+historical[i].powerBonus;
       });
       const chance=clamp(.5+(power[0]-power[1])*.14,.2,.8),side=random()<chance?0:1,other=1-side;
       const kills=1+Math.floor(random()*4);score[side].kills+=kills;score[other].kills+=Math.floor(random()*2);score[side].gold+=kills*320;
@@ -242,7 +267,7 @@
       }
     }
     const winner=score[1].base===0?0:1;
-    return {winner,minutes:Math.round(minutes),kills:score.map(x=>x.kills),towers:score.map(x=>x.towers),bases:score.map(x=>x.base),draft,events};
+    return {winner,minutes:Math.round(minutes),kills:score.map(x=>x.kills),towers:score.map(x=>x.towers),bases:score.map(x=>x.base),draft,events,historical};
   }
   function matchLineup(result,teamId){
     // Old saves have the MyTeam snapshot in seats; opponents come from that edition.
@@ -261,7 +286,10 @@
       const teamA=participantMap[a],teamB=participantMap[b],scores=[0,0],maps=[];const first=random()<.5?0:1;
       const limit=Math.floor(bestOf/2)+1;
       while(Math.max(...scores)<limit){
-        const map=playMap(teamA,teamB,random,(first+maps.length)%2);scores[map.winner]++;
+        const map=playMap(teamA,teamB,random,(first+maps.length)%2,{year:s.year});scores[map.winner]++;
+        // Persist the complete trace without repeating coach/scoring metadata on
+        // every action; a fifteen-edition career must fit localStorage's quota.
+        map.draft.decisions=map.draft.decisions.map(({order,phase,kind,side,hero,role})=>({order,phase,kind,side,hero,...(role?{role}:{})}));
         maps.push(games.length);
         games.push({a,b,stage,mapNumber:maps.length,seriesId:bracket.length,...map});
       }
@@ -282,8 +310,8 @@
       const matches=bracket.filter(m=>m.a===t.id||m.b===t.id);
       return {id:t.id,name:t.name,seed,placement:placements[t.id],wins:matches.reduce((n,m)=>n+m.score[m.a===t.id?0:1],0),losses:matches.reduce((n,m)=>n+m.score[m.a===t.id?1:0],0)};
     }).sort((a,b)=>parseInt(a.placement,10)-parseInt(b.placement,10)||a.seed-b.seed);
-    return {model:'historical-inputs-game-rules-7',format:'double-elimination-8',year:s.year,teamName:us.name,replacedTeam:{id:replaced.team,name:replaced.name,placement:replaced.finish},seats:[...s.seats],lineups:Object.fromEntries(participants.map(t=>[t.id,t.cards.map(c=>c.id)])),tactic:us.tactic,placement:placements.myteam,champion:final.winner,standings,bracket,games,wins,losses:ourGames.length-wins,seed:s.seed};
+    return {model:'historical-inputs-game-rules-8',bpRuleset:BP_RULESET.id,historicalPowerMax:HISTORICAL_POWER_MAX,format:'double-elimination-8',year:s.year,teamName:us.name,replacedTeam:{id:replaced.team,name:replaced.name,placement:replaced.finish},seats:[...s.seats],lineups:Object.fromEntries(participants.map(t=>[t.id,t.cards.map(c=>c.id)])),tactic:us.tactic,placement:placements.myteam,champion:final.winner,standings,bracket,games,wins,losses:ourGames.length-wins,seed:s.seed};
   }
   function finish(s){if(s.phase!=='ready'||!s.seats.every(Boolean)||!coachIds.has(s.seats[5])||s.history.some(r=>r.year===s.year))return false;if(!s.history.length)s.year=START_YEAR;s.tactic=coachTactic(lineup(s)[5]);const result=tournament(s);s.history.push(result);s.phase='result';return result;}
-  return {VERSION,MAX_EVENTS,nextYear,canAdvance,coachFit,experience,draftPool,chooseDraftHero,rng,shuffle,start,renameTeam,eventField,validate,currentPool,lineup,canPick,canComplete,eligible,alternatives,draw,pick,coachPools,isCoachDraft,coachSelection,canReplaceRole,beginReplacement,replacementTarget,cancelReplacement,next,matchLineup,autoDraft,playMap,tournament,finish};
+  return {VERSION,MAX_EVENTS,BP_RULESET,HISTORICAL_POWER_MAX,historicalPerformance,nextYear,canAdvance,coachFit,experience,draftPool,chooseDraftHero,rng,shuffle,start,renameTeam,eventField,validate,currentPool,lineup,canPick,canComplete,eligible,alternatives,draw,pick,coachPools,isCoachDraft,coachSelection,canReplaceRole,beginReplacement,replacementTarget,cancelReplacement,next,matchLineup,autoDraft,playMap,tournament,finish};
 });
