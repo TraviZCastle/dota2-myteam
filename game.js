@@ -4,7 +4,7 @@
   if(typeof module==='object'&&module.exports) module.exports=api; else root.DotaGame=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function(D){
   'use strict';
-  const VERSION='dota2-career-v4',MAX_EVENTS=10,START_YEAR=2011;
+  const VERSION='dota2-career-v4',START_YEAR=2011,MAX_EVENTS=D.years.filter(year=>year>=START_YEAR).length;
   const coachPools=year=>D.coachYears.includes(year)?D.pools.filter(p=>p.year===year):[];
   const coachIds=new Set(D.coachCards.map(c=>c.id));
   const teamIds=new Set(D.pools.map(p=>p.team));

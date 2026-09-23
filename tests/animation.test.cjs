@@ -102,6 +102,19 @@ test('continued careers show their next event without a year selector',()=>{
   assert.doesNotMatch(p.app.innerHTML,/data-action="year"|year-button|生涯起点/);
 });
 
+test('a saved TI10 result offers TI11 and replacement rewards without resetting the career',()=>{
+  const s=G.start(143);while(s.phase==='draft')G.pick(s,G.eligible(s,G.currentPool(s))[0].id);
+  for(let i=0;i<10;i++){G.finish(s);if(i<9)G.next(s);}
+  assert.equal(s.year,2021);const history=JSON.stringify(s.history),seats=[...s.seats];
+  const p=page(JSON.parse(JSON.stringify(s)));
+  assert.match(p.app.innerHTML,/进入 TI11/);assert.doesNotMatch(p.app.innerHTML,/这段旅程，值得记住/);
+  p.click('begin-replace');assert.equal(p.saved().rerolls,s.rerolls+1);
+  p.click('cancel-replace');p.click('next');
+  assert.match(p.app.innerHTML,/征战 TI11/);assert.equal(p.saved().year,2022);
+  assert.equal(JSON.stringify(p.saved().history),history);assert.deepEqual(p.saved().seats,seats);
+  const restored=page(p.saved());assert.match(restored.app.innerHTML,/征战 TI11/);
+});
+
 test('coach draft, archive and detail show career statistics instead of hero portraits',()=>{
   const s=G.start(46);while(s.seats.slice(0,5).some(id=>!id))G.pick(s,G.eligible(s,G.currentPool(s))[0].id);
   const p=page(s);assert.doesNotMatch(p.app.innerHTML,/hero-portrait|常用英雄/);

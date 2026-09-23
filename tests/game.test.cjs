@@ -107,18 +107,18 @@ test('unused offseason rerolls accumulate, keep long draw histories valid and st
     const before=s.rerolls;assert.ok(G.beginReplacement(s));assert.equal(s.rerolls,before+1);
     s=G.validate(s);assert.equal(s.replacementRerollBonuses,round+1);
     if(round===G.MAX_EVENTS-2){
-      assert.equal(s.rerolls,12);const seen=new Set([G.currentPool(s).team]);
+      assert.equal(s.rerolls,3+G.MAX_EVENTS-1);const seen=new Set([G.currentPool(s).team]);
       while(s.rerolls){
         assert.ok(G.draw(s,'both'));assert.ok(!seen.has(G.currentPool(s).team));seen.add(G.currentPool(s).team);
         s=G.validate(JSON.parse(JSON.stringify(s)));assert.deepEqual(s.replacement.drawnTeams,[...seen]);
       }
-      assert.equal(seen.size,13);
+      assert.equal(seen.size,3+G.MAX_EVENTS);
     }
     G.cancelReplacement(s);assert.ok(G.next(s));
   }
-  assert.equal(G.validate(s).replacementRerollBonuses,9);
-  for(const replacementRerollBonuses of [-1,10,1.5,null])assert.throws(()=>G.validate({...s,replacementRerollBonuses}),/抽签/);
-  assert.throws(()=>G.validate({...s,rerolls:13}),/抽签/);
+  assert.equal(G.validate(s).replacementRerollBonuses,G.MAX_EVENTS-1);
+  for(const replacementRerollBonuses of [-1,G.MAX_EVENTS,1.5,null])assert.throws(()=>G.validate({...s,replacementRerollBonuses}),/抽签/);
+  assert.throws(()=>G.validate({...s,rerolls:3+G.MAX_EVENTS}),/抽签/);
   const legacy=fill(115);delete legacy.replacementRerollBonuses;
   assert.equal(G.validate(legacy).replacementRerollBonuses,0);
   assert.throws(()=>G.validate({...legacy,replacementRerollBonuses:1}),/抽签/);
@@ -173,10 +173,16 @@ test('coach can be replaced once, cancellation preserves candidates, old result 
   assert.equal(JSON.stringify(s.history[0]),old);assert.equal(G.beginReplacement(s),false);
   assert.ok(G.next(s));assert.equal(s.year,2012);assert.equal(G.validate(s).phase,'ready');
 });
-test('careers cap at ten consecutive events and skip 2020',()=>{
-  const s=fill(3);
-  for(let i=0;i<10;i++){G.finish(s);assert.equal(s.history.length,i+1);assert.equal(G.validate(s).phase,'result');if(i<9)assert.ok(G.next(s));}
-  assert.equal(s.year,2021);assert.equal(G.next(s),false);assert.equal(G.beginReplacement(s),false);assert.equal(G.finish(s),false);
+test('careers run through all fifteen editions, skip 2020, and end only after TI15',()=>{
+  let s=fill(3);const years=[];
+  assert.equal(G.MAX_EVENTS,15);
+  for(let i=0;i<15;i++){
+    years.push(G.finish(s).year);assert.equal(s.history.length,i+1);
+    s=G.validate(JSON.parse(JSON.stringify(s)));assert.equal(s.phase,'result');
+    if(i<14)assert.ok(G.next(s));
+  }
+  assert.deepEqual(years,[2011,2012,2013,2014,2015,2016,2017,2018,2019,2021,2022,2023,2024,2025,2026]);
+  assert.equal(s.year,2026);assert.equal(G.next(s),false);assert.equal(G.beginReplacement(s),false);assert.equal(G.finish(s),false);
 });
 test('all fifteen historical tournament fields run; 2026 ends, and team names are preserved',()=>{
   const s=fill(8);
@@ -472,6 +478,6 @@ test('all fourteen series retain every map, both lineups and per-series scores a
   });
   assert.equal(r.wins+r.losses,r.games.filter(g=>g.a==='myteam'||g.b==='myteam').length);
   assert.deepEqual(G.validate(JSON.parse(JSON.stringify(s))),s);
-  for(let i=1;i<10;i++){G.next(s);G.finish(s);}
-  assert.ok(JSON.stringify(s).length*2<4*1024*1024,'ten full events fit within ordinary browser storage');
+  for(let i=1;i<15;i++){G.next(s);G.finish(s);}
+  assert.ok(JSON.stringify(s).length*2<4*1024*1024,'all fifteen full events fit within ordinary browser storage');
 });
