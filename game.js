@@ -162,14 +162,27 @@
     return coach?.tacticFits?.[tactic]||0;
   }
   function experience(card,id){const counts=Object.values(card?.heroUsage||{});return counts.length?(card.heroUsage[id]||0)/Math.max(...counts):0;}
-  function draftPool(card,role,tier=0){
-    const event=card?.heroUsage||{},career=D.playerHeroUsage[card?.person]||{};
-    const compatible=D.heroes.filter(h=>h.roles.includes(role));
-    const current=compatible.filter(h=>event[h.id]>0),known=compatible.filter(h=>career[h.id]>0);
-    const fallback=compatible.filter(h=>role>=4?h.tags.includes('Support')&&!h.tags.includes('Carry'):!h.tags.includes('Support')||h.tags.includes('Carry'));
-    const expanded=compatible.filter(h=>event[h.id]>0||career[h.id]>0||fallback.includes(h));
-    const heroes=tier===2?expanded:tier===1?(known.length?known:fallback):(current.length?current:known.length?known:fallback);
-    return heroes.map(h=>({hero:h.id,source:event[h.id]>0?'event':career[h.id]>0?'career':'role',familiarity:event[h.id]>0?experience(card,h.id):experience({heroUsage:career},h.id)}));
+  function draftPool(card,role){
+    const event=card?.heroUsage||{};
+    const hasEvent=D.heroes.some(h=>event[h.id]>0);
+    const usage=hasEvent?event:D.playerHeroUsage[card?.person]||{};
+    const position=new Set(D.roleHeroPools[role]||[]);
+    return D.heroes.filter(h=>position.has(h.id)||usage[h.id]>0).map(h=>{
+      const inRolePool=position.has(h.id),inPlayerPool=usage[h.id]>0;
+      return {hero:h.id,inRolePool,inPlayerPool,pool:inRolePool&&inPlayerPool?'intersection':inPlayerPool?'player':'role',source:inPlayerPool?(hasEvent?'event':'career'):'role',familiarity:experience({heroUsage:usage},h.id)};
+    });
+  }
+  // Reserve 95% of probability for the available intersection as a group, so a
+  // large position-only pool cannot drown out a player's few familiar heroes.
+  const INTERSECTION_CHANCE=.95;
+  function chooseDraftHero(candidates,team,random){
+    if(!candidates.length)throw Error('当前席位的英雄并集已无可用英雄');
+    const intersection=candidates.filter(p=>p.pool==='intersection'),others=candidates.filter(p=>p.pool!=='intersection');
+    const preferred=intersection.length&&others.length?(random()<INTERSECTION_CHANCE?intersection:others):intersection.length?intersection:others;
+    const weighted=preferred.map(p=>({pick:p,weight:1+p.familiarity*4+D.heroScore(D.heroMap[p.hero],team.tactic)/10+experience(team.coach,p.hero)*1.2}));
+    let ticket=random()*weighted.reduce((total,p)=>total+p.weight,0);
+    for(const entry of weighted){ticket-=entry.weight;if(ticket<0)return entry.pick;}
+    return weighted.at(-1).pick;
   }
   // Bipartite matching reserves a distinct legal hero for every remaining seat.
   function canAssign(pools,blocked){
@@ -186,12 +199,8 @@
   }
   function autoDraft(a,b,random,first){
     const teams=[a,b].map(t=>({...t,tactic:coachTactic(t.coach)})),banned=[],used=new Set(),picks=[[],[]],roles=[0,0],decisions=[];
-    let pools;
-    for(let tier=0;tier<=2;tier++){
-      pools=teams.flatMap(t=>t.cards.slice(0,5).map((c,i)=>draftPool(c,i+1,tier)));
-      if(canAssign(pools,used))break;
-    }
-    if(!canAssign(pools,used))throw Error('无法生成符合位置的完整 BP');
+    const pools=teams.flatMap(t=>t.cards.slice(0,5).map((c,i)=>draftPool(c,i+1)));
+    if(!canAssign(pools,used))throw Error('无法在各席位的英雄并集中完成 BP');
     const safe=(id,remaining=pools)=>canAssign(remaining,new Set([...used,id]));
     for(let i=0;i<4;i++){
       const side=(i+(first?1:0))%2,team=teams[side],opponentPools=pools.slice((1-side)*5,(1-side)*5+5);
@@ -206,9 +215,8 @@
       const role=++roles[side],team=teams[side];
       const remaining=pools.filter((_,i)=>i%5>=roles[Math.floor(i/5)]);
       const candidates=pools[side*5+role-1].filter(p=>!used.has(p.hero)&&safe(p.hero,remaining));
-      const ranked=candidates.map(p=>({...p,score:(p.source==='event'?40:p.source==='career'?20:0)+p.familiarity*5+D.heroScore(D.heroMap[p.hero],team.tactic)/5*.5+experience(team.coach,p.hero)*1.2+random()*1.5})).sort((x,y)=>y.score-x.score);
-      const chosen=ranked[0],hero=chosen.hero;picks[side].push(hero);used.add(hero);
-      decisions.push({kind:'pick',side,role,hero,source:chosen.source,coach:team.coach?.name||null,coachExperience:experience(team.coach,hero)});
+      const chosen=chooseDraftHero(candidates,team,random),hero=chosen.hero;picks[side].push(hero);used.add(hero);
+      decisions.push({kind:'pick',side,role,hero,pool:chosen.pool,source:chosen.source,coach:team.coach?.name||null,coachExperience:experience(team.coach,hero)});
     }
     return {banned,a:picks[0],b:picks[1],decisions,coaches:teams.map(t=>t.coach?.name||null),coachFit:teams.map(t=>coachFit(t.coach,t.tactic))};
   }
@@ -273,8 +281,8 @@
       const matches=bracket.filter(m=>m.a===t.id||m.b===t.id);
       return {id:t.id,name:t.name,seed,placement:placements[t.id],wins:matches.reduce((n,m)=>n+m.score[m.a===t.id?0:1],0),losses:matches.reduce((n,m)=>n+m.score[m.a===t.id?1:0],0)};
     }).sort((a,b)=>parseInt(a.placement,10)-parseInt(b.placement,10)||a.seed-b.seed);
-    return {model:'historical-inputs-game-rules-6',format:'double-elimination-8',year:s.year,teamName:us.name,replacedTeam:{id:replaced.team,name:replaced.name,placement:replaced.finish},seats:[...s.seats],lineups:Object.fromEntries(participants.map(t=>[t.id,t.cards.map(c=>c.id)])),tactic:us.tactic,placement:placements.myteam,champion:final.winner,standings,bracket,games,wins,losses:ourGames.length-wins,seed:s.seed};
+    return {model:'historical-inputs-game-rules-7',format:'double-elimination-8',year:s.year,teamName:us.name,replacedTeam:{id:replaced.team,name:replaced.name,placement:replaced.finish},seats:[...s.seats],lineups:Object.fromEntries(participants.map(t=>[t.id,t.cards.map(c=>c.id)])),tactic:us.tactic,placement:placements.myteam,champion:final.winner,standings,bracket,games,wins,losses:ourGames.length-wins,seed:s.seed};
   }
   function finish(s){if(s.phase!=='ready'||!s.seats.every(Boolean)||!coachIds.has(s.seats[5])||s.history.some(r=>r.year===s.year))return false;if(!s.history.length)s.year=START_YEAR;s.tactic=coachTactic(lineup(s)[5]);const result=tournament(s);s.history.push(result);s.phase='result';return result;}
-  return {VERSION,MAX_EVENTS,nextYear,canAdvance,coachFit,experience,draftPool,rng,shuffle,start,renameTeam,eventField,validate,currentPool,lineup,canPick,canComplete,eligible,alternatives,draw,pick,coachPools,isCoachDraft,coachSelection,canReplaceRole,beginReplacement,replacementTarget,cancelReplacement,next,matchLineup,autoDraft,playMap,tournament,finish};
+  return {VERSION,MAX_EVENTS,nextYear,canAdvance,coachFit,experience,draftPool,chooseDraftHero,rng,shuffle,start,renameTeam,eventField,validate,currentPool,lineup,canPick,canComplete,eligible,alternatives,draw,pick,coachPools,isCoachDraft,coachSelection,canReplaceRole,beginReplacement,replacementTarget,cancelReplacement,next,matchLineup,autoDraft,playMap,tournament,finish};
 });

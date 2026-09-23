@@ -136,11 +136,11 @@ test('duplicate identities are blocked across aliases, years, player and coach r
   assert.equal(G.canPick(t,D.cardMap['2025-falcons-coach-aui2000']),false);
   const before=JSON.stringify(t);assert.equal(G.pick(t,'2015-eg-aui2000'),false);assert.equal(JSON.stringify(t),before);
 });
-test('BP picks ten compatible unique heroes and four disjoint bans across the full archive',()=>{
+test('BP picks ten heroes from each seat union and four disjoint bans across the full archive',()=>{
   for(let i=0;i<D.pools.length;i++){
     const a=team(D.pools[i]),b=team(D.pools[(i+3)%D.pools.length]),bp=G.autoDraft(a,b,G.rng(i),i%2);
     assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,14);
-    for(const side of [bp.a,bp.b])side.forEach((id,role)=>assert.ok(D.heroMap[id].roles.includes(role+1)));
+    for(const [side,roster] of [[bp.a,a],[bp.b,b]])side.forEach((id,role)=>assert.ok(G.draftPool(roster.cards[role],role+1).some(p=>p.hero===id)));
     assert.equal(bp.decisions.length,14);assert.ok(bp.coachFit.every(v=>v>=0&&v<=1));
   }
 });
@@ -368,31 +368,89 @@ test('custom team names persist, keep stable identity and preserve historical na
   assert.deepEqual(G.validate(JSON.parse(JSON.stringify(s))),s);
 });
 
-test('BP rejects pure cores in support seats and carries in the offlane by noisy observed slots',()=>{
-  assert.equal(D.heroes.length,require('../catalog-data.js').heroes.length,'every catalog hero has reviewed draft positions');
-  const cores=['antimage','juggernaut','phantom_lancer','morphling','nevermore','storm_spirit','sniper','templar_assassin','luna','life_stealer','spectre','ursa','alchemist','invoker','chaos_knight','slark','medusa','terrorblade','arc_warden'];
-  for(const id of cores)assert.ok(!D.heroMap[id].roles.some(role=>role>=4),id);
-  assert.ok(D.heroMap.faceless_void.roles.includes(1));
-  assert.ok(!D.heroMap.axe.roles.includes(5));assert.ok(!D.heroMap.beastmaster.roles.includes(5));
+test('each seat pool is exactly the union, including player-only heroes outside the position pool',()=>{
+  assert.equal(D.heroes.length,require('../catalog-data.js').heroes.length);
+  for(let role=1;role<=5;role++){
+    assert.ok(D.roleHeroPools[role].length>0);
+    assert.equal(new Set(D.roleHeroPools[role]).size,D.roleHeroPools[role].length);
+    for(const id of D.roleHeroPools[role])assert.ok(D.heroMap[id]);
+    const card={person:'test',heroUsage:{chen:10,antimage:3,unknown_hero:20,invoker:0,axe:-1}};
+    const pool=G.draftPool(card,role),expected=new Set([...D.roleHeroPools[role],'chen','antimage']);
+    assert.deepEqual(new Set(pool.map(p=>p.hero)),expected);
+    assert.equal(pool.length,expected.size);
+  }
+  const pool=G.draftPool({heroUsage:{chen:10,antimage:3}},5);
+  assert.equal(pool.find(p=>p.hero==='chen').pool,'intersection');
+  assert.equal(pool.find(p=>p.hero==='antimage').pool,'player');
+  assert.equal(pool.find(p=>p.hero==='oracle').pool,'role');
+  assert.ok(!pool.some(p=>p.hero==='axe'));
+});
+
+test('the personal pool uses full event records, with player-career records only when event data is absent',()=>{
+  const card=D.cardMap['2018-og-ana'],pool=G.draftPool(card,1);
+  assert.deepEqual(new Set(pool.filter(p=>p.inPlayerPool).map(p=>p.hero)),new Set(Object.keys(card.heroUsage)));
+  assert.ok(pool.filter(p=>p.inPlayerPool).every(p=>p.source==='event'));
+  const missing={...card,heroUsage:{}},fallback=G.draftPool(missing,1);
+  assert.deepEqual(new Set(fallback.filter(p=>p.inPlayerPool).map(p=>p.hero)),new Set(Object.keys(D.playerHeroUsage[card.person])));
+  assert.ok(fallback.filter(p=>p.inPlayerPool).every(p=>p.source==='career'));
+  assert.deepEqual(G.draftPool({person:'no-records',heroUsage:{}},5).map(p=>p.hero).sort(),[...D.roleHeroPools[5]].sort());
+});
+
+test('a single intersection hero receives about 95 percent even against a large union',()=>{
+  const pool=G.draftPool({heroUsage:{chen:10,antimage:5}},5),random=G.rng(3821),counts={intersection:0,player:0,role:0};
+  const roster={tactic:'balanced',coach:null};
+  for(let i=0;i<10000;i++)counts[G.chooseDraftHero(pool,roster,random).pool]++;
+  assert.ok(counts.intersection>9400&&counts.intersection<9600,JSON.stringify(counts));
+  assert.ok(counts.player>0&&counts.role>0,'both sides of the union remain selectable');
+  const onlyIntersection=pool.filter(p=>p.pool==='intersection'),withoutIntersection=pool.filter(p=>p.pool!=='intersection');
+  for(let i=0;i<100;i++){
+    assert.equal(G.chooseDraftHero(onlyIntersection,roster,random).hero,'chen');
+    assert.ok(withoutIntersection.includes(G.chooseDraftHero(withoutIntersection,roster,random)));
+  }
+  assert.throws(()=>G.chooseDraftHero([],roster,random),/无可用英雄/);
+});
+
+test('recorded familiarity still influences choices within the intersection',()=>{
+  const pool=G.draftPool({heroUsage:{antimage:30,juggernaut:1}},1).filter(p=>p.pool==='intersection');
+  const random=G.rng(824),roster={tactic:'balanced',coach:null};let familiar=0;
+  for(let i=0;i<4000;i++)if(G.chooseDraftHero(pool,roster,random).hero==='antimage')familiar++;
+  assert.ok(familiar>2500&&familiar<3700,'familiarity favors the common hero without excluding the other');
+});
+
+test('full BP respects union membership and heavily favors the available intersection across the archive',()=>{
+  let eligible=0,preferred=0,playerOnly=0;
   for(let i=0;i<D.pools.length;i++)for(let seed=0;seed<4;seed++){
     const teams=[team(D.pools[i]),team(D.pools[(i+5)%D.pools.length])],bp=G.autoDraft(...teams,G.rng(seed+i*10),seed%2);
+    const blocked=new Set(bp.banned);
+    assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,14);
     for(const decision of bp.decisions.filter(d=>d.kind==='pick')){
       const card=teams[decision.side].cards[decision.role-1];
-      if(decision.role>=4)assert.ok(!cores.includes(decision.hero));
+      const usage=Object.values(card.heroUsage).some(n=>n>0)?card.heroUsage:D.playerHeroUsage[card.person]||{};
+      const inRole=D.roleHeroPools[decision.role].includes(decision.hero),inPlayer=usage[decision.hero]>0;
+      assert.ok(inRole||inPlayer);assert.ok(!blocked.has(decision.hero));
+      assert.equal(decision.pool,inRole&&inPlayer?'intersection':inPlayer?'player':'role');
+      if(D.roleHeroPools[decision.role].some(id=>usage[id]>0&&!blocked.has(id))){eligible++;if(inRole&&inPlayer)preferred++;}
+      if(inPlayer&&!inRole)playerOnly++;
       if(decision.source==='event')assert.ok(card.heroUsage[decision.hero]>0);
       else if(decision.source==='career')assert.ok(D.playerHeroUsage[card.person][decision.hero]>0);
       else assert.equal(decision.source,'role');
+      blocked.add(decision.hero);
     }
   }
+  assert.ok(eligible>3000);assert.ok(preferred/eligible>.93&&preferred/eligible<.97,`${preferred}/${eligible}`);
+  assert.ok(playerOnly>0);
 });
 
-test('BP reserves narrow player pools during bans and early picks instead of forcing off-role heroes',()=>{
+test('BP completes narrow or shared personal pools without escaping the union after bans',()=>{
   const ids=['antimage','storm_spirit','axe','earthshaker','chen','juggernaut','puck','tidehunter','rubick','crystal_maiden'];
   const a={cards:ids.slice(0,5).map((id,i)=>({person:'test-a-'+i,role:i+1,heroUsage:{[id]:10}}))},b={cards:ids.slice(5).map((id,i)=>({person:'test-b-'+i,role:i+1,heroUsage:{[id]:10}}))};
   for(let seed=0;seed<20;seed++){
     const bp=G.autoDraft(a,b,G.rng(seed),seed%2);
-    assert.deepEqual([...bp.a,...bp.b],ids);assert.ok(bp.banned.every(id=>!ids.includes(id)));
-    assert.ok(bp.decisions.filter(d=>d.kind==='pick').every(d=>d.source==='event'));
+    assert.equal(new Set([...bp.a,...bp.b,...bp.banned]).size,14);
+    for(const decision of bp.decisions.filter(d=>d.kind==='pick')){
+      const personal=ids[decision.side*5+decision.role-1];
+      assert.ok(D.roleHeroPools[decision.role].includes(decision.hero)||decision.hero===personal);
+    }
   }
   const duplicate=structuredClone(b);duplicate.cards[4].heroUsage={chen:10};
   const bp=G.autoDraft(a,duplicate,G.rng(21),0);

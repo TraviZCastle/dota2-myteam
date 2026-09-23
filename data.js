@@ -21,8 +21,8 @@
   };
 
   const axes=['farm','tempo','push','control','save'];
-  // Conservative draft positions, distinct from raw observed roster slots.
-  // Flexible picks still need player history to outrank a conventional pick.
+  // Position pools are game rules, separate from each player's recorded hero pool.
+  // Automatic BP uses their union and strongly favors their intersection.
   const draftPositions={
     1:'antimage bloodseeker drow_ranger juggernaut mirana morphling nevermore phantom_lancer razor sven tiny windrunner riki faceless_void skeleton_king phantom_assassin templar_assassin luna dragon_knight leshrac furion life_stealer clinkz huskar weaver spectre ursa gyrocopter alchemist lone_druid chaos_knight naga_siren wisp slark medusa troll_warlord bristleback abaddon ember_spirit terrorblade arc_warden monkey_king dark_willow marci muerta kez',
     2:'bloodseeker earthshaker mirana morphling nevermore puck pudge razor storm_spirit tiny windrunner zuus kunkka lina tinker sniper necrolyte queenofpain death_prophet pugna templar_assassin viper dragon_knight dazzle leshrac furion huskar broodmother batrider doom_bringer alchemist invoker obsidian_destroyer brewmaster lone_druid meepo keeper_of_the_light visage medusa magnataur shredder ember_spirit earth_spirit arc_warden monkey_king pangolier void_spirit snapfire primal_beast',
@@ -37,7 +37,7 @@
     const v=base?.vector||[tags.includes('Carry')?4:2,tags.includes('Initiator')?4:3,tags.includes('Pusher')?4:2,tags.includes('Disabler')?4:2,tags.includes('Support')?4:1];
     const compatible=[1,2,3,4,5].filter(role=>rolePools[role].includes(h.id));
     return {...h,roles:compatible,...Object.fromEntries(axes.map((k,i)=>[k,v[i]]))};
-  }).filter(h=>h.roles.length);
+  });
   const heroMap=Object.fromEntries(heroes.map(h=>[h.id,h]));
   const coachPoolVersion=C.coachSelection.version,coachYears=C.coachSelection.years;
   const coachIds=new Set(C.coachSelection.ids);
@@ -109,5 +109,5 @@
     const deviations=means.map((mean,i)=>Math.sqrt(values.reduce((n,v)=>n+((v[i]??mean)-mean)**2,0)/(values.length||1)));
     cohort.forEach((c,j)=>{const z=means.map((mean,i)=>values[j][i]==null?0:deviations[i]?(values[j][i]-mean)/deviations[i]:0);c.strength=Math.max(-1,Math.min(1,z.reduce((n,v)=>n+v,0)/4))*Math.min(1,c.stats.games/20);});
   }
-  return {aegis,playerHeroUsage,version:C.version,coachPoolVersion,coachYears,coachCards,roles,roleEnglish,axes,heroes,heroMap,teams,pools,poolMap,cards,cardMap,tactics,years,events,eventMap,personId,heroScore,statsMeta:{events:eventMap}};
+  return {aegis,roleHeroPools:rolePools,playerHeroUsage,version:C.version,coachPoolVersion,coachYears,coachCards,roles,roleEnglish,axes,heroes,heroMap,teams,pools,poolMap,cards,cardMap,tactics,years,events,eventMap,personId,heroScore,statsMeta:{events:eventMap}};
 });
