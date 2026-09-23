@@ -48,7 +48,10 @@
     for(const [id,count] of Object.entries(c.heroUsage))usage[id]=(usage[id]||0)+count;
   }
   const pools=C.pools.map(p=>({...p,cards:p.cards.filter(c=>c.role<=5||coachIds.has(c.id))}));
-  const cards=pools.flatMap(p=>p.cards),coachCards=cards.filter(c=>c.role===6);
+  // TI1 rosters remain available to the tournament, but are not selectable cards.
+  const draftPools=pools.filter(p=>p.year!==2011);
+  const draftYears=[...new Set(draftPools.map(p=>p.year))];
+  const cards=draftPools.flatMap(p=>p.cards),coachCards=cards.filter(c=>c.role===6);
   const cardMap=Object.fromEntries(historicalCards.map(c=>[c.id,c]));
   const events=C.events.map(e=>({...e,coachCards:coachCards.filter(c=>c.year===e.year).length}));
   const years=events.map(e=>e.year),eventMap=Object.fromEntries(events.map(e=>[e.year,e]));
@@ -109,5 +112,5 @@
     const deviations=means.map((mean,i)=>Math.sqrt(values.reduce((n,v)=>n+((v[i]??mean)-mean)**2,0)/(values.length||1)));
     cohort.forEach((c,j)=>{const z=means.map((mean,i)=>values[j][i]==null?0:deviations[i]?(values[j][i]-mean)/deviations[i]:0);c.strength=Math.max(-1,Math.min(1,z.reduce((n,v)=>n+v,0)/4))*Math.min(1,c.stats.games/20);});
   }
-  return {aegis,roleHeroPools:rolePools,playerHeroUsage,version:C.version,coachPoolVersion,coachYears,coachCards,roles,roleEnglish,axes,heroes,heroMap,teams,pools,poolMap,cards,cardMap,tactics,years,events,eventMap,personId,heroScore,statsMeta:{events:eventMap}};
+  return {aegis,roleHeroPools:rolePools,playerHeroUsage,version:C.version,coachPoolVersion,coachYears,coachCards,roles,roleEnglish,axes,heroes,heroMap,teams,pools,draftPools,draftYears,poolMap,cards,cardMap,tactics,years,events,eventMap,personId,heroScore,statsMeta:{events:eventMap}};
 });

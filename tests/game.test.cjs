@@ -10,7 +10,7 @@ test('100 seeded drafts finish five players then a distinct historical coach wit
     const s=G.start(seed);
     for(let i=0;i<6;i++){
       const candidates=G.eligible(s,G.currentPool(s));assert.ok(candidates.length);
-      assert.ok(candidates.every(c=>i===5?c.role===6:c.role<=5));
+      assert.ok(candidates.every(c=>c.year!==2011&&(i===5?c.role===6:c.role<=5)));
       assert.ok(G.pick(s,candidates[Math.floor(G.rng(seed+i)()*candidates.length)].id));
       assert.equal(s.phase,i===5?'ready':'draft');
     }
@@ -153,7 +153,7 @@ test('changing only the coach changes BP; missing historical samples remain neut
   }
   assert.ok(changed>0);assert.notEqual(G.coachFit(a.coach,'tempo'),G.coachFit(other.coach,'tempo'));
   assert.equal(G.coachFit(D.cardMap['2011-ehome-coach-71'],'tempo'),0);
-  assert.ok(D.cards.filter(c=>c.year===2011).every(c=>c.strength===0));
+  assert.ok(D.pools.filter(p=>p.year===2011).flatMap(p=>p.cards).every(c=>c.strength===0));
 });
 test('tournament results are deterministic and agree with destroyed bases and the bracket',()=>{
   const s=fill(320),a=G.tournament(s),b=G.tournament(s);assert.deepEqual(a,b);
@@ -219,16 +219,26 @@ test('old manual preferences are removed without changing lineup, progress or co
   assert.deepEqual({...restored,preferences:before.preferences},before);
   assert.deepEqual(G.validate(restored),restored);assert.deepEqual(s,before);
 });
-test('TI1 picks and replacements keep missing hero samples absent with automatic BP',()=>{
-  const s=G.start(42);s.poolId='2011-navi';
-  const card=G.currentPool(s).cards.find(c=>c.role===1);
-  assert.ok(G.pick(s,card.id));assert.equal(s.preferences,undefined);
-  assert.deepEqual(card.heroUsage,{});assert.deepEqual(card.heroCandidates,[]);assert.deepEqual(G.validate(s),s);
-  const t=fill(43);G.finish(t);assert.ok(G.beginReplacement(t));
-  const replacement=D.cards.find(c=>c.year===2011&&c.role<=5&&G.canPick(t,c));
-  t.replacement.poolId=replacement.poolId;
-  assert.ok(G.replacementTarget(t,replacement.role));assert.ok(G.pick(t,replacement.id));
-  assert.equal(t.preferences,undefined);assert.deepEqual(G.validate(t),t);
+test('TI1 cards cannot enter drafts or replacements, while TI1 opponents still play',()=>{
+  const removed=D.pools.filter(p=>p.year===2011).flatMap(p=>p.cards);
+  const s=G.start(42);
+  assert.ok(G.alternatives(s).every(p=>p.year!==2011));
+  for(const card of removed){
+    s.poolId=card.poolId;
+    assert.equal(G.canPick(s,card),false);assert.equal(G.pick(s,card.id),false);
+    assert.deepEqual(G.eligible(s,G.currentPool(s)),[]);
+  }
+  assert.throws(()=>G.validate(s),/抽签/);
+  const t=fill(43);G.finish(t);assert.equal(t.history[0].year,2011);
+  assert.equal(t.history[0].standings.length,8);assert.equal(t.history[0].bracket.length,14);
+  assert.ok(G.beginReplacement(t));assert.ok(G.alternatives(t).every(p=>p.year!==2011));
+  for(const card of removed){
+    t.replacement.poolId=card.poolId;t.replacement.target=card.role;
+    assert.equal(G.canPick(t,card),false);assert.equal(G.pick(t,card.id),false);
+  }
+  assert.throws(()=>G.validate(t),/换人/);
+  const invalid=fill(44);invalid.seats[0]=removed.find(c=>c.role===1).id;
+  assert.throws(()=>G.validate(invalid),/阵容/);
 });
 
 function coachRound(seed){const s=G.start(seed);while(s.seats.slice(0,5).some(id=>!id)){assert.ok(G.pick(s,G.eligible(s,G.currentPool(s))[0].id));}return s;}

@@ -162,3 +162,15 @@ test('connected bracket opens every matchup and map with correct spectator winne
   }
   assert.deepEqual(p.saved(),s);
 });
+
+test('archive and homepage count only selectable cards and omit TI1 filters',()=>{
+  const s=G.start(2026),p=page(s,{route:'archive'}),html=p.app.innerHTML;
+  assert.match(html,/14 届 · 112 个战队池/);assert.match(html,/<b>560<\/b> 张选手卡/);
+  assert.match(html,/<b>48<\/b> 张教练卡/);assert.match(html,/608 张赛事版本卡/);
+  assert.doesNotMatch(html,/value="2011"|data-card="2011-|value="m5"|TI1 名单完整/);
+  p.change('archive-year','2011');assert.doesNotMatch(p.archive(),/data-card=/);
+  p.change('archive-year','2012');assert.match(p.archive(),/data-card="2012-/);
+  const home=page(s,{route:'home'}).app.innerHTML;
+  assert.match(home,/112<small>队<\/small>/);assert.match(home,/560<small>/);
+  assert.match(home,/从 TI1 到 TI2026/);
+});

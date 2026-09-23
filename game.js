@@ -7,6 +7,7 @@
   const VERSION='dota2-career-v4',START_YEAR=2011,MAX_EVENTS=D.years.filter(year=>year>=START_YEAR).length;
   const coachPools=year=>D.coachYears.includes(year)?D.pools.filter(p=>p.year===year):[];
   const coachIds=new Set(D.coachCards.map(c=>c.id));
+  const selectableIds=new Set(D.cards.map(c=>c.id));
   const teamIds=new Set(D.pools.map(p=>p.team));
   const byRole=Array.from({length:6},(_,i)=>D.cards.filter(c=>c.role===i+1&&(i!==5||coachIds.has(c.id))));
   const nextYear=s=>D.years[D.years.indexOf(s.year)+1];
@@ -42,7 +43,7 @@
     return visit(0);
   }
   function canPick(s,card){
-    if(!card||!['draft','replace'].includes(s.phase))return false;
+    if(!card||!selectableIds.has(card.id)||!['draft','replace'].includes(s.phase))return false;
     if(card.role===6&&(!coachIds.has(card.id)||(s.phase==='replace'&&s.replacement.target!==6)))return false;
     const team=lineup(s);
     if(team.some(c=>c?.person===card.person))return false;
@@ -57,7 +58,7 @@
     if(isCoachDraft(s))return kind&&kind!=='event'?[]:coachYears(s).filter(year=>!kind||year!==coachSelection(s).year);
     if(kind&&kind!=='both')return [];
     const pool=currentPool(s),seen=new Set(playerSelection(s).drawnTeams||[pool?.team]);
-    return D.pools.filter(p=>!seen.has(p.team)&&eligible(s,p).length&&(!kind||p.year!==pool.year));
+    return D.draftPools.filter(p=>!seen.has(p.team)&&eligible(s,p).length&&(!kind||p.year!==pool.year));
   }
   function draw(s,kind){
     if(!['draft','replace'].includes(s.phase))return false;
@@ -115,7 +116,7 @@
     const s=clone(value);
     if(s.version!==VERSION||s.catalogVersion!==D.version||!Number.isInteger(s.seed)||s.seed<0||s.seed>4294967295||!Number.isInteger(s.drawStep)||s.drawStep<1||!['draft','ready','result','replace'].includes(s.phase)||!D.years.includes(s.year)||!D.tactics[s.tactic])throw Error('存档版本或内容无效');
     try{s.teamName=normalizeTeamName(s.teamName);}catch{throw Error('存档队名无效');}
-    if(!Array.isArray(s.seats)||s.seats.length!==6||s.seats.some((id,i)=>id!==null&&(!D.cardMap[id]||D.cardMap[id].role!==i+1)))throw Error('存档阵容无效');
+    if(!Array.isArray(s.seats)||s.seats.length!==6||s.seats.some((id,i)=>id!==null&&(!selectableIds.has(id)||D.cardMap[id].role!==i+1)))throw Error('存档阵容无效');
     const people=lineup(s).filter(Boolean).map(c=>c.person);if(new Set(people).size!==people.length||(!s.seats.every(Boolean)&&s.phase!=='draft')||(s.seats.every(Boolean)&&s.phase==='draft'))throw Error('存档席位无效');
     if(s.rerolls&&typeof s.rerolls==='object'){
       if(Array.isArray(s.rerolls)||!['event','team'].every(k=>Number.isInteger(s.rerolls[k])&&s.rerolls[k]>=0&&s.rerolls[k]<=3))throw Error('存档抽签无效');
@@ -128,10 +129,10 @@
     if(!Array.isArray(s.history)||s.history.length>MAX_EVENTS||new Set(s.history.map(r=>r.year)).size!==s.history.length||s.history.some(r=>!D.years.includes(r.year)||!r.placement||!Array.isArray(r.standings)||!Array.isArray(r.bracket)||!Array.isArray(r.games)||!Array.isArray(r.seats)||r.seats.length!==6||r.seats.some(id=>!D.cardMap[id])))throw Error('存档赛果无效');
     if(s.replacementRerollBonuses===undefined)s.replacementRerollBonuses=0;
     if(!Number.isInteger(s.replacementRerollBonuses)||s.replacementRerollBonuses<0||s.replacementRerollBonuses>Math.min(s.history.length,MAX_EVENTS-1))throw Error('存档抽签奖励无效');
-    if(!Number.isInteger(s.rerolls)||s.rerolls<0||s.rerolls>3+s.replacementRerollBonuses||!D.pools.some(p=>p.id===s.poolId))throw Error('存档抽签无效');
+    if(!Number.isInteger(s.rerolls)||s.rerolls<0||s.rerolls>3+s.replacementRerollBonuses||!D.draftPools.some(p=>p.id===s.poolId))throw Error('存档抽签无效');
     if(!s.history.length)s.year=START_YEAR;
     if(['result','replace'].includes(s.phase)&&s.history.at(-1)?.year!==s.year)throw Error('存档缺少赛果');
-    if(s.replacement&&(!D.pools.some(p=>p.id===s.replacement.poolId)||![null,1,2,3,4,5,6].includes(s.replacement.target)))throw Error('存档换人无效');
+    if(s.replacement&&(!D.draftPools.some(p=>p.id===s.replacement.poolId)||![null,1,2,3,4,5,6].includes(s.replacement.target)))throw Error('存档换人无效');
     for(const selection of [s,...(s.replacement?[s.replacement]:[])]){
       // Older saves can only establish the team currently on screen.
       if(selection.drawnTeams===undefined)selection.drawnTeams=[D.poolMap[selection.poolId].team];

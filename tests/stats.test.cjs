@@ -1,7 +1,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const D=require('../data.js');
 test('selectable coaches cover TI10 through TI15 with exactly one per top-eight team',()=>{
- assert.equal(D.cards.length,648);assert.equal(D.coachCards.length,48);
+ assert.equal(D.cards.length,608);assert.equal(D.coachCards.length,48);
  assert.deepEqual(D.coachYears,[2021,2022,2023,2024,2025,2026]);
  for(const year of D.years){
   const coaches=D.coachCards.filter(c=>c.year===year);
@@ -17,7 +17,8 @@ test('selectable coaches cover TI10 through TI15 with exactly one per top-eight 
  assert.ok(D.cardMap['2021-secret-coach-heen'].coachHistory.entries.some(e=>e.year===2017),'Earlier coaching honors remain in career stats');
 });
 test('15 editions, exactly eight teams and forty players per edition, no invented 2020',()=>{
- assert.equal(D.events.length,15);assert.equal(D.pools.length,120);assert.equal(D.cards.filter(c=>c.role<=5).length,600);
+ assert.equal(D.events.length,15);assert.equal(D.pools.length,120);assert.equal(D.cards.filter(c=>c.role<=5).length,560);
+ assert.equal(D.draftPools.length,112);assert.deepEqual(D.draftYears,D.years.filter(y=>y!==2011));assert.ok(D.cards.every(c=>c.year!==2011));
  assert.equal(D.eventMap[2021].number,10);assert.equal(D.eventMap[2026].number,15);assert.ok(!D.years.includes(2020));
  assert.equal(new Set(D.cards.map(c=>c.id)).size,D.cards.length);
  for(const year of D.years){const pools=D.pools.filter(p=>p.year===year);assert.equal(pools.length,8);assert.equal(new Set(pools.map(p=>p.team)).size,8);for(const p of pools){assert.deepEqual(p.cards.filter(c=>c.role<=5).map(c=>c.role),[1,2,3,4,5]);assert.ok(p.source.startsWith('https://'));}}
@@ -38,7 +39,8 @@ test('all 560 TI2–TI2026 player cards join the exact account, team, event and 
  }
 });
 test('TI1 metrics and unrecorded coaches remain absent; coach stats describe the team',()=>{
- for(const c of D.cards.filter(c=>c.year===2011&&c.role<=5)){assert.equal(c.stats,null);assert.equal(c.heroSource,'unavailable');assert.equal(Object.keys(c.heroUsage).length,0);}
+ const opponents=D.pools.filter(p=>p.year===2011).flatMap(p=>p.cards);assert.equal(opponents.length,40);
+ for(const c of opponents){assert.equal(c.stats,null);assert.equal(c.heroSource,'unavailable');assert.equal(Object.keys(c.heroUsage).length,0);}
  for(const p of D.pools){if(p.coachStatus==='not-recorded')assert.ok(p.cards.every(c=>c.role<=5));for(const c of p.cards.filter(c=>c.role===6)){assert.equal(c.stats,null);assert.equal(c.coachRecord.games,p.games);assert.equal(c.coachRecord.finish,p.finish);assert.equal(Object.values(c.heroUsage).reduce((a,b)=>a+b,0),p.games*5);}}
 });
 test('aliases, distinct similarly named people and event versions are correctly separated',()=>{
