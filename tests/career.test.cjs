@@ -5,7 +5,7 @@ const fs=require('node:fs'),vm=require('node:vm');
 
 function fixture(){
   const cards=D.roles.map((_,i)=>D.cards.find(c=>c.role===i+1));
-  const history=C.YEARS.map((year,i)=>({year,placement:i===1?'1':i===2?'2':'5–6',wins:i===1?9:2,losses:i===1?0:4,seats:cards.map(c=>c.id)}));
+  const history=C.YEARS.map((year,i)=>({year,placement:i===1?'1':i===2?'2':'5–6',wins:i===1?9:2,losses:i===1?0:4,seats:cards.map(c=>c.id),champion:i===1?'myteam':'opponent',teamName:'旧队名',standings:[{id:i===1?'myteam':'opponent',name:i===1?'旧队名':'TI'+(i+1)+' 胜者'}]}));
   const incoming=D.cards.find(c=>c.role===1&&c.id!==cards[0].id);
   for(let i=7;i<15;i++)history[i].seats[0]=incoming.id;
   return {teamName:'星海 🛡️ <战队>',history,seats:cards.map(c=>c.id)};
@@ -59,12 +59,39 @@ test('a real completed production career is shareable and serialization never ch
   const maps=s.history.flatMap(e=>e.games).filter(g=>g.a==='myteam'||g.b==='myteam');
   const won=maps.filter(g=>(g.winner===0?g.a:g.b)==='myteam').length;
   assert.equal(C.overview(snapshot).wins,won);assert.equal(C.overview(snapshot).losses,maps.length-won);
+  snapshot.events.forEach((e,i)=>assert.equal(e.champion,s.history[i].standings.find(t=>t.id===s.history[i].champion).name));
 });
 
 test('public share rendering escapes team and member text; URL content cannot inject HTML',()=>{
   const window={DotaCareer:C};vm.runInNewContext(fs.readFileSync(require.resolve('../career-view.js'),'utf8'),{window});
-  const s=C.fromState(fixture(),D);s.members[0].name='<img src=x onerror=alert(1)>';
+  const s=C.fromState(fixture(),D);s.members[0].name='<img src=x onerror=alert(1)>';s.events[0].champion='<svg onload=alert(1)>';
   const html=window.DotaCareerView.page(C.decode(C.encode(s)),true);
   assert.ok(html.includes('&lt;战队&gt;'));assert.ok(html.includes('&lt;img src=x onerror=alert(1)&gt;'));
   assert.ok(!html.includes('<img src=x'));assert.equal((html.match(/scope="row"/g)||[]).length,15);
+  assert.ok(html.includes('&lt;svg onload=alert(1)&gt;'));assert.ok(!html.includes('<svg onload='));
+});
+
+test('champion names come from each simulated edition and stay frozen after team renames',()=>{
+  const state=fixture(),snapshot=C.fromState(state,D);
+  assert.equal(snapshot.version,2);assert.equal(snapshot.events[0].champion,'TI1 胜者');
+  assert.equal(snapshot.events[1].champion,'旧队名');
+  state.teamName='新队名';state.history[1].standings[0].name='不应改变快照';
+  assert.equal(C.decode(C.encode(snapshot)).events[1].champion,'旧队名');
+  const window={DotaCareer:C};vm.runInNewContext(fs.readFileSync(require.resolve('../career-view.js'),'utf8'),{window});
+  const html=window.DotaCareerView.page(snapshot,true);
+  assert.ok(html.includes('当届冠军'));assert.ok(html.includes('TI1 胜者'));
+  assert.equal((html.match(/class="career-season-champion"/g)||[]).length,15);
+});
+
+test('legacy links remain readable without inventing missing champions; new links require names',()=>{
+  const raw=JSON.parse(Buffer.from(C.encode(C.fromState(fixture(),D)),'base64url').toString());
+  raw[0]=1;raw[3].forEach(row=>row.pop());
+  const old=C.decode(Buffer.from(JSON.stringify(raw)).toString('base64url'));
+  assert.equal(old.version,1);assert.ok(old.events.every(e=>e.champion===undefined));
+  assert.deepEqual(C.decode(C.encode(old)),old);
+  const window={DotaCareer:C};vm.runInNewContext(fs.readFileSync(require.resolve('../career-view.js'),'utf8'),{window});
+  assert.equal((window.DotaCareerView.page(old,true).match(/未记录/g)||[]).length,15);
+  const snapshot=C.fromState(fixture(),D);
+  for(const bad of [null,'','x'.repeat(65),{}]){snapshot.events[0].champion=bad;assert.throws(()=>C.validate(snapshot));}
+  const missing=fixture();delete missing.history[0].standings;assert.throws(()=>C.fromState(missing,D),/缺少当届冠军记录/);
 });

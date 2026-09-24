@@ -15,7 +15,7 @@
 
   // Versioned, self-contained display snapshot. It never imports a playable save.
   function validate(s){
-    if(!s||s.version!==1||!label(s.name,24)||!Array.isArray(s.members)||!integer(s.members.length,6,90)||!Array.isArray(s.events)||s.events.length!==15)fail();
+    if(!s||![1,2].includes(s.version)||!label(s.name,24)||!Array.isArray(s.members)||!integer(s.members.length,6,90)||!Array.isArray(s.events)||s.events.length!==15)fail();
     const members=s.members.map(m=>{
       if(!m||!label(m.id,100)||!label(m.name,64)||!YEARS.includes(m.year)||!integer(m.role,1,6))fail();
       return {id:m.id,name:m.name,year:m.year,role:m.role};
@@ -25,20 +25,26 @@
     const events=s.events.map((e,i)=>{
       if(!e||e.year!==YEARS[i]||!PLACES.includes(e.placement)||!integer(e.wins,0,30)||!integer(e.losses,0,30)||e.wins+e.losses===0||!Array.isArray(e.seats)||e.seats.length!==6||new Set(e.seats).size!==6)fail();
       e.seats.forEach((n,role)=>{if(!integer(n,0,members.length-1)||members[n].role!==role+1)fail();used.add(n);});
-      return {year:e.year,placement:e.placement,wins:e.wins,losses:e.losses,seats:[...e.seats]};
+      if(s.version===2&&!label(e.champion,64))fail();
+      return {year:e.year,placement:e.placement,wins:e.wins,losses:e.losses,seats:[...e.seats],...(s.version===2?{champion:e.champion}:{})};
     });
     if(used.size!==members.length)fail();
-    return {version:1,name:s.name,members,events};
+    return {version:s.version,name:s.name,members,events};
   }
   function fromState(state,data){
     if(!state||state.history?.length!==15)throw Error('完成 TI15 后即可生成生涯总结。');
     const members=[],ids=new Map();
-    const events=state.history.map(r=>({year:r.year,placement:String(r.placement),wins:r.wins,losses:r.losses,seats:(r.seats||[]).map(id=>{
+    const events=state.history.map(r=>{
+      // Use this simulated edition's saved winner and name, including the name
+      // MyTeam used at that time. Never substitute the real-world TI champion.
+      const champion=r.standings?.find(t=>t.id===r.champion)?.name||(r.champion==='myteam'?r.teamName:null);
+      if(!label(champion,64))throw Error('历史赛事中缺少当届冠军记录，暂时无法分享。');
+      return {year:r.year,placement:String(r.placement),wins:r.wins,losses:r.losses,champion,seats:(r.seats||[]).map(id=>{
       const c=data.cardMap[id];if(!c)throw Error('历史阵容中有未能读取的成员，暂时无法分享。');
       if(!ids.has(id)){ids.set(id,members.length);members.push({id:c.id,name:c.name,year:c.year,role:c.role});}
       return ids.get(id);
-    })}));
-    return validate({version:1,name:state.teamName,members,events});
+    })};});
+    return validate({version:2,name:state.teamName,members,events});
   }
   function overview(s){
     const wins=s.events.reduce((n,e)=>n+e.wins,0),losses=s.events.reduce((n,e)=>n+e.losses,0);
@@ -52,8 +58,8 @@
   // browser compression dependencies. Names/editions survive future catalog edits.
   function encode(snapshot){
     const s=validate(snapshot);
-    const rows=s.events.map((e,i)=>[PLACES.indexOf(e.placement),e.wins,e.losses,i?e.seats.flatMap((n,j)=>n===s.events[i-1].seats[j]?[]:[j,n]):e.seats]);
-    const bytes=new TextEncoder().encode(JSON.stringify([1,s.name,s.members.map(m=>[m.id,m.name,m.year,m.role]),rows]));
+    const rows=s.events.map((e,i)=>[PLACES.indexOf(e.placement),e.wins,e.losses,i?e.seats.flatMap((n,j)=>n===s.events[i-1].seats[j]?[]:[j,n]):e.seats,...(s.version===2?[e.champion]:[])]);
+    const bytes=new TextEncoder().encode(JSON.stringify([s.version,s.name,s.members.map(m=>[m.id,m.name,m.year,m.role]),rows]));
     const token=btoa(Array.from(bytes,b=>String.fromCharCode(b)).join('')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
     if(token.length>18000)throw Error('这份生涯链接过长，请改用长图分享。');
     return token;
@@ -63,17 +69,17 @@
       if(typeof token!=='string'||token.length>18000||!/^[A-Za-z0-9_-]+$/.test(token))fail();
       const bytes=Uint8Array.from(atob(token.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
       const value=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
-      if(!Array.isArray(value)||value.length!==4||value[0]!==1||!Array.isArray(value[2])||!Array.isArray(value[3])||value[3].length!==15)fail();
+      if(!Array.isArray(value)||value.length!==4||![1,2].includes(value[0])||!Array.isArray(value[2])||!Array.isArray(value[3])||value[3].length!==15)fail();
       let seats=[];
       const events=value[3].map((row,i)=>{
-        if(!Array.isArray(row)||row.length!==4||!integer(row[0],0,5)||!Array.isArray(row[3]))fail();
+        if(!Array.isArray(row)||row.length!==(value[0]===2?5:4)||!integer(row[0],0,5)||!Array.isArray(row[3]))fail();
         if(!i)seats=[...row[3]];
         else{
           const delta=row[3];if(delta.length>12||delta.length%2)fail();
           const touched=new Set();
           for(let j=0;j<delta.length;j+=2){if(!integer(delta[j],0,5)||touched.has(delta[j]))fail();touched.add(delta[j]);seats[delta[j]]=delta[j+1];}
         }
-        return {year:YEARS[i],placement:PLACES[row[0]],wins:row[1],losses:row[2],seats:[...seats]};
+        return {year:YEARS[i],placement:PLACES[row[0]],wins:row[1],losses:row[2],seats:[...seats],...(value[0]===2?{champion:row[4]}:{})};
       });
       const members=value[2].map(m=>{if(!Array.isArray(m)||m.length!==4)fail();return {id:m[0],name:m[1],year:m[2],role:m[3]};});
       return validate({version:value[0],name:value[1],members,events});
