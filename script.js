@@ -1,8 +1,9 @@
 (function(){
   'use strict';
-  const D=window.DotaData,G=window.DotaGame,app=document.getElementById('app');
+  const D=window.DotaData,G=window.DotaGame,C=window.DotaCareer,CV=window.DotaCareerView,app=document.getElementById('app');
   const SAVE='dota2myteam.run.v4',modal=document.getElementById('modal'),modalContent=document.getElementById('modal-content');
-  let storageWorks=true,loadMessage='',state=load(),rolling=null,rollTimer=null,toastTimer=null,processing=false;
+  let deferredLoad=location.hash.startsWith('#share='),storageWorks=true,loadMessage='',state=deferredLoad?null:load(),rolling=null,rollTimer=null,toastTimer=null,processing=false;
+  let careerSnapshot=null,exporting=false,exportUrl=null,exportFile=null;
   let archiveFilter={query:'',year:'',role:'',team:'',limit:24},rosterExpanded=false;
   const escape=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
@@ -64,7 +65,7 @@
   function save(){try{localStorage.setItem(SAVE,JSON.stringify(state));storageWorks=true;}catch{storageWorks=false;}}
   function randomSeed(){if(window.crypto?.getRandomValues)return crypto.getRandomValues(new Uint32Array(1))[0];return(Date.now()^Math.floor(Math.random()*4294967296))>>>0;}
   function toast(message){const node=document.getElementById('toast');clearTimeout(toastTimer);node.textContent=message;node.hidden=false;toastTimer=setTimeout(()=>{node.hidden=true;},3200);}
-  function route(){const hash=location.hash.slice(1);return ['home','play','archive'].includes(hash)?hash:'home';}
+  function route(){const hash=location.hash.slice(1);return hash.startsWith('share=')?'share':['home','play','archive','career'].includes(hash)?hash:'home';}
   function navigate(view){location.hash=view;if(route()===view)render();window.scrollTo({top:0,behavior:'instant'});app.focus({preventScroll:true});}
   function showModal(content){modalContent.innerHTML=content;if(!modal.open)modal.showModal();}
   function closeModal(){modal.close();}
@@ -193,7 +194,7 @@
       ${tournamentTree(r)}
       <details class="result-details"><summary>最终排名 <span class="muted">/ 8 支战队</span></summary><table class="standings"><thead><tr><th>名次</th><th>战队</th><th>小局胜</th><th>小局负</th></tr></thead><tbody>${r.standings.map(t=>`<tr class="${t.id==='myteam'?'my-row':''}"><td><span class="rank-number">${t.placement==='1'?aegis(r.year,'rank-aegis'):t.placement}</span></td><td>${escape(t.name)}${t.id==='myteam'?' · 我的战队':''}</td><td>${t.wins}</td><td>${t.losses}</td></tr>`).join('')}</tbody></table></details>
       <div class="result-lineup" aria-label="本届出战阵容">${r.seats.map((id,i)=>`<span><b>${i===5?D.roles[5]:i+1}</b>${escape(D.cardMap[id].name)}</span>`).join('')}</div>
-      <section class="offseason-panel"><div><h3>${canNext?(state.replacementUsed?'新的阵容，准备好了。':'下一届，再进一步。'):'这段旅程，值得记住。'}</h3><p>${canNext?(state.replacementUsed?'本届换人已完成，新阵容将在下一届出战。':'可随机抽签换一人，也可以和这支战队继续并肩作战。'):'已到达 TI15（2026），本段生涯结束。开启新一局，尝试另一种组合。'}</p></div><div class="offseason-actions">${canNext?`${state.replacementUsed?'':`<button class="secondary" data-action="begin-replace">${icon('refresh')}${state.replacement?'继续本次换人':'抽签换一人'}</button>`}<button class="primary" data-action="next">${state.replacementUsed?'以新阵容':'保留阵容'}，进入 ${eventName(G.nextYear(state))} ${icon('arrow')}</button>`:'<button class="primary" data-action="start">开始新的旅程 '+icon('arrow')+'</button>'}</div></section>
+      <section class="offseason-panel"><div><h3>${canNext?(state.replacementUsed?'新的阵容，准备好了。':'下一届，再进一步。'):'这段旅程，值得记住。'}</h3><p>${canNext?(state.replacementUsed?'本届换人已完成，新阵容将在下一届出战。':'可随机抽签换一人，也可以和这支战队继续并肩作战。'):'十五届征途已落幕。保存这支战队的战绩与阵容，分享你的传奇。'}</p></div><div class="offseason-actions">${canNext?`${state.replacementUsed?'':`<button class="secondary" data-action="begin-replace">${icon('refresh')}${state.replacement?'继续本次换人':'抽签换一人'}</button>`}<button class="primary" data-action="next">${state.replacementUsed?'以新阵容':'保留阵容'}，进入 ${eventName(G.nextYear(state))} ${icon('arrow')}</button>`:'<button class="secondary" data-action="start">开始新的旅程</button><a class="primary" href="#career">查看生涯总结 '+icon('arrow')+'</a>'}</div></section>
       <div class="history-strip" aria-label="生涯记录">${state.history.map(h=>`<div class="history-item ${h.year===r.year?'current':''} ${h.placement==='1'?'history-champion':''}">${h.placement==='1'?aegis(h.year,'history-aegis'):''}<div><strong>${eventName(h.year)} · ${placementLabel(h.placement)}</strong><small>${h.year} / ${h.wins} 胜 ${h.losses} 负</small></div></div>`).join('')}</div><div class="draft-footer">${saveStatus()}<button class="text-button" data-action="data-info">历史数据与模拟说明 ${icon('info')}</button></div></div>`;
   }
   function filteredCards(){const q=archiveFilter.query.trim().toLowerCase();return D.cards.filter(c=>(!archiveFilter.year||String(c.year)===archiveFilter.year)&&(!archiveFilter.role||String(c.role)===archiveFilter.role)&&(!archiveFilter.team||c.team===archiveFilter.team)&&(!q||[c.name,c.teamName,D.teams[c.team].region,c.person].some(s=>s.toLowerCase().includes(q))||c.person===D.personId(q)));}
@@ -201,12 +202,53 @@
   function archive(){const list=archiveCards();return `<div class="page-shell">${crumbs('传奇图鉴')}<div class="page-heading"><div><div class="eyebrow">THE INTERNATIONAL / 2012 — 2026</div><h1>那些名字，依然闪耀。</h1><p>TI2—TI15 八强选手，及 TI10—TI15 每届八位代表教练。</p></div><span class="tag">${D.draftYears.length} 届 · ${D.draftPools.length} 个战队池</span></div><div class="archive-summary"><span><b>${D.cards.filter(c=>c.role<=5).length}</b> 张选手卡</span><span><b>${D.coachCards.length}</b> 张教练卡</span><span><b>${D.cards.filter(c=>c.role<=5&&c.stats).length}</b> 张有逐场统计</span></div><div class="archive-controls"><label class="search-field">${icon('search')}<input id="archive-search" aria-label="搜索选手、教练或战队" placeholder="搜索选手、教练或战队…" value="${escape(archiveFilter.query)}" autocomplete="off"></label><select id="archive-year" aria-label="筛选赛事"><option value="">全部赛事</option>${D.draftYears.map(y=>`<option value="${y}" ${archiveFilter.year===String(y)?'selected':''}>${eventName(y)} · ${y}</option>`).join('')}</select><select id="archive-role" aria-label="筛选位置"><option value="">全部位置</option>${D.roles.map((r,i)=>`<option value="${i+1}" ${archiveFilter.role===String(i+1)?'selected':''}>${i===5?r:i+1+' 号位 · '+r}</option>`).join('')}</select><select id="archive-team" aria-label="筛选战队"><option value="">全部战队</option>${Object.entries(D.teams).filter(([id])=>D.draftPools.some(p=>p.team===id)).map(([id,t])=>`<option value="${id}" ${archiveFilter.team===id?'selected':''}>${escape(t.name)}</option>`).join('')}</select></div><div id="archive-pools">${archivePools()}</div><div id="archive-count" class="archive-count" role="status">${list.count}</div><div class="archive-grid" id="archive-grid">${list.html}</div><div class="load-more" id="archive-more" ${list.more?'':'hidden'}><button class="secondary" data-action="load-more">查看更多卡片 ${icon('arrow')}</button></div><div class="draft-footer"><p class="fine-print">教练池限定 TI10—TI15，每队一张，共 48 张届次卡；同一人跨届不能重复入队。</p><button class="text-button" data-action="data-info">数据覆盖与来源 ${icon('info')}</button></div></div>`;}
   function archivePools(){if(!archiveFilter.year)return '';return `<div class="archive-pool-list" aria-label="当届八强">${D.draftPools.filter(p=>String(p.year)===archiveFilter.year).map(p=>`<div><span>${placementLabel(p.finish)}</span><b>${escape(p.name)}</b><small>${p.cards.filter(c=>c.role===6).map(c=>escape(c.name)).join(' / ')||'教练池从 TI10 开始'}</small></div>`).join('')}</div>`;}
   function updateArchive(){const list=archiveCards();document.getElementById('archive-grid').innerHTML=list.html;document.getElementById('archive-pools').innerHTML=archivePools();document.getElementById('archive-count').textContent=list.count;document.getElementById('archive-more').hidden=!list.more;}
+  function careerPage(shared){
+    careerSnapshot=null;
+    try{
+      careerSnapshot=shared?C.decode(location.hash.slice(7)):C.fromState(state,D);
+      return CV.page(careerSnapshot,shared);
+    }catch(error){
+      return `<div class="career-error"><div class="eyebrow">MYTEAM / CAREER</div><h1>${shared?'这份生涯暂时无法打开':'生涯尚未结束'}</h1><p>${escape(error.message)}</p><a class="primary" href="${shared?'#home':'#play'}">${shared?'进入游戏首页':'返回我的战队'}</a></div>`;
+    }
+  }
+  async function copyCareerLink(){
+    if(!careerSnapshot)return;
+    const url=C.url(careerSnapshot);
+    try{await navigator.clipboard.writeText(url);toast('生涯分享链接已复制');}
+    catch{
+      showModal(`<div class="eyebrow">SHARE YOUR LEGACY</div><h2 id="modal-title">复制生涯分享链接</h2><p>长按或全选下方链接即可复制。</p><textarea id="career-share-url" class="career-link-field" readonly aria-label="生涯分享链接">${escape(url)}</textarea>`);
+      const field=document.getElementById('career-share-url');field.focus();field.select();
+    }
+  }
+  async function exportCareerImage(){
+    if(!careerSnapshot||exporting)return;
+    exporting=true;const snapshot=careerSnapshot,hash=location.hash,button=app.querySelector('[data-action="career-image"]');
+    if(button){button.disabled=true;button.textContent='正在生成长图…';}
+    try{
+      const blob=await CV.poster(snapshot);
+      if(location.hash!==hash)return;
+      if(exportUrl)URL.revokeObjectURL(exportUrl);
+      exportUrl=URL.createObjectURL(blob);
+      const filename=snapshot.name.replace(/[\\/:*?"<>|]/g,'_')+'-TI1-TI15.png';
+      exportFile=new File([blob],filename,{type:'image/png'});
+      const nativeShare=!!navigator.canShare?.({files:[exportFile]});
+      showModal(`<div class="eyebrow">YOUR LEGACY, IN ONE IMAGE</div><h2 id="modal-title">生涯长图已生成</h2><p class="fine-print">手机可长按图片保存；二维码直达游戏首页。</p><div class="career-export-actions"><a class="primary" href="${exportUrl}" download="${escape(filename)}">下载 PNG</a>${nativeShare?'<button class="secondary" data-action="career-native-share">分享图片</button>':''}</div><img class="career-export-preview" src="${exportUrl}" alt="${escape(snapshot.name)} 的 TI1 至 TI15 完整生涯长图">`);
+    }catch(error){toast(error.message||'图片生成失败，请重试。');}
+    finally{exporting=false;if(button?.isConnected){button.disabled=false;button.textContent='保存生涯长图';}}
+  }
+  async function shareCareerImage(){
+    if(!exportFile)return;
+    try{await navigator.share({files:[exportFile],title:'Dota 2 MyTeam · 生涯纪念'});}
+    catch(error){if(error.name!=='AbortError')toast('暂时无法调起分享，请下载图片或长按保存。');}
+  }
   function render(){
     const view=route();document.querySelectorAll('[data-nav]').forEach(el=>{el.classList.toggle('active',el.dataset.nav===view);if(el.dataset.nav===view)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');});
-    if(view==='archive')app.innerHTML=archive();
+    if(view!=='share'&&deferredLoad){state=load();deferredLoad=false;}
+    if(view==='career'||view==='share')app.innerHTML=careerPage(view==='share');
+    else if(view==='archive')app.innerHTML=archive();
     else if(view==='play'&&state)app.innerHTML=['draft','replace'].includes(state.phase)?draft():state.phase==='ready'?ready():result();
     else app.innerHTML=landing();
-    document.title=(view==='archive'?'传奇图鉴':view==='play'&&state?({draft:'阵容选秀',replace:'休赛期换人',ready:'阵容确认',result:'赛事结果'}[state.phase]):'五位传奇，一位名帅')+' · Dota 2 MyTeam';
+    document.title=(view==='career'||view==='share'?(careerSnapshot?careerSnapshot.name+' · 生涯总结':'生涯分享'):view==='archive'?'传奇图鉴':view==='play'&&state?({draft:'阵容选秀',replace:'休赛期换人',ready:'阵容确认',result:'赛事结果'}[state.phase]):'五位传奇，一位名帅')+' · Dota 2 MyTeam';
   }
   function reveal(){
     save();clearTimeout(rollTimer);
@@ -266,6 +308,9 @@
       else if(action==='rename-team')editTeamName();
       else if(action==='data-info')dataInfo();
       else if(action==='card-detail')cardDetail(button.dataset.card);
+      else if(action==='career-link')copyCareerLink();
+      else if(action==='career-image')exportCareerImage();
+      else if(action==='career-native-share')shareCareerImage();
       else if(action==='toggle-roster'){rosterExpanded=!rosterExpanded;render();app.querySelector('[data-action="toggle-roster"]')?.focus({preventScroll:true});}
       else if(action==='skip-reveal')endReveal();
       else if(action==='reroll'){if(G.draw(state,button.dataset.kind))reveal();}
@@ -274,7 +319,7 @@
         if(state.phase==='draft'){rosterExpanded=false;reveal();scrollToDraw();}else{render();window.scrollTo({top:0,behavior:'instant'});app.focus({preventScroll:true});}
       }
       else if(action==='simulate'&&state.phase==='ready'){
-        processing=true;render();setTimeout(()=>{try{G.finish(state);save();}catch(err){toast('计算未完成：'+err.message);}finally{processing=false;render();window.scrollTo({top:0,behavior:'instant'});app.focus({preventScroll:true});}},60);
+        processing=true;render();setTimeout(()=>{try{G.finish(state);save();if(!G.canAdvance(state))navigate('career');}catch(err){toast('计算未完成：'+err.message);}finally{processing=false;render();window.scrollTo({top:0,behavior:'instant'});app.focus({preventScroll:true});}},60);
       }
       else if(action==='begin-replace'){const fresh=!state.replacement;if(G.beginReplacement(state)){save();if(fresh)reveal();else render();window.scrollTo({top:0,behavior:'instant'});}}
       else if(action==='replace-target'){const role=Number(button.dataset.role),fresh=role===6&&state.replacement.coachDraft.year===null;if(G.replacementTarget(state,role)){save();if(fresh)reveal();else render();toast(role===6?'已进入八强教练直选':'已选择替换 '+role+' 号位');}}
@@ -297,6 +342,7 @@
   });
   document.addEventListener('input',event=>{if(event.target.id==='archive-search'){archiveFilter.query=event.target.value;archiveFilter.limit=24;updateArchive();}});
   modal.addEventListener('click',event=>{if(event.target===modal){const rect=modal.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)closeModal();}});
+  modal.addEventListener('close',()=>{const url=exportUrl;exportUrl=null;exportFile=null;if(url)setTimeout(()=>URL.revokeObjectURL(url),60000);});
   window.addEventListener('hashchange',()=>{render();window.scrollTo({top:0,behavior:'instant'});});
   render();if(loadMessage)toast(loadMessage);
 })();
