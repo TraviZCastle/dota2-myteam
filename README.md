@@ -17,7 +17,7 @@ TI15 完赛后自动进入生涯总结；赛事结果页也保留“查看生涯
 ## 运行
 
 ```sh
-cd /Users/test/Documents/ForFun/Dota2MyTeam
+cd /Users/test/Documents/ForFun/Dota2MyTeam-share
 python3 -m http.server 8930 --bind 127.0.0.1
 ```
 
@@ -148,9 +148,11 @@ Dota 2 属于 Valve，本项目为非官方社区游戏。
 
 ## 发布与维护
 
+2026-09-24 生涯分享验收：原有 61 项 Node 测试及新增 6 项分享测试通过，4 项 Python 数据测试通过。覆盖十五届真实模拟生涯、按总小局数计算胜率、阵容与换人快照、中文/特殊字符链接往返、损坏链接和 HTML 注入防护。浏览器验证 TI15 完赛自动进入总结、手机布局、图片生成与下载、独立分享页及接收者存档不变；正常长图和十五届全冠军/长姓名边界图片均完整生成，原尺寸与 720 px 缩图中的二维码均经独立解码验证。Vercel 已成功自动部署，公网资源与提交逐字节一致。
+
 2026-09-23 BP 与真实成绩更新：61 项 Node 测试、4 项 Python 测试通过。覆盖双方各 7 Ban + 5 Pick、全部 120 个历史战队池、全部 15 届赛事、旧战报不补造、按年份与原班阵容限定的微弱成绩加成，以及 15 届存档容量和刷新恢复。浏览器完成六席组队 → TI1 结算 → 非主队逐局战报，34 张英雄图片正常；375 / 320 像素手机布局无横向溢出，控制台无错误。静态发布预检无阻断、无警告。
 
-- 项目：Dota 2 MyTeam；本地目录 `/Users/test/Documents/ForFun/Dota2MyTeam`，使用独立 Git 仓库。
+- 项目：Dota 2 MyTeam；仓库位于 `/Users/test/Documents/ForFun/Dota2MyTeam`，当前生产开发工作树为 `/Users/test/Documents/ForFun/Dota2MyTeam-share`（`main`）。
 - 公开仓库：[TraviZCastle/dota2-myteam](https://github.com/TraviZCastle/dota2-myteam)；默认分支 `main`。
 - Git 远程：`git@github.com:TraviZCastle/dota2-myteam.git`（SSH）。
 - 提交作者：`TraviZCastle <122432577+TraviZCastle@users.noreply.github.com>`，仅在本仓库配置。
